@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEMIG Electricity Bill</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid #000;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+        }
+        .header img {
+            width: 100px;
+            height: auto;
+        }
+        .header-text {
+            font-size: 12px;
+            text-align: right;
+        }
+        .client-info {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .billing-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border: 1px solid #000;
+        }
+        .invoice-details {
+            margin-top: 10px;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .qr-code {
+            width: 100px;
+            height: 100px;
+            background-color: #ccc;
+            margin-left: 20px;
+        }
+        .installation {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border: 1px solid #000;
+        }
+        .classification {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 5px;
+            text-align: center;
+        }
+        th {
+            background-color: #e0e0e0;
+        }
+        .total {
+            font-weight: bold;
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <!-- Placeholder for CEMIG logo -->
+            <img src="cemig-logo-placeholder.png" alt="CEMIG Logo">
+        </div>
+        <div class="header-text">
+            DOCUMENTO AUXILIAR DA NOTA FISCAL DE ENERGIA ELÉTRICA ELETRÔNICA<br>
+            CNPJ: 06.981.180/0001-16 - INSC. EST.: 062.312.686.00-97<br>
+            RUA CAMPOS SALES, 211 - CENTRO - CEP: 30190-131 - BELO HORIZONTE - MG - 1 - EMISSOR ELETRÔNICO
+        </div>
+    </div>
+
+    <div class="client-info">
+        <strong>OLIVEIROS MARTINS DE ANDRADE</strong><br>
+        FAZENDA MANGUEIRA 9999 FZ<br>
+        AREA RURAL<br>
+        39200-000 BURITIZEIRO - MG<br>
+        CPF XXX.XXX.XXX-XX
+    </div>
+
+    <div class="billing-info">
+        <div>
+            Referente a<br>
+            DEZ/2024
+        </div>
+        <div>
+            Data de Emissão<br>
+            14/01/2025
+        </div>
+        <div>
+            Vencimento<br>
+            Valor a pagar (R$)<br>
+            127,139,88
+        </div>
+    </div>
+
+    <div class="invoice-details">
+        <div>
+            NOTA FISCAL Nº 2251910688 - SÉRIE 000<br>
+            Data de emissão: 20/12/2024<br>
+            Consulte pela chave de acesso em:<br>
+            http://www.nfe.fazenda.gov.br/portal<br>
+            Chave de acesso:<br>
+            31250106881800001666000022519106881018626335<br>
+            Protocolo de autorização:<br>
+            312500024468787 Or 20/12/2024 17:20:51
+        </div>
+        <div class="qr-code">
+            <!-- Placeholder for QR Code -->
+            [QR Code Placeholder]
+        </div>
+    </div>
+
+    <div class="installation">
+        Nº DA INSTALAÇÃO<br>
+        3009016059
+    </div>
+
+    <div class="classification">
+        <div>
+            Classe: RURAL<br>
+            Subclasse: IRRG. NOTURNA SUDE/NE/IDENE
+        </div>
+        <div>
+            Modalidade Tarifária: THS Verde A4
+        </div>
+        <div>
+            Datas de Leitura<br>
+            Anterior: 30/11<br>
+            Atual: 31/12<br>
+            Nº de dias: 31<br>
+            Próxima: 31/01
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th rowspan="2">Itens da Fatura</th>
+                <th rowspan="2">Unid.</th>
+                <th rowspan="2">Quant.</th>
+                <th rowspan="2">Preço Unit. (R$)</th>
+                <th rowspan="2">Valores Faturados (R$)</th>
+                <th colspan="3">Base Calc. ICMS</th>
+                <th rowspan="2">Alíq. ICMS</th>
+                <th rowspan="2">ICMS</th>
+                <th rowspan="2">Tarifa Unit.</th>
+            </tr>
+            <tr>
+                <th>Base Calc. ICMS</th>
+                <th>Alíq. ICMS</th>
+                <th>ICMS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Demanda Ativa HFP</td>
+                <td>kW</td>
+                <td>1372</td>
+                <td>23.04821951</td>
+                <td>31622.16</td>
+                <td>122.57</td>
+                <td>0.00</td>
+                <td>0.00</td>
+                <td>0.00</td>
+                <td>22.230000000</td>
+            </tr>
+            <tr>
+                <td>Ultrapassagem HFP</td>
+                <td>kW</td>
+                <td>172</td>
+                <td>46.09642082</td>
+                <td>7928.55</td>
+                <td>231.46</td>
+                <td>0.00</td>
+                <td>0.00</td>
+                <td>0.00</td>
+                <td>44.460000000</td>
+            </tr>
+            <tr>
+                <td>Energia Ativa HP</td>
+                <td>kWh</td>
+                <td>162,400</td>
+                <td>0.438412234</td>
+                <td>70926.25</td>
+                <td>2514.32</td>
+                <td>0.00</td>
+                <td>0.00</td>
+                <td>0.00</td>
+                <td>0.424904000</td>
+            </tr>
+            <tr>
+                <td>Energia Ativa HR</td>
+                <td>kWh</td>
+                <td>121,800</td>
+                <td>2.280429069</td>
+                <td>3,719.25</td>
+                <td>113.33</td>
+                <td>0.00</td>
+                <td>0.00</td>
+                <td>0.00</td>
+                <td>2.198470000</td>
+            </tr>
+            <tr>
+                <td>Energia Reativa HP</td>
+                <td>kVArh</td>
+                <td>16,800</td>
+                <td>0.35246925</td>
+                <td>5,460.81</td>
+                <td>193.85</td>
+                <td>0.00</td>
+                <td>0.00</td>
+                <td>0.00</td>
+                <td>0.31551000</td>
+            </tr>
+            <tr>
+                <td>Energia Reativa FP</td>
+                <td>kVArh</td>
+                <td>1,400</td>
+                <td>0.35246925</td>
+                <td>465.05</td>
+                <td>16.14</td>
+                <td>0.00</td>
+                <td>0.00</td>
+                <td>0.00</td>
+                <td>0.31551000</td>
+            </tr>
+            <tr>
+                <td>Demanda Reativa HFP</td>
+                <td>kVAr</td>
+                <td>28</td>
+                <td>23.04821951</td>
+                <td>645.34</td>
+                <td>22.90</td>
+                <td>0.00</td>
+                <td>0.00</td>
+                <td>0.00</td>
+                <td>22.230000000</td>
+            </tr>
+            <tr>
+                <td>Desconto Noturno</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>-116,110.55</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="total">
+                <td>TOTAL</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>127,139.88</td>
+                <td>6,150.31</td>
+                <td>0.00</td>
+                <td>0.00</td>
+                <td>0.00</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
