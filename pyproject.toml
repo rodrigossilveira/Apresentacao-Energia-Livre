@@ -13,3 +13,5 @@ dependencies = [
     "streamlit>=1.43.2",
     "weasyprint>=64.1",
 ]
+
+# Standard library modules used: threading, tempfile, shutil, io (StringIO)

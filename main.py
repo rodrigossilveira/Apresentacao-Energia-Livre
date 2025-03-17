@@ -1,18 +1,36 @@
+import streamlit as st
+import pandas as pd
+import requests
+from dateutil.relativedelta import relativedelta
+from modules.data_utils import fetch_and_update_tarifas_background, update_event
+import threading
+import os
+import sqlite3
+st.set_page_config(layout="wide")
+
 def main():
     print("Hello from apresentacao-energia-livre!")
 
-    import streamlit as st
-    import pandas as pd
-    import requests
-    from dateutil.relativedelta import relativedelta
-    from utils.data_utils import fetch_and_update_tarifas
-    st.set_page_config(layout="wide")
+    # Define file path
+    #tarifas_parquet = r"DBases/tarifas.parquet"
+    db_path = "DataBase.db"
+    # Start background update if not already running
+    if 'update_thread' not in st.session_state:
+        st.session_state.update_thread = threading.Thread(target=fetch_and_update_tarifas_background)
+        st.session_state.update_thread.start()
+        st.write("As tarifas estão sendo atualizadas em segundo plano no site da Aneel.")
 
-    df_tarifas = fetch_and_update_tarifas()
+    print(f"update_event.is_set(): {update_event.is_set()}", flush=True)
 
-    Distribuidora = df_tarifas["SigAgente"].sort_values(ascending=True).unique().tolist()
+    # Check if update is complete and refresh data
+    if update_event.is_set():
+        st.session_state.Distribuidora = fetch_distribuidoras(db_path, update_event.is_set())
+        st.session_state.Res_Hom = fetch_res_hom(db_path, st.session_state.Distribuidora[0], update_event.is_set())
 
-    Agentes = pd.read_parquet(r"DBases/Contatos_Agentes.parquet")["Agente"].tolist()
+    if 'Distribuidora' not in st.session_state:
+        st.session_state.Distribuidora = fetch_distribuidoras(db_path, update_event.is_set())
+
+    Agentes = fetch_contatos_agentes(db_path)
 
     if "consumption_history" not in st.session_state:
         st.session_state.consumption_history = None
@@ -41,7 +59,9 @@ def main():
 
     col1, col2, col3, col4, col5 = st.columns([4,1,1,1,1])
     with col1:
-        distribuidora = st.selectbox("Distribuidora", options = Distribuidora, index = Distribuidora.index("CEMIG-D"))
+        distribuidora = st.selectbox("Distribuidora", options = st.session_state.Distribuidora, index = st.session_state.Distribuidora.index("CEMIG-D"))
+        if distribuidora:
+            st.session_state.Res_Hom = fetch_res_hom(db_path, distribuidora, update_event.is_set())
     with col2: 
         duracao_meses = st.number_input("Duração (Meses)", min_value=1, value=60)
     with col3:
@@ -52,11 +72,11 @@ def main():
         modalidade_tarifaria_verde = st.selectbox("Modalidade Tarifária", options=["Verde", "Azul"], index=0)
 
 
-    Res_Hom = df_tarifas[df_tarifas["SigAgente"] == distribuidora]["DscREH"].sort_values(ascending=False).unique().tolist()
+
 
     col1, col2, col3, col4 = st.columns([3,1,1,1])
     with col1:
-        resolucao = st.selectbox("Resolução Homologatória", options = Res_Hom, index = 0)
+        resolucao = st.selectbox("Resolução Homologatória", options = st.session_state.Res_Hom, index = 0)
     with col2:
         pasep = st.number_input("PASEP (%)", min_value=0.0, value=0.83, format="%.2f")
     with col3:
@@ -203,9 +223,44 @@ def main():
     if not st.session_state.consumption_history.empty and st.checkbox("Mostrar Histórico de Consumo"):
             st.write("Histórico de Consumo:")
             st.dataframe(st.session_state.consumption_history)
+@st.cache_data
+def load_tarifas(_db_path):
+    conn = sqlite3.connect(_db_path)
+    try:
+        df = pd.read_sql_query("SELECT * FROM ANEEL_DB", conn)
+        return df if not df.empty else None
+    finally:
+        conn.close()
+        return None  # Return None if table doesn’t exist or is empty
+    
+@st.cache_data
+def fetch_distribuidoras(_db_path, _update_event_status):
+    conn = sqlite3.connect(_db_path)
+    try:
+        distribuidoras = pd.read_sql_query("SELECT DISTINCT SigAgente FROM ANEEL_DB ORDER BY SigAgente ASC", conn)
+        return distribuidoras["SigAgente"].tolist() if not distribuidoras.empty else []
+    finally:
+        conn.close()
 
+@st.cache_data
+def fetch_res_hom(_db_path, distribuidora, _update_event_status):
+    conn = sqlite3.connect(_db_path)
+    try:
+        query = "SELECT DISTINCT DscREH FROM ANEEL_DB WHERE SigAgente = ? ORDER BY DscREH DESC"
+        res_hom = pd.read_sql_query(query, conn, params=(distribuidora,))
+        return res_hom["DscREH"].tolist() if not res_hom.empty else []
+    finally:
+        conn.close()
 
-
+@st.cache_data
+def fetch_contatos_agentes(_db_path):
+    conn = sqlite3.connect(_db_path)
+    try:
+        query = "SELECT DISTINCT Agente FROM Contatos_Agentes ORDER BY Agente ASC"
+        contatos_agentes = pd.read_sql_query(query, conn)
+        return contatos_agentes["Agente"].tolist() if not contatos_agentes.empty else []
+    finally:
+        conn.close()
 
 
 if __name__ == "__main__":

@@ -5,8 +5,7 @@ def generate_pdf_from_html(template_path, output_pdf_path, context):
     """
     Generates a PDF from an HTML template by replacing placeholders with provided context.
 
-    :param template_path: Path to the HTML template file.
-    :param output_pdf_path: Path where the generated PDF will be saved.
+       :param output_pdf_path: Path where the generated PDF will be saved.
     :param context: A dictionary containing placeholder-value pairs for replacement.
     """
     try:

@@ -1,0 +1,240 @@
+import pandas as pd
+import requests
+import os
+from datetime import datetime, date
+import threading
+import tempfile
+import shutil
+from io import StringIO
+import sqlite3
+
+update_event = threading.Event()  # Initially unset (False)
+
+def fetch_and_update_tarifas_background():
+
+    print("Thread started...", flush=True)
+    # Define file paths
+    #tarifas_csv = r"DBases/tarifas.csv"
+    tarifas_parquet = r"DBases/tarifas.parquet"
+    last_updated_file = r"DBases/last_updated.txt"
+    db_path = r"DataBase.db"
+
+    # Check if last updated date exists
+    last_updated = None
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute("""
+                    CREATE TABLE IF NOT EXISTS last_updated_date (
+                    key TEXT PRIMARY KEY,
+                    value TEXT
+                    )
+                   """
+                )    
+
+    # Check for the last update date
+    cursor.execute("SELECT value FROM last_updated_date WHERE key = 'last_updated'")
+    result = cursor.fetchone()
+    if result:
+        last_updated = datetime.strptime(result[0], "%d-%m-%Y").date()
+        print(f"Last updated: {last_updated}, Today: {date.today()}")
+    conn.close()
+
+    # Update only if last_updated is None or older than today
+    if last_updated is None or last_updated < date.today():
+        try:
+            # Fetch the CSV from the ANEEL API
+            url = "https://dadosabertos.aneel.gov.br/dataset/5a583f3e-1646-4f67-bf0f-69db4203e89e/resource/fcf2906c-7c32-4b9b-a637-054e7a5234f4/download/tarifas-homologadas-distribuidoras-energia-eletrica.csv"
+            response = requests.get(url, stream=True)
+            response.raise_for_status()
+            df_tarifas = pd.read_csv(StringIO(response.content.decode("windows-1252")), delimiter=";")
+            df_tarifas = preprocess_tarifas(df_tarifas)
+
+            # Connect to the database and update the ANEEL_DB table
+            conn = sqlite3.connect(db_path)
+            try:
+                # Replace the existing data in ANEEL_DB (drop and recreate for simplicity)
+                df_tarifas.to_sql('ANEEL_DB', conn, if_exists='replace', index=False)
+            except Exception as e:
+                print(f"Database write failed: {e}")
+                raise  # Re-raise to trigger cleanup in the except block
+            finally:
+                conn.close()
+
+            # Update the last_updated value in the metadata table
+            conn = sqlite3.connect(db_path)
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR REPLACE INTO last_updated_date (key, value)
+                VALUES ('last_updated', ?)
+            """, (date.today().strftime("%d-%m-%Y"),))
+            conn.commit()
+            conn.close()
+
+        except Exception as e:
+            print(f"Update failed: {e}")
+            update_event.set()  # Still signal completion on failure
+            return
+
+        update_event.set()  # Signal completion
+        print("Thread finished, UPDATE_COMPLETE set to True", flush=True)
+print("update runned", flush=True)
+
+def preprocess_tarifas(df):
+
+    replacements = {
+        "ETO": "Energisa Tocantins",
+        "CERON": "Energisa Rondônia",
+        "EPB": "Energisa Paraíba",
+        "ESE": "Energisa Sergipe",
+        "EMT": "Energisa Mato Grosso",
+        "EMS": "Energia Mato Grosso do Sul",
+        "ESS": "Energisa Sul Sudeste - ESS",
+        "EMR": "Energisa Minas Rio",
+        "ELETROPAULO": "ENEL SP",
+        "ENF": "Energisa Nova Friburgo",
+        "AME": "AME - Amazonas Energia",
+        "CEA": "Equatorial Amapá - CEA",
+        "CPFL-PIRATINING": "CPFL-PIRATININGA",
+        "ERO": "Energisa Rondônia - ERO",
+        "EAC": "Energisa Acre - EAC",
+        "Neoenergia PE": "Neoenergia Pernambuco",
+    }
+
+    type_dict = {
+        "DatGeracaoConjuntoDados": "datetime64[ns]",
+        "DscREH": "string",
+        "SigAgente": "string",
+        "NumCNPJDistribuidora": "Int64",
+        "DatInicioVigencia": "datetime64[ns]",
+        "DatFimVigencia": "datetime64[ns]",
+        "DscBaseTarifaria": "string",
+        "DscSubGrupo": "string",
+        "DscModalidadeTarifaria": "string",
+        "DscDetalhe": "string",
+        "NomPostoTarifario": "string",
+        "DscUnidadeTerciaria": "string",
+        "SigAgenteAcessante": "string",
+    }
+
+    df['VlrTE'] = df['VlrTE'].str.replace(',00', '0,00').str.replace(',','.').astype(float)
+    df['VlrTUSD'] = df['VlrTUSD'].str.replace(',00', '0,00').str.replace(',','.').astype(float)
+    df["NomPostoTarifario"] = df["NomPostoTarifario"].replace("Não se aplica", "Fora ponta")
+    df = df.drop(columns=["DscClasse", "DscSubClasse"])
+    df = df[
+        (df["DscDetalhe"] == "Não se aplica") &
+        (df["DscBaseTarifaria"] == "Tarifa de Aplicação") &
+        (df["SigAgenteAcessante"] == "Não se aplica") &
+        df["DscModalidadeTarifaria"].isin(["Azul", "Verde"])
+    ]
+    df = df.astype(type_dict)
+    df["SigAgente"] = df["SigAgente"].replace(replacements)
+    df = df.sort_values(by="DatInicioVigencia", ascending=False)
+    
+    return df
+
+def get_tariffs(df, distribuidora, subgrupo, modalidade, resolucao):
+    """
+    Get the tariffs for a given combination of filters.
+    
+    Args:
+        df (pd.DataFrame): The input DataFrame containing tariff data.
+        distribuidora (str): The distributor filter.
+        subgrupo (str): The subgroup filter.
+        modalidade (str): The tariff modality filter.
+        resolucao (str): The resolution filter.
+    
+    Returns:
+        dict: A dictionary containing the computed tariff components.
+    """
+    # Filter the data based on the provided criteria
+    filtered_df = df[
+        (df["SigAgente"] == distribuidora) &
+        (df["DscSubGrupo"] == subgrupo) &
+        (df["DscModalidadeTarifaria"] == modalidade) &
+        (df["DscREH"] == resolucao)
+    ]
+
+    # Initialize the tariffs dictionary with default values
+    tariffs = {
+        "Demanda_HFP": 0,
+        "Demanda_HP": 0,
+        "Consumo_HFP_TE": 0,
+        "Consumo_HFP_TUSD": 0,
+        "Consumo_HFP": 0,
+        "Consumo_HP_TE": 0,
+        "Consumo_HP_TUSD": 0,
+        "Consumo_HP": 0
+    }
+
+    # Helper function to safely extract a single value
+    def get_single_value(sub_df, column):
+        if not sub_df.empty:
+            return sub_df.iloc[0][column]
+        return 0
+
+    # Calculate each tariff component
+    tariffs["Demanda_HFP"] = get_single_value(
+        filtered_df[
+            (filtered_df['DscUnidadeTerciaria'] == 'kW') &
+            (filtered_df['NomPostoTarifario'] == 'Fora ponta')
+        ],
+        'VlrTUSD'
+    )
+
+    tariffs["Demanda_HP"] = get_single_value(
+        filtered_df[
+            (filtered_df['DscUnidadeTerciaria'] == 'kW') &
+            (filtered_df['NomPostoTarifario'] == 'Ponta')
+        ],
+        'VlrTUSD'
+    )
+
+    tariffs["Consumo_HFP_TE"] = get_single_value(
+        filtered_df[
+            (filtered_df['DscUnidadeTerciaria'] == 'MWh') &
+            (filtered_df['NomPostoTarifario'] == 'Fora ponta')
+        ],
+        'VlrTE'
+    )
+
+    tariffs["Consumo_HFP_TUSD"] = get_single_value(
+        filtered_df[
+            (filtered_df['DscUnidadeTerciaria'] == 'MWh') &
+            (filtered_df['NomPostoTarifario'] == 'Fora ponta')
+        ],
+        'VlrTUSD'
+    )
+
+    tariffs["Consumo_HP_TE"] = get_single_value(
+        filtered_df[
+            (filtered_df['DscUnidadeTerciaria'] == 'MWh') &
+            (filtered_df['NomPostoTarifario'] == 'Ponta')
+        ],
+        'VlrTE'
+    )
+
+    tariffs["Consumo_HP_TUSD"] = get_single_value(
+        filtered_df[
+            (filtered_df['DscUnidadeTerciaria'] == 'MWh') &
+            (filtered_df['NomPostoTarifario'] == 'Ponta')
+        ],
+        'VlrTUSD'
+    )
+
+    # Calculate total consumption values
+    tariffs["Consumo_HFP"] = tariffs["Consumo_HFP_TE"] + tariffs["Consumo_HFP_TUSD"]
+    tariffs["Consumo_HP"] = tariffs["Consumo_HP_TE"] + tariffs["Consumo_HP_TUSD"]
+
+    return tariffs
+
+def update_ANEEL_table():
+    cursor = conn.cursor()
+    # Convert DataFrame to list of tuples for bulk insertion
+    data = [tuple(row) for row in df_tarifas.to_records(index=False)]
+    
+    # Insert or replace data in the ANEEL_DB table
+    placeholders = ", ".join(["?"] * len(df_tarifas.columns))
+    columns = ", ".join(df_tarifas.columns)
+    sql = f"INSERT OR REPLACE INTO ANEEL_DB ({columns}) VALUES ({placeholders})"
+    cursor.executemany(sql, data)
+    conn.commit()
