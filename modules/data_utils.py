@@ -132,12 +132,11 @@ def preprocess_tarifas(df):
     
     return df
 
-def get_tariffs(df, distribuidora, subgrupo, modalidade, resolucao):
+def get_tariffs(distribuidora, subgrupo, modalidade, resolucao):
     """
     Get the tariffs for a given combination of filters.
     
     Args:
-        df (pd.DataFrame): The input DataFrame containing tariff data.
         distribuidora (str): The distributor filter.
         subgrupo (str): The subgroup filter.
         modalidade (str): The tariff modality filter.
@@ -147,12 +146,12 @@ def get_tariffs(df, distribuidora, subgrupo, modalidade, resolucao):
         dict: A dictionary containing the computed tariff components.
     """
     # Filter the data based on the provided criteria
-    filtered_df = df[
-        (df["SigAgente"] == distribuidora) &
-        (df["DscSubGrupo"] == subgrupo) &
-        (df["DscModalidadeTarifaria"] == modalidade) &
-        (df["DscREH"] == resolucao)
-    ]
+
+    conn = sqlite3.connect("DataBase.db")
+    query = f"SELECT * FROM ANEEL_DB WHERE SigAgente = '{distribuidora}' AND DscSubGrupo = '{subgrupo}' AND DscModalidadeTarifaria = '{modalidade}' AND DscREH = '{resolucao}'"
+    try:
+        filtered_df = pd.read_sql_query(query, conn)
+    finally: conn.close()
 
     # Initialize the tariffs dictionary with default values
     tariffs = {
@@ -195,7 +194,7 @@ def get_tariffs(df, distribuidora, subgrupo, modalidade, resolucao):
             (filtered_df['NomPostoTarifario'] == 'Fora ponta')
         ],
         'VlrTE'
-    )
+    )/1000
 
     tariffs["Consumo_HFP_TUSD"] = get_single_value(
         filtered_df[
@@ -203,7 +202,7 @@ def get_tariffs(df, distribuidora, subgrupo, modalidade, resolucao):
             (filtered_df['NomPostoTarifario'] == 'Fora ponta')
         ],
         'VlrTUSD'
-    )
+    )/1000
 
     tariffs["Consumo_HP_TE"] = get_single_value(
         filtered_df[
@@ -211,7 +210,7 @@ def get_tariffs(df, distribuidora, subgrupo, modalidade, resolucao):
             (filtered_df['NomPostoTarifario'] == 'Ponta')
         ],
         'VlrTE'
-    )
+    )/1000
 
     tariffs["Consumo_HP_TUSD"] = get_single_value(
         filtered_df[
@@ -219,7 +218,7 @@ def get_tariffs(df, distribuidora, subgrupo, modalidade, resolucao):
             (filtered_df['NomPostoTarifario'] == 'Ponta')
         ],
         'VlrTUSD'
-    )
+    )/1000
 
     # Calculate total consumption values
     tariffs["Consumo_HFP"] = tariffs["Consumo_HFP_TE"] + tariffs["Consumo_HFP_TUSD"]
@@ -227,14 +226,20 @@ def get_tariffs(df, distribuidora, subgrupo, modalidade, resolucao):
 
     return tariffs
 
-def update_ANEEL_table():
-    cursor = conn.cursor()
-    # Convert DataFrame to list of tuples for bulk insertion
-    data = [tuple(row) for row in df_tarifas.to_records(index=False)]
-    
-    # Insert or replace data in the ANEEL_DB table
-    placeholders = ", ".join(["?"] * len(df_tarifas.columns))
-    columns = ", ".join(df_tarifas.columns)
-    sql = f"INSERT OR REPLACE INTO ANEEL_DB ({columns}) VALUES ({placeholders})"
-    cursor.executemany(sql, data)
-    conn.commit()
+def get_flags():
+    """def get_flags():
+    conn = sqlite3.connect("DataBase.db")
+    query = f"SELECT * FROM tariff_flags"
+    try:
+        flags = pd.read_sql_query(query, conn).to_dict(orient='records')[0]
+    finally:
+        conn.close()
+    return flags
+    """
+    conn = sqlite3.connect("DataBase.db")
+    query = f"SELECT * FROM tariff_flags"
+    try:
+        flags = pd.read_sql_query(query, conn).to_dict(orient='records')[0]
+    finally:
+        conn.close()
+    return flags

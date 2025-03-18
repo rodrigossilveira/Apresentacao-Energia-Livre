@@ -73,8 +73,11 @@ def main():
 
 
 
-
-    col1, col2, col3, col4 = st.columns([3,1,1,1])
+    # Define columns based on irrigante condition
+    if irrigante:
+        col1, col2, col3, col4, col5, col6 = st.columns([4, 1, 1, 1, 1, 1])
+    else:
+        col1, col2, col3, col4 = st.columns([3, 1, 1, 1])
     with col1:
         resolucao = st.selectbox("Resolução Homologatória", options = st.session_state.Res_Hom, index = 0)
     with col2:
@@ -83,7 +86,12 @@ def main():
         cofins = st.number_input("Cofins (%)", min_value=0.0, value=3.82, format="%.2f")
     with col4:
         icms = st.number_input("ICMS (%)", min_value=0.0, value=18.0, format="%.2f")
-        
+        # Additional columns only shown when irrigante is true
+    if irrigante:
+        with col5:
+            icms_hr = st.number_input("ICMS HR (%)", min_value=0.0, value=0.0, format="%.2f")
+        with col6:
+            desc_irrig = st.number_input("Desc Irrig (%)", min_value=0.0, value=0.0, format="%.2f")    
 
     # Inject CSS to reduce vertical spacing and input field width
     st.markdown("""
