@@ -1,6 +1,8 @@
 import pandas as pd
 import sqlite3
+import streamlit as st
 
+@st.cache_data
 def calcular_fatura_cativa(quantidade, tarifa, impostos_bandeira):
     """
     Calcula o valor a pagar por algum item/linha da fatura.
@@ -78,6 +80,7 @@ def calcular_fatura_cativa(quantidade, tarifa, impostos_bandeira):
     )
     return result_dict
 
+@st.cache_data
 def calcular_fatura_uso(quantidade, tarifa, impostos_bandeira):
 
     # Create a dictionary to store the values during function execution
@@ -131,4 +134,43 @@ def calcular_fatura_uso(quantidade, tarifa, impostos_bandeira):
     )
     return result_dict
 
-def calcular_fatura_livre(quantidade, preco, impostos_bandeira):
+@st.cache_data
+def calcular_fatura_livre(quantidade, preco, impostos_bandeira, fatura_uso, fatura_cativa):
+
+    result_dict = {
+        "Fatura Livre": [],
+        "anos": preco["anos"]
+    }
+
+    icms = 1/(1- impostos_bandeira["icms"])
+    icms_hr = 1/(1- impostos_bandeira["icms_hr"])
+
+    match preco["produto"]:
+
+        case "Desconto Garantido": 
+                result_dict["fatura_livre"]  = [(1- preco["desconto"])*fatura_cativa - fatura_uso for i,_ in enumerate(preco["anos"])] 
+        case "Preço Fixo":
+                result_dict["fatura_livre"] = [preco["preco"][i]*(quantidade["Energia HP"] * icms + quantidade["Energia HFP"] * icms + quantidade["Energia HR"] * icms_hr)/1000 for i,_ in enumerate(preco["anos"])]
+        case "PMT":
+                result_dict["fatura_livre"] = [preco["preco"][i]*(quantidade["Energia HP"] * icms + quantidade["Energia HFP"] * icms + quantidade["Energia HR"] * icms_hr)/1000 for i,_ in enumerate(preco["anos"])]
+    return result_dict
+
+@st.cache_data
+def gerar_gráficos(fatura_uso, fatura_cativa, fatura_livre):
+
+
+
+    fatura_cativa = calcular_fatura_cativa(quantidade, tarifa, impostos_bandeira)
+    fatura_uso = calcular_fatura_uso(quantidade, tarifa, impostos_bandeira)
+    fatura_livre = calcular_fatura_livre(quantidade, preco, impostos_bandeira, fatura_uso, fatura_cativa)
+
+    result_dict = {
+        "anos": preco["anos"],
+        "economia_anual": []
+    }
+
+    for i,_ in enumerate(preco["anos"]):
+        result_dict["economia_anual"].append(fatura_uso["Fatura de Uso"] + fatura_cativa["Fatura Cativa"] - fatura_livre["fatura_livre"][i])
+
+    return result_dict
+

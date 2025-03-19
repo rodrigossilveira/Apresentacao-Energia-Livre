@@ -2,7 +2,8 @@ import streamlit as st
 import pandas as pd
 import requests
 from dateutil.relativedelta import relativedelta
-from modules.data_utils import fetch_and_update_tarifas_background, update_event
+from modules.data_utils import fetch_and_update_tarifas_background, update_event, get_tariffs
+from modules.calculations import calcular_fatura_cativa, calcular_fatura_uso, calcular_fatura_cativa, calcular_fatura_livre
 import threading
 import os
 import sqlite3
@@ -41,6 +42,7 @@ def main():
             data=[["", 0.0, 0.0, 0.0, 0.0, 0.0]]  # Start with one empty row
         )
     
+    desconto = st.session_state.get("desconto", 0.0)
 
     col1, col2, col3, col4, col5 = st.columns([3,2,1,1,1])
     with col1:
@@ -67,9 +69,9 @@ def main():
     with col3:
         bandeira = st.selectbox("Bandeira", options = ["Verde","Amarela", "Vermelha 1", "Vermelha 2"] ,index = 0)
     with col4:
-        modalidade_tarifaria = st.selectbox("Subgrupo Tarifário", options=["A4", "A3", "AS", "A2", "A1", "A3a", "B"], index=0)
+        subgrupo = st.selectbox("Subgrupo Tarifário", options=["A4", "A3", "AS", "A2", "A1", "A3a", "B"], index=0)
     with col5:
-        modalidade_tarifaria_verde = st.selectbox("Modalidade Tarifária", options=["Verde", "Azul"], index=0)
+        modalidade = st.selectbox("Modalidade Tarifária", options=["Verde", "Azul"], index=0)
 
 
 
@@ -81,7 +83,7 @@ def main():
     with col1:
         resolucao = st.selectbox("Resolução Homologatória", options = st.session_state.Res_Hom, index = 0)
     with col2:
-        pasep = st.number_input("PASEP (%)", min_value=0.0, value=0.83, format="%.2f")
+        paseb = st.number_input("PASEB (%)", min_value=0.0, value=0.83, format="%.2f")
     with col3:
         cofins = st.number_input("Cofins (%)", min_value=0.0, value=3.82, format="%.2f")
     with col4:
@@ -92,6 +94,8 @@ def main():
             icms_hr = st.number_input("ICMS HR (%)", min_value=0.0, value=0.0, format="%.2f")
         with col6:
             desc_irrig = st.number_input("Desc Irrig (%)", min_value=0.0, value=0.0, format="%.2f")    
+    else: icms_hr, desc_irrig = 0.0, 0.0
+
 
     # Inject CSS to reduce vertical spacing and input field width
     st.markdown("""
@@ -109,8 +113,6 @@ def main():
         </style>
     """, unsafe_allow_html=True)
 
-    from dateutil.relativedelta import relativedelta
-
     # Inject CSS to reduce vertical spacing
     st.markdown("""
         <style>
@@ -127,9 +129,8 @@ def main():
     """, unsafe_allow_html=True)
 
     # Calculate the year range for yearly prices using relativedelta
-    start_date = inicio_operacional
-    end_date = start_date + relativedelta(months=+duracao_meses)
-    years = list(range(start_date.year, end_date.year + 1))
+    end_date = inicio_operacional + relativedelta(months=+duracao_meses)
+    years = list(range(inicio_operacional.year, end_date.year + 1))
 
     # Define the grid structure with labels in the inputs
     grid_rows = [
@@ -176,7 +177,42 @@ def main():
 
         # Generate Proposal Button
         if st.button("Gerar Proposta"):
-            st.write("Proposta gerada! (Placeholder for now—add logic later.)")
+
+            quantidade = {
+                "Demanda HFP": grid_data["Demanda - Fora Ponta"] , 
+                "Demanda HFP sICMS": grid_data["Demanda s/ ICMS - Fora Ponta"],  
+                "Demanda HP": grid_data["Demanda - Ponta"],    
+                "Demanda HP sICMS": grid_data["Demanda s/ ICMS - Ponta"],  
+                "Demanda HR": grid_data.get("Demanda - Horário Reservado",0),    
+                "Demanda HR sICMS": grid_data.get("Demanda s/ ICMS - Horário Reservado",0),  
+                "Energia HFP": grid_data["Energia Ativa - Fora Ponta"], 
+                "Energia HP": grid_data["Energia Ativa - Ponta"],   
+                "Energia HR": grid_data.get("Energia Ativa - Horário Reservado",0),   
+                "Energia Compensada HFP": grid_data.get("Energia Compensada - Fora Ponta",0), 
+                "Energia Compensada HP": grid_data.get("Energia Compensada - Ponta",0) 
+            }
+
+            impostos_bandeira = {
+                "icms": icms/100,
+                "paseb": paseb/100,
+                "cofins": cofins/100,
+                "bandeira": bandeira,
+                "icms_hr": icms_hr,
+                "desc_irr": desc_irrig
+            }
+
+            tarifa = get_tariffs(distribuidora, subgrupo, modalidade, resolucao)
+            
+            preco = {
+                "produto": produto,
+                "anos": years,
+                "desconto": desconto/100
+            }
+
+            with open("images/flags_plot.svg", "r", encoding = 'utf-8') as file:
+                svg_content = file.read()
+            st.markdown(svg_content, unsafe_allow_html=True)
+            
 
         # Optional: Display collected grid data for debugging
         if st.checkbox("Mostrar dados da grade"):
@@ -189,8 +225,9 @@ def main():
         #st.markdown("### Preços Anuais")
         if produto == "Desconto Garantido":
             desconto = st.number_input("Desconto (%)", min_value=0.0, value=0.0, format="%.2f", key="desconto")
-            yearly_data["Desconto"] = {"Valor": desconto}
+            yearly_data["Desconto"] = {"Valor": st.session_state.desconto}
         else:
+            desconto = 0.0 # Assign a default value for desconto when not "Desconto Garantido"
             first_price = None
             for i, year in enumerate(years):
                 preco = st.number_input(
@@ -204,7 +241,6 @@ def main():
                 if i == 0:
                     first_price = preco  # Store the first price to propagate to subsequent years
                 yearly_data[year] = {"Preço": preco}
-
     #-------------------------------------------------------------------------------------------------------------
     st.markdown("### Histórico de Consumo")
     with st.expander("Editar Histórico de Consumo", expanded=False):

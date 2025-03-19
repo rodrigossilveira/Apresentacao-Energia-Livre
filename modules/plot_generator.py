@@ -58,7 +58,7 @@ def flags_plot(categories, values, output_path = 'images/', filename = 'flags_pl
 """categories = ['VERDE', 'AMARELA', 'VERMELHA I', 'VERMELHA II']
 values = [22, 24, 27, 30]"""
 
-def generate_yearly_economy_plot(years, values, percentages, output_folder = 'images/', output_filename = 'yearly_economy_plot.svg'):
+def yearly_economy_plot(years, values, percentages, output_folder = 'images/', output_filename = 'yearly_economy_plot.svg'):
     # Ensure the output folder exists
     os.makedirs(output_folder, exist_ok=True)
     x_offset = 0
@@ -101,7 +101,7 @@ def generate_yearly_economy_plot(years, values, percentages, output_folder = 'im
         # Label 2: Percentage (outside end of the bar)
         label_x_pos_outside = width + 1000  # Adjust offset for percentage positioning
         label_y_pos_inside = bar.get_y() + bar.get_height() / 2 + y_offset
-        ax.text(label_x_pos_outside, label_y_pos_inside, f'{percentages[i]}%', 
+        ax.text(label_x_pos_outside, label_y_pos_inside, f'{percentages[i]:.2%}', 
                 va='center', ha='left', color='black', fontweight='bold', fontsize=12)
     # Customize the title and add icon
     ax.set_title('Economia Anual²', fontsize=16, fontweight='bold', loc='center', color = '#0F766E')
@@ -130,7 +130,7 @@ def generate_yearly_economy_plot(years, values, percentages, output_folder = 'im
 values = [35849.07, 42256.63, 36916.99, 31577.36, 4879]
  percentages = [23.8, 28.1, 24.5, 21.0, 3.2]"""
 
-def generate_price_curve_plot(years, values, output_folder = 'images', output_filename = 'price_curve_plot.svg'):
+def price_curve_plot(years, values, output_folder = 'images', output_filename = 'price_curve_plot.svg'):
     # Ensure the output folder exists
     os.makedirs(output_folder, exist_ok=True)
     
@@ -151,7 +151,7 @@ def generate_price_curve_plot(years, values, output_folder = 'images', output_fi
                 ha='center', va='bottom', color='black', fontweight='bold', fontsize=18)
 
     # Customize the title and remove unnecessary elements
-    ax.set_title('Preço Praticado por Período ¹', fontsize=24, fontweight='bold', color = '#0F766E')
+    ax.set_title('Preço Praticado por Período ¹\n\n', fontsize=24, fontweight='bold', color = '#0F766E')
     ax.yaxis.set_visible(False)
 
 
@@ -179,7 +179,7 @@ def generate_price_curve_plot(years, values, output_folder = 'images', output_fi
 """years = ['2026', '2027', '2028', '2029', '2030', '2031']
 values = [395.00, 270.00, 245.00, 220.00, 250.00, 260.00]"""
 
-def generate_historico_irrigante_plot(months, custo_cativo_values, energia_livre_values, economia_values, output_folder = 'images/', output_filename = 'historico_irigante_plot.svg'):
+def historico_irrigante_plot(months, custo_cativo_values, energia_livre_values, economia_values, output_folder = 'images/', output_filename = 'historico_irigante_plot.svg'):
     # Ensure the output folder exists
     os.makedirs(output_folder, exist_ok=True)
 
