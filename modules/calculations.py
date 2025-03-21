@@ -48,7 +48,8 @@ def calcular_fatura_cativa(quantidade, tarifa, impostos_bandeira):
     icms_hr = 1/(1- impostos_bandeira["icms_hr"])
 
     conn = sqlite3.connect("DataBase.db")
-    query = f"SELECT {impostos_bandeira['bandeira']} FROM tariff_flags"
+    flag = impostos_bandeira['bandeira']
+    query = f'SELECT "{flag}" FROM tariff_flags'
     try:
         bandeira = pd.read_sql_query(query, conn).iloc[0,0]
     finally:
@@ -104,13 +105,6 @@ def calcular_fatura_uso(quantidade, tarifa, impostos_bandeira):
     paseb_cofins = (1 / (1 - impostos_bandeira["paseb"] - impostos_bandeira["cofins"]))
     icms = 1/(1- impostos_bandeira["icms"])
     icms_hr = 1/(1- impostos_bandeira["icms_hr"])
-
-    conn = sqlite3.connect("DataBase.db")
-    query = f"SELECT {impostos_bandeira['bandeira']} FROM tariff_flags"
-    try:
-        bandeira = pd.read_sql_query(query, conn).iloc[0,0]
-    finally:
-        conn.close()
         
     result_dict["Demanda HFP"] = quantidade["Demanda HFP"] * tarifa["Demanda_HFP"] * icms * paseb_cofins
     result_dict["Demanda HFP sICMS"] = quantidade["Demanda HFP sICMS"] * tarifa["Demanda_HFP"] * paseb_cofins
@@ -174,3 +168,28 @@ def gerar_gráficos(fatura_uso, fatura_cativa, fatura_livre):
 
     return result_dict
 
+@st.cache_data
+def gerar_graficos(preco, quantidade, tarifa, impostos_bandeira,  fatura_uso, fatura_cativa, fatura_livre):
+
+    months = [min(12, max(0, preco["duracao_meses"] - 12*i)) for i in range(len(preco["anos"]))]
+
+    #price curve plot
+    price_curve_plot(preco["anos"], preco["preco"])
+
+    #yearly economy plot
+    economy = [(fatura_cativa - fatura_uso - fatura_livre[i])*months[i] for i in range(len(months))]
+    percentual_economy = [(fatura_cativa - fatura_uso - fatura_livre[i])/fatura_cativa for i in range(len(fatura_livre))]
+    yearly_economy_plot(preco["anos"], economy, percentual_economy )
+    #print(percentual_economy)
+    
+    #flags plot
+    descontos_bandeiras = []
+    for bandeira in ['verde', 'amarela', 'vermelha I', 'vermelha II']:
+        new_dict = impostos_bandeira
+        new_dict[bandeira] = bandeira
+        fatura_cativa_bandeira = calcular_fatura_cativa(quantidade, tarifa, new_dict)["Fatura Cativa"]
+        #descontos_bandeiras.append((fatura_cativa - fatura_uso - fatura_livre))
+        mean_economy = sum((fatura_cativa_bandeira - fatura_uso - fatura_livre[i])*months[i] for i in range(len(months)))/preco["duracao_meses"]
+        descontos_bandeiras.append(100*mean_economy/fatura_cativa_bandeira)
+        print(descontos_bandeiras)
+    flags_plot(descontos_bandeiras)

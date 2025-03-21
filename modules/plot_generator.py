@@ -3,7 +3,7 @@ from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from PIL import Image
 import os
 
-def flags_plot(categories, values, output_path = 'images/', filename = 'flags_plot.svg'):
+def flags_plot(values, categories = ['VERDE', 'AMARELA', 'VERMELHA I', 'VERMELHA II'], output_path = 'images/', filename = 'flags_plot.svg'):
     # Reverse the order of the data
     categories = categories[::-1]
     values = values[::-1]
@@ -19,7 +19,7 @@ def flags_plot(categories, values, output_path = 'images/', filename = 'flags_pl
     for bar in bars:
         width = bar.get_width()
         label_x_pos = width + 4 
-        ax.text(label_x_pos, bar.get_y() + bar.get_height()/2, f'{width}%', 
+        ax.text(label_x_pos, bar.get_y() + bar.get_height()/2, f'{width:.2f}%', 
                 va='center', ha='right', color='#0F7661', fontweight='bold', fontsize = 20)
 
     # Set the title and labels
@@ -55,8 +55,9 @@ def flags_plot(categories, values, output_path = 'images/', filename = 'flags_pl
     plt.savefig(save_path, bbox_inches='tight', dpi=300)
 
 # Example usage
-"""categories = ['VERDE', 'AMARELA', 'VERMELHA I', 'VERMELHA II']
-values = [22, 24, 27, 30]"""
+"""
+values = [22, 24, 27, 30]
+"""
 
 def yearly_economy_plot(years, values, percentages, output_folder = 'images/', output_filename = 'yearly_economy_plot.svg'):
     # Ensure the output folder exists

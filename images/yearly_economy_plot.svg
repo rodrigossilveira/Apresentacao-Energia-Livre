@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2025-03-19T15:22:09.838271</dc:date>
+    <dc:date>2025-03-19T17:01:28.952523</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -43,7 +43,7 @@ L 1007.721429 388.7944
 L 1007.721429 334.1944 
 L 51.15 334.1944 
 z
-" clip-path="url(#pc5700d99d9)" style="fill: #0f766e"/>
+" clip-path="url(#p1a187b69c4)" style="fill: #0f766e"/>
    </g>
    <g id="patch_4">
     <path d="M 51.15 320.5444 
@@ -51,7 +51,7 @@ L 1007.721429 320.5444
 L 1007.721429 265.9444 
 L 51.15 265.9444 
 z
-" clip-path="url(#pc5700d99d9)" style="fill: #0f766e"/>
+" clip-path="url(#p1a187b69c4)" style="fill: #0f766e"/>
    </g>
    <g id="patch_5">
     <path d="M 51.15 252.2944 
@@ -59,7 +59,7 @@ L 1007.721429 252.2944
 L 1007.721429 197.6944 
 L 51.15 197.6944 
 z
-" clip-path="url(#pc5700d99d9)" style="fill: #0f766e"/>
+" clip-path="url(#p1a187b69c4)" style="fill: #0f766e"/>
    </g>
    <g id="patch_6">
     <path d="M 51.15 184.0444 
@@ -67,7 +67,7 @@ L 1007.721429 184.0444
 L 1007.721429 129.4444 
 L 51.15 129.4444 
 z
-" clip-path="url(#pc5700d99d9)" style="fill: #0f766e"/>
+" clip-path="url(#p1a187b69c4)" style="fill: #0f766e"/>
    </g>
    <g id="patch_7">
     <path d="M 51.15 115.7944 
@@ -75,7 +75,7 @@ L 1007.721429 115.7944
 L 1007.721429 61.1944 
 L 51.15 61.1944 
 z
-" clip-path="url(#pc5700d99d9)" style="fill: #0f766e"/>
+" clip-path="url(#p1a187b69c4)" style="fill: #0f766e"/>
    </g>
    <g id="matplotlib.axis_1">
     <g id="ytick_1">
@@ -767,7 +767,7 @@ z
    </g>
    <g id="AnnotationBbox_1">
     <image xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAADYAAAA2CAYAAACMRWrdAAADGElEQVR4nO3Yy2tUVxzA8U9MjJhFqK0KSUqllFqLVVc+6sJFIymF0l13plD0DxCrortCoYi6ciWCC1/FtQvdFIp209bS56KPRbFUGxE0WsFnk7g4d+LJOHfu3MydmUTuFw4zc8+Z3+Occ3/nd36UlJSUlJSUzDm6ou8TWNApQwpiAj3Mf0dSeW4d68noP4Lj7TBkFizCt2a+TjWZwFTULqC7paY1zyb856nN/9caFDv2d8EGLMUbSVtasOxf5HDspwIVD+NRJPsRRgqU3xHHtuCxmVt8Knk2XJCOtjv2Ir7xrFOV9l0ypllqOpY33HdhKzbLjkZvYWOd/vVY3YC+zYnOzOiXRiMrdigasytD3kfSV6vStmXI+CQaezBlTCErFr8X9VYDljQg74WM/k3R960NyKtJIys2hD9xCcsz5H0ge8Xez5CxHBcTnYMpY9oePN7ELelOjWNVAXoK2Yp5+A1H6/Qfw+8t1D9NK86xxfgXk5HsyeRZX0E62r5icB+vYD/GkrYveXavxbqniVfsAUbbpbhJ/pEjeFS2TFZI7yTdOGemzdOOlaWB+cZz61hcGvhME4nmHGGy0wa0nKJXqFl5UznlZ42vy0Ihs15TZ0yPkEksEa4rX+C67CQ4PloeC4f2OL7CHqyt0nMz+s+VekY3OsNdQiHmXXyI20Iq87WQfdfKIroxgBVYibeFa0i9CarFOK4KB/GIp3HhlDCJqQbnZUhwblS4JVdyy59xOfkcww2hcFPNIDYIN+gNye8B4W6Wx55tODML+xtiI74UUrDq7TWWKB4VtmhvhqxhHBBqIXcTmdXZUKU9FCaj5XQJM/hHiiGTiZEn8XoOmYPCdjuDO5G8vwq0vSF68apQFo8rtHF7kBi2Hf05ZC/AS3gN64ozOT8rsBe/mnkfi9sVoUBUbWg/TmM33pNvAtrKx/heiJ5pW/WEEFAW49Oo744QVec0fTgsvG9pq1jt/NmOWDpLevEOzss+vIsqhbeVhUKl6nNc86xTl4WtOa8ZwE78INRKprCjkwa1gpfxI5Z12pCSkpKSkjnNE7CmMpVhfp4JAAAAAElFTkSuQmCC" id="image0768563aa1" transform="scale(1 -1) translate(0 -38.88)" x="433.71" y="-10.72" width="38.88" height="38.88"/>
+iVBORw0KGgoAAAANSUhEUgAAADYAAAA2CAYAAACMRWrdAAADGElEQVR4nO3Yy2tUVxzA8U9MjJhFqK0KSUqllFqLVVc+6sJFIymF0l13plD0DxCrortCoYi6ciWCC1/FtQvdFIp209bS56KPRbFUGxE0WsFnk7g4d+LJOHfu3MydmUTuFw4zc8+Z3+Occ3/nd36UlJSUlJSUzDm6ou8TWNApQwpiAj3Mf0dSeW4d68noP4Lj7TBkFizCt2a+TjWZwFTULqC7paY1zyb856nN/9caFDv2d8EGLMUbSVtasOxf5HDspwIVD+NRJPsRRgqU3xHHtuCxmVt8Knk2XJCOtjv2Ir7xrFOV9l0ypllqOpY33HdhKzbLjkZvYWOd/vVY3YC+zYnOzOiXRiMrdigasytD3kfSV6vStmXI+CQaezBlTCErFr8X9VYDljQg74WM/k3R960NyKtJIys2hD9xCcsz5H0ge8Xez5CxHBcTnYMpY9oePN7ELelOjWNVAXoK2Yp5+A1H6/Qfw+8t1D9NK86xxfgXk5HsyeRZX0E62r5icB+vYD/GkrYveXavxbqniVfsAUbbpbhJ/pEjeFS2TFZI7yTdOGemzdOOlaWB+cZz61hcGvhME4nmHGGy0wa0nKJXqFl5UznlZ42vy0Ihs15TZ0yPkEksEa4rX+C67CQ4PloeC4f2OL7CHqyt0nMz+s+VekY3OsNdQiHmXXyI20Iq87WQfdfKIroxgBVYibeFa0i9CarFOK4KB/GIp3HhlDCJqQbnZUhwblS4JVdyy59xOfkcww2hcFPNIDYIN+gNye8B4W6Wx55tODML+xtiI74UUrDq7TWWKB4VtmhvhqxhHBBqIXcTmdXZUKU9FCaj5XQJM/hHiiGTiZEn8XoOmYPCdjuDO5G8vwq0vSF68apQFo8rtHF7kBi2Hf05ZC/AS3gN64ozOT8rsBe/mnkfi9sVoUBUbWg/TmM33pNvAtrKx/heiJ5pW/WEEFAW49Oo744QVec0fTgsvG9pq1jt/NmOWDpLevEOzss+vIsqhbeVhUKl6nNc86xTl4WtOa8ZwE78INRKprCjkwa1gpfxI5Z12pCSkpKSkjnNE7CmMpVhfp4JAAAAAElFTkSuQmCC" id="image4081bb2d2a" transform="scale(1 -1) translate(0 -38.88)" x="433.71" y="-10.72" width="38.88" height="38.88"/>
    </g>
    <g id="text_16">
     <!-- Economia Anual² -->
@@ -1019,7 +1019,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="pc5700d99d9">
+  <clipPath id="p1a187b69c4">
    <rect x="51.15" y="44.8144" width="1004.4" height="360.36"/>
   </clipPath>
  </defs>

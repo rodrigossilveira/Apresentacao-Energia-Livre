@@ -44,6 +44,16 @@ def main():
     
     desconto = st.session_state.get("desconto", 0.0)
 
+    cemig_logo = "Images/Verde Claro Logo.png"
+    energia_livre_logo = "images/Energia Livre Logo.png"
+
+    # Two columns for logos
+    col1, col2, col3 = st.columns([1,6,1])
+    with col1:
+        st.image(cemig_logo, width=150)
+    with col3:
+        st.image(energia_livre_logo, width=150)
+
     col1, col2, col3, col4, col5 = st.columns([3,2,1,1,1])
     with col1:
         agente = st.selectbox("Agente Vendedor", options = Agentes, index = 0)

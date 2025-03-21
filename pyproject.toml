@@ -5,13 +5,17 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "cairosvg>=2.7.1",
     "jinja2>=3.1.6",
     "matplotlib>=3.10.1",
     "numpy>=2.2.3",
     "pandas>=2.2.3",
+    "pypdf2>=3.0.1",
+    "pypdf>=5.4.0",
     "python-dateutil>=2.9.0.post0",
     "streamlit>=1.43.2",
     "weasyprint>=64.1",
+    "xlml>=0.1.2",
 ]
 
 # Standard library modules used: threading, tempfile, shutil, io (StringIO)
