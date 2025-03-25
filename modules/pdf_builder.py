@@ -225,7 +225,7 @@ def process_page1(cliente, instalacao, fat_ref,  input_svg_path="Proposta PPT/pa
     except Exception as e:
         print(f"Unexpected error: {e}")
 
-def process_page5(media_mensal, total_contrato, economia_contratual, economia_efetiva, input_svg_path="Proposta PPT/page 5.svg", output_svg_path="Temp_ppt/page5.svg", db_path="DataBase.db"):
+def process_page5(media_mensal, total_contrato, economia_contratual, economia_efetiva, input_svg_path="Proposta PPT/page 5.svg", output_svg_path="Temp_ppt/page 5.svg", db_path="DataBase.db"):
     """
     Process an SVG file by replacing text fields with data from a database.
     
