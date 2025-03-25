@@ -7,13 +7,16 @@ requires-python = ">=3.11"
 dependencies = [
     "cairosvg>=2.7.1",
     "jinja2>=3.1.6",
+    "lxml>=5.3.1",
     "matplotlib>=3.10.1",
     "numpy>=2.2.3",
     "pandas>=2.2.3",
     "pypdf2>=3.0.1",
     "pypdf>=5.4.0",
     "python-dateutil>=2.9.0.post0",
+    "reportlab>=4.3.1",
     "streamlit>=1.43.2",
+    "svglib>=1.5.1",
     "weasyprint>=64.1",
     "xlml>=0.1.2",
 ]

@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from PIL import Image
-import os
+
 
 def flags_plot(values, categories = ['VERDE', 'AMARELA', 'VERMELHA I', 'VERMELHA II'], output_path = 'images/', filename = 'flags_plot.svg'):
     # Reverse the order of the data
@@ -337,3 +338,91 @@ def flags_pie_plot(categories, values, output_path='images/', filename='flags_pi
 # Example usage
 """categories = ['Verde', 'Amarela', 'Vermelha 1', 'Vermelha 2']
 values = [10.4, 11.36, 12.49, 16.92]"""
+
+def energy_cost_plot(total_cost, energia_livre, servicos_distribuicao,economia, output_path='images/', filename='energy_cost_plot.svg'):
+
+    # Create the figure and axis objects
+    fig, ax = plt.subplots(figsize=(10, 6), facecolor='none')  # Increased figure width for more spacing
+    ax.set_facecolor('none')  # Set axes background to transparent
+
+    # Left bar (total cost)
+    ax.bar(0, total_cost, color='#D3D3D3', width=0.8, edgecolor='black', linewidth=1.5, zorder=1)  # Increased width to 0.8
+
+    # Right bar (stacked: Energia Livre + Serviços de Distribuição + Economia)
+    ax.bar(2, energia_livre, color='#1EFF8C', width=0.8, edgecolor='black', linewidth=1.5, zorder=1)  # Increased width and moved to x=2 for spacing
+    ax.bar(2, servicos_distribuicao, bottom=energia_livre, color='#0F7661', width=0.8, edgecolor='black', linewidth=1.5, zorder=1)
+    ax.bar(2, economia, bottom=energia_livre + servicos_distribuicao, color='white', width=0.8, 
+           edgecolor='black', linewidth=1.5, linestyle='--', zorder=1)
+
+    # Add text labels for the values
+    # Left bar (total cost)
+    ax.text(0, total_cost / 2, f'R$ {total_cost:,.2f}'.replace(",",".").replace(".",","), ha='center', va='center', color='black', fontweight='bold', fontsize=12)
+
+    # Right bar (Energia Livre)
+    ax.text(2, energia_livre / 2, f'R$ {energia_livre:,.2f}'.replace(",",".").replace(".",","), ha='center', va='center', color='white', fontweight='bold', fontsize=12)
+    # Right bar (Serviços de Distribuição)
+    ax.text(2, energia_livre + servicos_distribuicao / 2, f'R$ {servicos_distribuicao:,.2f}'.replace(",",".").replace(".",","), ha='center', va='center', color='white', fontweight='bold', fontsize=12)
+    # Right bar (Economia) with "ECONOMIA" label above
+    economia_y_pos = energia_livre + servicos_distribuicao + economia / 2
+    ax.text(2, economia_y_pos + 500, 'ECONOMIA', ha='center', va='center', color='black', fontweight='bold', fontsize=14)
+    ax.text(2, economia_y_pos, f'R$ {economia:,.2f}'.replace(",",".").replace(".",","), ha='center', va='center', color='black', fontweight='bold', fontsize=12)
+
+    # Load the icon images with error handling
+    try:
+        light_bulb_img = mpimg.imread('images/light_bulb.jpg')
+        print("Light bulb image loaded successfully:", light_bulb_img.shape)
+    except Exception as e:
+        print(f"Error loading light bulb image: {e}")
+        light_bulb_img = None
+
+    try:
+        power_line_img = mpimg.imread('images/power_line.jpg')
+        print("Power line image loaded successfully:", power_line_img.shape)
+    except Exception as e:
+        print(f"Error loading power line image: {e}")
+        power_line_img = None
+
+    # Define the positions for the icons
+    x_icon = 2.8  # Adjusted for the new bar position and spacing
+    y_energia = energia_livre / 2
+    y_servicos = energia_livre + servicos_distribuicao / 2
+
+    # Add the icons using OffsetImage and AnnotationBbox
+    if light_bulb_img is not None:
+        light_bulb_offset = OffsetImage(light_bulb_img, zoom=0.35, zorder=10)
+        ab_light_bulb = AnnotationBbox(light_bulb_offset, (x_icon, y_energia), frameon=False, zorder=10)
+        ax.add_artist(ab_light_bulb)
+        # Add the text label next to the icon
+        ax.text(x_icon + 0.3, y_energia, 'Energia Livre', ha='left', va='center', color='#0F7661', fontsize=12)
+
+    if power_line_img is not None:
+        power_line_offset = OffsetImage(power_line_img, zoom=0.3, zorder=10)
+        ab_power_line = AnnotationBbox(power_line_offset, (x_icon, y_servicos), frameon=False, zorder=10)
+        ax.add_artist(ab_power_line)
+        # Add the text label next to the icon
+        ax.text(x_icon + 0.3, y_servicos, 'Serviços de Distribuição', ha='left', va='center', color='#0F7661', fontsize=12)
+
+    # Remove spines and ticks
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+    ax.tick_params(left=False, bottom=False)
+    ax.set_xticks([])
+    ax.set_yticks([])
+
+    # Set the limits after all elements are added
+    ax.set_ylim(0, total_cost + 1500)
+    ax.set_xlim(-0.5, 4)  # Increased x-axis limit to accommodate wider spacing
+
+    # Save the plot
+    plt.tight_layout()
+    save_path = os.path.join(output_path, filename)
+    plt.savefig(save_path, bbox_inches='tight', dpi=300, transparent=True)
+    plt.show()
+
+# Example usage
+"""
+    total_cost = 12553.66  # R$ 12,553.66 (left bar)
+    energia_livre = 4687.87  # R$ 4,687.87 (right bar, bottom segment)
+    servicos_distribuicao = 5116.54  # R$ 5,116.54 (right bar, middle segment)
+    economia = 2749.25  # R$ 2,749.25 (right bar, top segment)
+"""
