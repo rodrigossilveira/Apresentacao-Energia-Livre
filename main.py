@@ -3,7 +3,8 @@ import pandas as pd
 import requests
 from dateutil.relativedelta import relativedelta
 from modules.data_utils import fetch_and_update_tarifas_background, update_event, get_tariffs
-from modules.calculations import calcular_fatura_cativa, calcular_fatura_uso, calcular_fatura_cativa, calcular_fatura_livre
+from modules.calculations import calcular_fatura_cativa, calcular_fatura_uso, calcular_fatura_cativa, calcular_fatura_livre, gerar_graficos
+from modules.pdf_builder import process_page1, process_page5, process_page10, merge_svgs_to_pdf
 import threading
 import os
 import sqlite3
@@ -36,12 +37,15 @@ def main():
     if "consumption_history" not in st.session_state:
         st.session_state.consumption_history = None
     
+    if "yearly_data" not in st.session_state:
+        st.session_state.yearly_data = {}
+
     st.session_state.consumption_history = pd.DataFrame(
             columns=["Month/Year", "Demanda Ponta", "Demanda Fora Ponta", "Demanda Horário Reservado", 
                      "Energia Ponta", "Energia Fora Ponta"],
             data=[["", 0.0, 0.0, 0.0, 0.0, 0.0]]  # Start with one empty row
         )
-    
+    #precos = st.session_state.get([yearly_data[year]["Preço"] for year in yearly_data])
     desconto = st.session_state.get("desconto", 0.0)
 
     cemig_logo = "Images/Verde Claro Logo.png"
@@ -66,8 +70,13 @@ def main():
     with col5:
         inicio_operacional = st.date_input("Início Operacional", value="2026-01-01", format="DD/MM/YYYY")
 
-
-    Razao_Social = st.text_input("Razão Social", value="")
+    col1, col2, col3 = st.columns([5,2,1])
+    with col1:
+        Razao_Social = st.text_input("Razão Social", value="")
+    with col2: 
+        Instalacao = st.text_input("Instalação", value = "")
+    with col3: 
+        fat_ref = st.date_input("Fatura de Referência", format="DD/MM/YYYY")
 
     col1, col2, col3, col4, col5 = st.columns([4,1,1,1,1])
     with col1:
@@ -187,7 +196,9 @@ def main():
 
         # Generate Proposal Button
         if st.button("Gerar Proposta"):
-
+            print(f"produto: {produto}",flush=True)
+            print(f"years: {years}",flush=True)
+            print(f"st.session_state.yearly_data: {st.session_state.yearly_data}",flush=True)
             quantidade = {
                 "Demanda HFP": grid_data["Demanda - Fora Ponta"] , 
                 "Demanda HFP sICMS": grid_data["Demanda s/ ICMS - Fora Ponta"],  
@@ -214,22 +225,53 @@ def main():
             tarifa = get_tariffs(distribuidora, subgrupo, modalidade, resolucao)
             
             preco = {
+                "preco": [st.session_state.yearly_data[year]["Preço"] for year in years],
                 "produto": produto,
                 "anos": years,
+                "duracao_meses": duracao_meses,
                 "desconto": desconto/100
             }
 
-            with open("images/flags_plot.svg", "r", encoding = 'utf-8') as file:
+            fatura_cativa = calcular_fatura_cativa(quantidade, tarifa, impostos_bandeira)["Fatura Cativa"]
+            fatura_uso = calcular_fatura_uso(quantidade, tarifa, impostos_bandeira)["Fatura de Uso"]
+            fatura_livre = calcular_fatura_livre(quantidade, preco, impostos_bandeira, fatura_uso, fatura_cativa)["Fatura Livre"]
+            economia_mensal = fatura_cativa - fatura_uso - fatura_livre[0]
+            economia_anual = economia_mensal*12
+            print(f"fatura_cativa: {fatura_cativa}",flush=True)
+            print(f"fatura_uso: {fatura_uso}",flush=True)
+            print(f"fatura_livre: {fatura_livre}",flush=True)
+            print(f"economia_mensal: {economia_mensal}",flush=True)
+            print(f"economia_anual: {economia_anual}",flush=True)
+            st.write(fatura_livre)
+            #desconto_contratual = 
+            gerar_graficos(preco, quantidade, tarifa, impostos_bandeira, fatura_uso, fatura_cativa, fatura_livre )
+
+            process_page1(Razao_Social, Instalacao, fat_ref)
+            process_page5(economia_mensal, economia_anual, preco["desconto"], 0.12)
+            process_page10(agente)
+
+            svg_list = ['Temp_ppt/page 1.svg','Proposta PPT/page 2.svg', 'Proposta PPT/page 3.svg', '' ,
+                        'Proposta PPT/page 8.svg', 'Proposta PPT/page 9.svg', 'Temp_ppt/page 10.svg']
+
+            svg_list[3] = 'Temp_ppt/page 5.svg'
+
+            pdf_path = 'Proposta_' + Razao_Social + '_' + Instalacao + '.pdf'
+
+            merge_svgs_to_pdf(svg_list, pdf_path, dpi= 300)
+
+            # Open the PDF with the default viewer
+            if os.name == "posix":  # macOS/Linux
+                os.system(f"open {pdf_path}")  # macOS
+                # Use "xdg-open" for Linux: os.system(f"xdg-open {pdf_path}")
+            elif os.name == "nt":  # Windows
+                os.system(f"start {pdf_path}")
+
+            """with open("images/flags_plot.svg", "r", encoding = 'utf-8') as file:
                 svg_content = file.read()
-            st.markdown(svg_content, unsafe_allow_html=True)
+            st.markdown(svg_content, unsafe_allow_html=True)"""
             
 
-        # Optional: Display collected grid data for debugging
-        if st.checkbox("Mostrar dados da grade"):
-            st.write("Dados da grade coletados:")
-            st.write(grid_data)
-            st.write("Dados de preços anuais coletados:")
-            st.write(yearly_data)
+
     # Right section (1/4 width) for yearly prices
     with col2:
         #st.markdown("### Preços Anuais")
@@ -250,7 +292,8 @@ def main():
                 )
                 if i == 0:
                     first_price = preco  # Store the first price to propagate to subsequent years
-                yearly_data[year] = {"Preço": preco}
+                st.session_state.yearly_data[year] = {"Preço": preco}
+                st.write([st.session_state.yearly_data[year]["Preço"] for year in st.session_state.yearly_data])
     #-------------------------------------------------------------------------------------------------------------
     st.markdown("### Histórico de Consumo")
     with st.expander("Editar Histórico de Consumo", expanded=False):

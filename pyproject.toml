@@ -20,5 +20,6 @@ dependencies = [
     "weasyprint>=64.1",
     "xlml>=0.1.2",
 ]
-
+[project.scripts]
+start = "streamlit:run"
 # Standard library modules used: threading, tempfile, shutil, io (StringIO)

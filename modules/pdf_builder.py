@@ -211,7 +211,7 @@ def process_page1(cliente, instalacao, fat_ref,  input_svg_path="Proposta PPT/pa
     # Replace text in the SVG file
     replace_text(root, "tspan5", "INSTALAÇÃO: " + instalacao, NSMAP)  # Agent name
     replace_text(root, "tspan4", "CLIENTE: " + cliente, NSMAP)       # Email
-    replace_text(root, "tspan6", "FATURA DE REFERÊNCIA: " + fat_ref, NSMAP)     # Phone
+    replace_text(root, "tspan6", "FATURA DE REFERÊNCIA: " + str(fat_ref), NSMAP)     # Phone
             
     # Save the modified SVG file
     try:

@@ -1,6 +1,7 @@
 import pandas as pd
 import sqlite3
 import streamlit as st
+from modules.plot_generator import yearly_economy_plot, price_curve_plot, flags_plot, energy_cost_plot
 
 @st.cache_data
 def calcular_fatura_cativa(quantidade, tarifa, impostos_bandeira):
@@ -142,39 +143,36 @@ def calcular_fatura_livre(quantidade, preco, impostos_bandeira, fatura_uso, fatu
     match preco["produto"]:
 
         case "Desconto Garantido": 
-                result_dict["fatura_livre"]  = [(1- preco["desconto"])*fatura_cativa - fatura_uso for i,_ in enumerate(preco["anos"])] 
-        case "Preço Fixo":
-                result_dict["fatura_livre"] = [preco["preco"][i]*(quantidade["Energia HP"] * icms + quantidade["Energia HFP"] * icms + quantidade["Energia HR"] * icms_hr)/1000 for i,_ in enumerate(preco["anos"])]
+                result_dict["Fatura Livre"]  = [(1- preco["desconto"])*fatura_cativa - fatura_uso for i,_ in enumerate(preco["anos"])] 
+        case "Curva de Preço":
+                result_dict["Fatura Livre"] = [preco["preco"][i]*(quantidade["Energia HP"] * icms + quantidade["Energia HFP"] * icms + quantidade["Energia HR"] * icms_hr)/1000 for i,_ in enumerate(preco["anos"])]
         case "PMT":
-                result_dict["fatura_livre"] = [preco["preco"][i]*(quantidade["Energia HP"] * icms + quantidade["Energia HFP"] * icms + quantidade["Energia HR"] * icms_hr)/1000 for i,_ in enumerate(preco["anos"])]
-    return result_dict
-
-@st.cache_data
-def gerar_gráficos(fatura_uso, fatura_cativa, fatura_livre):
-
-
-
-    fatura_cativa = calcular_fatura_cativa(quantidade, tarifa, impostos_bandeira)
-    fatura_uso = calcular_fatura_uso(quantidade, tarifa, impostos_bandeira)
-    fatura_livre = calcular_fatura_livre(quantidade, preco, impostos_bandeira, fatura_uso, fatura_cativa)
-
-    result_dict = {
-        "anos": preco["anos"],
-        "economia_anual": []
-    }
-
-    for i,_ in enumerate(preco["anos"]):
-        result_dict["economia_anual"].append(fatura_uso["Fatura de Uso"] + fatura_cativa["Fatura Cativa"] - fatura_livre["fatura_livre"][i])
-
+                result_dict["Fatura Livre"] = [preco["preco"][i]*(quantidade["Energia HP"] * icms + quantidade["Energia HFP"] * icms + quantidade["Energia HR"] * icms_hr)/1000 for i,_ in enumerate(preco["anos"])]
+    
+    print(f"calcular_fatura_livre - fatura_cativa: {fatura_cativa}", flush=True)
+    print(f"calcular_fatura_livre - fatura_uso: {fatura_uso}", flush=True)
+    print(f"calcular_fatura_livre - len(preco['anos']): {len(preco['anos'])}", flush=True)
+    print(f"calcular_fatura_livre - len(preco['preco']): {len(preco['preco'])}", flush=True)
+    print(f"calcular_fatura_livre - quantidade: {quantidade}", flush=True)
+    print(f"calcular_fatura_livre - fatura_livre: {result_dict['Fatura Livre']}", flush=True)
     return result_dict
 
 @st.cache_data
 def gerar_graficos(preco, quantidade, tarifa, impostos_bandeira,  fatura_uso, fatura_cativa, fatura_livre):
-
     months = [min(12, max(0, preco["duracao_meses"] - 12*i)) for i in range(len(preco["anos"]))]
 
     #price curve plot
     price_curve_plot(preco["anos"], preco["preco"])
+    
+    # Debugging output
+    print(f"len(preco['anos']): {len(preco['anos'])}")
+    print(f"len(months): {len(months)}")
+    print(f"len(fatura_livre): {len(fatura_livre)}")
+    print(f"fatura_livre: {fatura_livre}")
+    print(f"preco['preco']: {preco['preco']}")
+
+
+  
 
     #yearly economy plot
     economy = [(fatura_cativa - fatura_uso - fatura_livre[i])*months[i] for i in range(len(months))]
@@ -191,5 +189,10 @@ def gerar_graficos(preco, quantidade, tarifa, impostos_bandeira,  fatura_uso, fa
         #descontos_bandeiras.append((fatura_cativa - fatura_uso - fatura_livre))
         mean_economy = sum((fatura_cativa_bandeira - fatura_uso - fatura_livre[i])*months[i] for i in range(len(months)))/preco["duracao_meses"]
         descontos_bandeiras.append(100*mean_economy/fatura_cativa_bandeira)
-        print(descontos_bandeiras)
+
+    #energy cost plot
+    #energy_cost_plot(total_cost, energia_livre, servicos_distribuicao,economia, output_path='images/', filename='energy_cost_plot.svg')
+    energy_cost_plot(fatura_cativa,fatura_livre[0], fatura_uso, economy[0])
+    print(descontos_bandeiras)
+
     flags_plot(descontos_bandeiras)
