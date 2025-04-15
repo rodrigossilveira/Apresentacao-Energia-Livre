@@ -341,6 +341,34 @@ def flags_pie_plot(categories, values, output_path='images/', filename='flags_pi
 values = [10.4, 11.36, 12.49, 16.92]"""
 
 def energy_cost_plot(total_cost, energia_livre, servicos_distribuicao,economia, output_path='images/', filename='energy_cost_plot.svg'):
+    """
+    Generates a bar plot comparing total energy cost with a breakdown of Energia Livre, 
+    Serviços de Distribuição, and Economia. The plot includes annotations, icons, and 
+    labels for better visualization.
+    Args:
+        total_cost (float): The total energy cost.
+        energia_livre (float): The cost of Energia Livre.
+        servicos_distribuicao (float): The cost of Serviços de Distribuição.
+        economia (float): The amount of savings (economia).
+        output_path (str, optional): The directory where the plot will be saved. Defaults to 'images/'.
+        filename (str, optional): The name of the output file. Defaults to 'energy_cost_plot.svg'.
+    Raises:
+        Exception: If there is an error loading the icon images.
+    Notes:
+        - The plot includes two bars: one for the total cost and another stacked bar 
+            for Energia Livre, Serviços de Distribuição, and Economia.
+        - Icons and labels are added to enhance the visualization.
+        - The plot is saved as an SVG file with a transparent background.
+    Example:
+        energy_cost_plot(
+            total_cost=1000.0,
+            energia_livre=400.0,
+            servicos_distribuicao=300.0,
+            economia=300.0,
+            output_path='output/',
+            filename='cost_comparison.svg'
+        )
+    """
 
     # Create the figure and axis objects
     fig, ax = plt.subplots(figsize=(10, 6), facecolor='none')  # Increased figure width for more spacing
@@ -411,7 +439,7 @@ def energy_cost_plot(total_cost, energia_livre, servicos_distribuicao,economia, 
     ax.set_yticks([])
 
     # Set the limits after all elements are added
-    ax.set_ylim(0, total_cost + 1500)
+    ax.set_ylim(0, max(total_cost, energia_livre + servicos_distribuicao + economia) * 1.2)
     ax.set_xlim(-0.5, 4)  # Increased x-axis limit to accommodate wider spacing
 
     # Save the plot

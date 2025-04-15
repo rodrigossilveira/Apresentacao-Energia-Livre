@@ -5,6 +5,7 @@ import pandas as pd
 import cairosvg
 from PyPDF2 import PdfMerger
 from datetime import datetime, timedelta
+from io import BytesIO
 import os
 
 # Define namespaces
@@ -53,12 +54,13 @@ def replace_text1(root, element_id, new_text, namespaces):
         print(f"Error replacing text for ID '{element_id}': {e}")
 
 
-def replace_text(root, element_id, new_text, namespaces):
+def replace_text(root, element_id, old_text, new_text, namespaces):
     text_element = root.find(f".//*[@id='{element_id}']", namespaces=namespaces)
     if text_element is not None:
         tspan_x = text_element.get("x")
         tspan_y = text_element.get("y")
-        text_element.text = str(new_text)
+        updated_text = text_element.text.replace(old_text, str(new_text))
+        text_element.text = updated_text
         if tspan_x is not None:
             text_element.set("x", tspan_x)
         if tspan_y is not None:
@@ -72,25 +74,27 @@ def replace_text(root, element_id, new_text, namespaces):
                 parent.set("x", parent_x)
             if parent_y is not None:
                 parent.set("y", parent_y)
-        print(f"Stabilized <tspan> at x={tspan_x}, y={tspan_y}")
+        #print(f"Stabilized <tspan> at x={tspan_x}, y={tspan_y}")
 
 # Define the function to embed svg in anothe SVG element
-def embed_svg(root, base_svg_path, embed_svg_path, output_svg_path, x=0, y=0, scale=1.0):
+def embed_svg(root, base_svg_path, embed_svg_path, x=0, y=0, scale=1.0):
     """
-    Embed an SVG file into another SVG file at a specified position and scale.
+    Embed an SVG file into another SVG file at a specified position and scale, modifying the base SVG in-place.
     
     Args:
+        root: The root element of the base SVG tree to modify
         base_svg_path: Path to the base SVG file
         embed_svg_path: Path to the SVG file to embed
-        output_svg_path: Path where the resulting SVG will be saved
         x: X-coordinate for the embedded SVG's top-left corner (default: 0)
         y: Y-coordinate for the embedded SVG's top-left corner (default: 0)
         scale: Scaling factor for the embedded SVG (default: 1.0)
+    
+    Returns:
+        The modified SVG tree
     """
     try:
         # Parse the base SVG
-        base_tree = etree.parse(base_svg_path)
-        base_root = base_tree.getroot()
+        base_tree = root.getroottree()
 
         # Parse the SVG to embed
         embed_tree = etree.parse(embed_svg_path)
@@ -109,15 +113,16 @@ def embed_svg(root, base_svg_path, embed_svg_path, output_svg_path, x=0, y=0, sc
         root.append(group)
 
         # Save the modified SVG
-        base_tree.write(output_svg_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
-        print(f"Embedded SVG saved as {output_svg_path}")
+        print(f"SVG embedded successfully")
+        return base_tree
 
     except etree.XMLSyntaxError as e:
-        print(f"Error parsing SVG: {e}")
+        print(f"Error parsing embedded SVG: {e}")
     except FileNotFoundError as e:
-        print(f"Error: File not found - {e}")
+        print(f"Error: Embedded SVG file not found - {e}")
     except Exception as e:
         print(f"Unexpected error: {e}")
+        return None
 
 # Define the main function to process the SVG file
 def process_page10(agente, input_svg_path="Proposta PPT/page 10.svg", output_svg_path="Temp_ppt/page 10.svg", db_path="DataBase.db"):
@@ -170,9 +175,9 @@ def process_page10(agente, input_svg_path="Proposta PPT/page 10.svg", output_svg
             phone = df.iloc[0]["telefone"]
             
             # Replace text in the SVG file
-            replace_text(root, "tspan520-7", agente, NSMAP)  # Agent name
-            replace_text(root, "tspan2", email, NSMAP)       # Email
-            replace_text(root, "tspan524", phone, NSMAP)     # Phone
+            replace_text(root, "tspan520-7", "Agente/Analista Comercial", agente, NSMAP)  # Agent name
+            replace_text(root, "tspan2", "(00) 0000-0000", email, NSMAP)       # Email
+            replace_text(root, "tspan524", "XXXXXXXXXX@cemig.com.br", phone, NSMAP)     # Phone
             
             # Save the modified SVG file
             try:
@@ -185,7 +190,6 @@ def process_page10(agente, input_svg_path="Proposta PPT/page 10.svg", output_svg
         print(f"Database error: {e}")
     except Exception as e:
         print(f"Unexpected error: {e}")
-
 
 def process_page1(cliente, instalacao, fat_ref,  input_svg_path="Proposta PPT/page 1.svg", output_svg_path="Temp_ppt/page 1.svg", db_path="DataBase.db"):
     """
@@ -209,9 +213,9 @@ def process_page1(cliente, instalacao, fat_ref,  input_svg_path="Proposta PPT/pa
         return
     
     # Replace text in the SVG file
-    replace_text(root, "tspan5", "INSTALAÇÃO: " + instalacao, NSMAP)  # Agent name
-    replace_text(root, "tspan4", "CLIENTE: " + cliente, NSMAP)       # Email
-    replace_text(root, "tspan6", "FATURA DE REFERÊNCIA: " + str(fat_ref), NSMAP)     # Phone
+    replace_text(root, "tspan5",":", ": " + instalacao, NSMAP)  # Agent name
+    replace_text(root, "tspan4",":",  ": " + cliente, NSMAP)       # Email
+    replace_text(root, "tspan6",":", ": " + str(fat_ref), NSMAP)     # Phone
             
     # Save the modified SVG file
     try:
@@ -249,12 +253,12 @@ def process_page5(media_mensal, total_contrato, economia_contratual, economia_ef
         return
     
     # Replace text in the SVG file
-    replace_text(root, "tspan520-7", f"R${media_mensal:,.2f}".replace(",", " "), NSMAP) 
-    replace_text(root, "tspan520-7-1", f"R${total_contrato:,.2f}".replace(",", " "), NSMAP)
-    replace_text(root, "tspan1", f"{economia_contratual:.0%}" , NSMAP)    
-    replace_text(root, "tspan2", f"{economia_efetiva:.0%}" , NSMAP)
-    replace_text(root, "tspan6", f"{validade.day:02d}/{validade.month:02d}/{validade.year}", NSMAP)  
-    embed_svg(root, input_svg_path,"images/energy_cost_plot.svg", output_svg_path ,x=95,y=120, scale= 0.2)
+    replace_text(root, "tspan520-7", "xx xxx,xx", f"{media_mensal:,.2f}".replace(",", " ").replace(".",","), NSMAP) 
+    replace_text(root, "tspan520-7-1", "xx xxx,xx", f"{total_contrato:,.2f}".replace(",", " ").replace(".",","), NSMAP)
+    replace_text(root, "tspan1", "25%",  f"{economia_contratual:.0%}" , NSMAP)    
+    replace_text(root, "tspan2","14%", f"{economia_efetiva:.0%}" , NSMAP)
+    replace_text(root, "tspan6","20/02/2025", f"{validade.day:02d}/{validade.month:02d}/{validade.year}", NSMAP)  
+    embed_svg(root, input_svg_path,"images/energy_cost_plot.svg" ,x=95,y=120, scale= 0.2)
     # Save the modified SVG file
     try:
         tree.write(output_svg_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
@@ -266,70 +270,54 @@ def process_page5(media_mensal, total_contrato, economia_contratual, economia_ef
     except Exception as e:
         print(f"Unexpected error: {e}")
 
-def svg_to_pdf(svg_path, pdf_path, dpi=500):
+def svg_to_pdf_stream(svg_path, dpi=500):
     """
-    Convert an SVG file to a PDF with specified DPI for high resolution.
+    Convert an SVG file to a PDF stream in memory.
     
     Args:
         svg_path: Path to the input SVG file
-        pdf_path: Path where the temporary PDF will be saved
-        dpi: Resolution in dots per inch (default: 300 for high quality)
+        dpi: Resolution in dots per inch (default: 500)
+    
+    Returns:
+        BytesIO object containing PDF data
     """
     try:
-        cairosvg.svg2pdf(url=svg_path, write_to=pdf_path, dpi=dpi)
-        print(f"Converted {svg_path} to {pdf_path}")
+        pdf_stream = BytesIO()
+        cairosvg.svg2pdf(url=svg_path, write_to=pdf_stream, dpi=dpi)
+        pdf_stream.seek(0)
+        print(f"Converted {svg_path} to PDF stream")
+        return pdf_stream
     except Exception as e:
         print(f"Error converting {svg_path} to PDF: {e}")
-
-    """from svglib.svglib import svg2rlg
-    from reportlab.graphics import renderPDF
-    drawing = svg2rlg(svg_path)
-    renderPDF.drawToFile(drawing, pdf_path)"""
+        return None
 
 def merge_svgs_to_pdf(svg_files, output_pdf, dpi=500):
     """
-    Merge multiple SVG files into a single PDF.
+    Merge multiple SVG files into a single PDF without saving temporary files.
     
     Args:
         svg_files: List of paths to SVG files
         output_pdf: Path where the final merged PDF will be saved
-        dpi: Resolution in dots per inch (default: 300)
+        dpi: Resolution in dots per inch (default: 500)
     """
-    # List to store temporary PDF paths
-    temp_pdfs = []
     merger = PdfMerger()
 
-    # Convert each SVG to a temporary PDF
+    # Convert each SVG to PDF stream and append to merger
     for svg_file in svg_files:
         if not os.path.exists(svg_file):
             print(f"Error: {svg_file} does not exist")
             continue
-        temp_pdf = svg_file.replace(".svg", "_temp.pdf")
-        svg_to_pdf(svg_file, temp_pdf, dpi)
-        temp_pdfs.append(temp_pdf)
+        pdf_stream = svg_to_pdf_stream(svg_file, dpi)
+        if pdf_stream:
+            merger.append(pdf_stream)
 
-    # Merge all temporary PDFs
+    # Write the merged PDF to disk
     try:
-        with PdfMerger() as merger:
-            for pdf in temp_pdfs:
-                merger.append(pdf)
-            merger.write(output_pdf)
+        with open(output_pdf, 'wb') as f:
+            merger.write(f)
         print(f"Merged PDF saved as {output_pdf}")
-   
     except Exception as e:
         print(f"Error merging PDFs: {e}")
     finally:
-        # Clean up temporary files
-        for temp_pdf in temp_pdfs:
-            if os.path.exists(temp_pdf):
-                #os.remove(temp_pdf)
-                print(f"Removed temporary file {temp_pdf}")
+        merger.close()
 
-# Example usage
-""" 
-svg_files = [
-    "Proposta PPT/output_page9.svg",
-    "Proposta PPT/output_page10.svg"
-]
-output_pdf = "Proposta PPT/combined_pages_9_10.pdf"
-merge_svgs_to_pdf(svg_files, output_pdf, dpi=300)"""

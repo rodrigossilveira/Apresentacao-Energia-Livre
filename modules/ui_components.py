@@ -137,14 +137,22 @@ def render_energy_grid(irrigante, gd):
     
     return grid_data
 
+
 def render_yearly_prices(produto, years):
     """Render the yearly prices section."""
     if produto == "Desconto Garantido":
-        desconto = st.number_input(
+        # Just create the number input widget - Streamlit will automatically
+        # update st.session_state.desconto when the user interacts with it
+        st.number_input(
             "Desconto (%)", min_value=0.0, value=0.0, format="%.2f", key="desconto"
         )
-        st.session_state.desconto = desconto
+        # Remove the line: st.session_state.desconto = desconto
     else:
+        # Initialize desconto to 0 when not using Desconto Garantido
+        # Only do this if we haven't already processed another widget with key="desconto"
+        if "desconto" not in st.session_state:
+            st.session_state.desconto = 0.0
+            
         first_price = None
         for i, year in enumerate(years):
             preco = st.number_input(
@@ -165,6 +173,7 @@ def render_yearly_prices(produto, years):
             
         if years:
             st.write([st.session_state.yearly_data[year]["Preço"] for year in st.session_state.yearly_data if year in years])
+
 
 def render_consumption_history():
     """Render the consumption history section."""
@@ -193,3 +202,25 @@ def render_consumption_history():
     if not st.session_state.consumption_history.empty and st.checkbox("Mostrar Histórico de Consumo"):
         st.write("Histórico de Consumo:")
         st.dataframe(st.session_state.consumption_history)
+
+
+
+def apply_css_spacing():
+    # Inject CSS to reduce vertical spacing
+    st.markdown("""
+        <style>
+            /* Reduce vertical spacing between rows */
+            div[data-testid="stVerticalBlock"] > div {
+                margin-bottom: 0px !important;
+                padding-bottom: 0px !important;
+            }
+            div[data-testid="column"] {
+                margin-bottom: 0px !important;
+                padding-bottom: 0px !important;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+
+
+

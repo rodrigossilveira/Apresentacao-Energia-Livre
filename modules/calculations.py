@@ -84,6 +84,48 @@ def calcular_fatura_cativa(quantidade, tarifa, impostos_bandeira):
 
 @st.cache_data
 def calcular_fatura_uso(quantidade, tarifa, impostos_bandeira):
+    """
+    Calcula os valores relacionados à fatura de uso de energia elétrica com base nas quantidades, tarifas e impostos fornecidos.
+    Args:
+        quantidade (dict): Um dicionário contendo as quantidades de energia e demanda utilizadas. 
+            As chaves esperadas incluem:
+                - "Demanda HFP": Quantidade de demanda em horário fora de ponta.
+                - "Demanda HFP sICMS": Quantidade de demanda em horário fora de ponta sem ICMS.
+                - "Demanda HP": Quantidade de demanda em horário de ponta.
+                - "Demanda HP sICMS": Quantidade de demanda em horário de ponta sem ICMS.
+                - "Energia HFP": Quantidade de energia consumida em horário fora de ponta.
+                - "Energia HP": Quantidade de energia consumida em horário de ponta.
+                - "Energia HR": Quantidade de energia consumida em horário reservado.
+        tarifa (dict): Um dicionário contendo as tarifas aplicáveis. 
+            As chaves esperadas incluem:
+                - "Demanda_HFP": Tarifa para demanda em horário fora de ponta.
+                - "Demanda_HP": Tarifa para demanda em horário de ponta.
+                - "Consumo_HFP_TUSD": Tarifa de uso do sistema de distribuição para consumo em horário fora de ponta.
+                - "Consumo_HP_TUSD": Tarifa de uso do sistema de distribuição para consumo em horário de ponta.
+        impostos_bandeira (dict): Um dicionário contendo os valores de impostos e descontos aplicáveis. 
+            As chaves esperadas incluem:
+                - "paseb": Percentual do PASEB.
+                - "cofins": Percentual do COFINS.
+                - "icms": Percentual do ICMS.
+                - "icms_hr": Percentual do ICMS para horário reservado.
+                - "desc_irr": Percentual de desconto para irrigação noturna.
+    Returns:
+        dict: Um dicionário contendo os valores calculados para cada componente da fatura, incluindo:
+            - "Demanda HFP": Valor da demanda em horário fora de ponta.
+            - "Demanda HFP sICMS": Valor da demanda em horário fora de ponta sem ICMS.
+            - "Demanda HP": Valor da demanda em horário de ponta.
+            - "Demanda HP sICMS": Valor da demanda em horário de ponta sem ICMS.
+            - "Energia HFP": Valor da energia consumida em horário fora de ponta.
+            - "Energia HP": Valor da energia consumida em horário de ponta.
+            - "Energia HR": Valor da energia consumida em horário reservado.
+            - "Energia Compensada HFP": Valor da energia compensada em horário fora de ponta (não calculado explicitamente).
+            - "Energia Compensada HP": Valor da energia compensada em horário de ponta (não calculado explicitamente).
+            - "Desconto Irrigante Noturno": Valor do desconto para irrigação noturna.
+            - "Desconto Demanda HFP": Valor do desconto na demanda em horário fora de ponta.
+            - "Desconto Demanda HP": Valor do desconto na demanda em horário de ponta.
+            - "Desconto TUSD HP": Valor do desconto na tarifa de uso do sistema de distribuição em horário de ponta.
+            - "Fatura de Uso": Valor total da fatura de uso, considerando os descontos aplicáveis.
+    """
 
     # Create a dictionary to store the values during function execution
     result_dict = {
@@ -131,7 +173,41 @@ def calcular_fatura_uso(quantidade, tarifa, impostos_bandeira):
 
 @st.cache_data
 def calcular_fatura_livre(quantidade, preco, impostos_bandeira, fatura_uso, fatura_cativa):
-
+    """
+    Calculates the "Fatura Livre" (Free Invoice) based on the provided parameters.
+    This function computes the free invoice values for different years based on the 
+    pricing model and other parameters such as energy quantities, taxes, and usage fees.
+    Args:
+        quantidade (dict): A dictionary containing energy quantities for different periods:
+            - "Energia HP": Energy during peak hours.
+            - "Energia HFP": Energy during partial peak hours.
+            - "Energia HR": Energy during off-peak hours.
+        preco (dict): A dictionary containing pricing information:
+            - "produto" (str): The pricing model, which can be "Desconto Garantido", "Curva de Preço", or "PMT".
+            - "desconto" (float): Discount percentage (used for "Desconto Garantido").
+            - "preco" (list): List of prices for each year (used for "Curva de Preço" and "PMT").
+            - "anos" (list): List of years corresponding to the prices.
+        impostos_bandeira (dict): A dictionary containing tax rates:
+            - "icms" (float): ICMS tax rate.
+            - "icms_hr" (float): ICMS tax rate for off-peak hours.
+        fatura_uso (float): The usage fee for the free invoice.
+        fatura_cativa (float): The captive invoice value.
+    Returns:
+        dict: A dictionary containing:
+            - "Fatura Livre" (list): Calculated free invoice values for each year.
+            - "anos" (list): List of years corresponding to the calculated values.
+    Notes:
+        - The function uses the `@st.cache_data` decorator to cache the results for optimization.
+        - The calculation varies based on the pricing model specified in `preco["produto"]`:
+            - "Desconto Garantido": Applies a discount to the captive invoice and subtracts the usage fee.
+            - "Curva de Preço" and "PMT": Calculates based on energy quantities, tax rates, and prices.
+    Debugging:
+        The function includes debug print statements to log intermediate values such as:
+        - Captive invoice (`fatura_cativa`).
+        - Usage fee (`fatura_uso`).
+        - Length of years and prices lists.
+        - Energy quantities and calculated free invoice values.
+    """
     result_dict = {
         "Fatura Livre": [],
         "anos": preco["anos"]
@@ -192,7 +268,6 @@ def gerar_graficos(preco, quantidade, tarifa, impostos_bandeira,  fatura_uso, fa
 
     #energy cost plot
     #energy_cost_plot(total_cost, energia_livre, servicos_distribuicao,economia, output_path='images/', filename='energy_cost_plot.svg')
-    energy_cost_plot(fatura_cativa,fatura_livre[0], fatura_uso, economy[0])
+    energy_cost_plot(fatura_cativa,fatura_livre[0], fatura_uso, economy[0]/12)
     print(descontos_bandeiras)
-
     flags_plot(descontos_bandeiras)

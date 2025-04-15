@@ -13,13 +13,10 @@ from modules.ui_components import (
     render_tax_inputs,
     render_energy_grid, 
     render_yearly_prices,
-    render_consumption_history
+    render_consumption_history,
+    apply_css_spacing
 )
-from modules.db_utils import (
-    fetch_distribuidoras,
-    fetch_res_hom,
-    fetch_contatos_agentes
-)
+from modules.db_utils import fetch_distribuidoras, fetch_res_hom, fetch_contatos_agentes
 
 st.set_page_config(layout="wide")
 
@@ -39,8 +36,7 @@ def main():
 
     # Check if update is complete and refresh data
     if update_event.is_set():
-        st.session_state.Distribuidora = fetch_distribuidoras(db_path, update_event.is_set())
-        st.session_state.Res_Hom = fetch_res_hom(db_path, st.session_state.Distribuidora[0], update_event.is_set())
+         st.session_state.Res_Hom = fetch_res_hom(db_path, st.session_state.Distribuidora[0], update_event.is_set())
 
     if 'Distribuidora' not in st.session_state:
         st.session_state.Distribuidora = fetch_distribuidoras(db_path, update_event.is_set())
@@ -108,22 +104,6 @@ def main():
     # Render consumption history section
     render_consumption_history()
 
-def apply_css_spacing():
-    # Inject CSS to reduce vertical spacing
-    st.markdown("""
-        <style>
-            /* Reduce vertical spacing between rows */
-            div[data-testid="stVerticalBlock"] > div {
-                margin-bottom: 0px !important;
-                padding-bottom: 0px !important;
-            }
-            div[data-testid="column"] {
-                margin-bottom: 0px !important;
-                padding-bottom: 0px !important;
-            }
-        </style>
-    """, unsafe_allow_html=True)
-
 def generate_proposal(produto, years, grid_data, irrigante, icms, paseb, cofins, 
                      bandeira, icms_hr, desc_irrig, distribuidora, subgrupo, modalidade, 
                      resolucao, desconto, Razao_Social, Instalacao, fat_ref, agente, duracao_meses):
@@ -150,7 +130,7 @@ def generate_proposal(produto, years, grid_data, irrigante, icms, paseb, cofins,
         "paseb": paseb/100,
         "cofins": cofins/100,
         "bandeira": bandeira,
-        "icms_hr": icms_hr,
+        "icms_hr": icms_hr,  
         "desc_irr": desc_irrig
     }
 
@@ -181,7 +161,7 @@ def generate_proposal(produto, years, grid_data, irrigante, icms, paseb, cofins,
     print(f"economia_anual: {economia_anual}", flush=True)
     
     st.write(fatura_livre)
-    
+    desconto = preco["desconto"] if produto == "Desconto Garantido" else economia_mensal/fatura_cativa
     # Generate graphics and process pages
     gerar_graficos(preco, quantidade, tarifa, impostos_bandeira, fatura_uso, fatura_cativa, fatura_livre)
     process_page1(Razao_Social, Instalacao, fat_ref)
@@ -199,7 +179,8 @@ def generate_proposal(produto, years, grid_data, irrigante, icms, paseb, cofins,
         'Temp_ppt/page 10.svg'
     ]
 
-    pdf_path = 'Proposta_' + Razao_Social + '_' + Instalacao + '.pdf'
+    download_folder = os.path.join(os.path.expanduser("~"), "Downloads")
+    pdf_path = os.path.join(download_folder, 'Proposta_' + Razao_Social + '_' + Instalacao + '.pdf')
     merge_svgs_to_pdf(svg_list, pdf_path, dpi=300)
 
     # Open the PDF with the default viewer
