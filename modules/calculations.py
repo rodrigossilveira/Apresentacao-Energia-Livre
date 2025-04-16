@@ -271,3 +271,44 @@ def gerar_graficos(preco, quantidade, tarifa, impostos_bandeira,  fatura_uso, fa
     energy_cost_plot(fatura_cativa,fatura_livre[0], fatura_uso, economy[0]/12)
     print(descontos_bandeiras)
     flags_plot(descontos_bandeiras)
+
+
+def prepare_quantidade(grid_data):
+    return {
+        "Demanda HFP": grid_data["Demanda - Fora Ponta"], 
+        "Demanda HFP sICMS": grid_data["Demanda s/ ICMS - Fora Ponta"],  
+        "Demanda HP": grid_data["Demanda - Ponta"],    
+        "Demanda HP sICMS": grid_data["Demanda s/ ICMS - Ponta"],  
+        "Demanda HR": grid_data.get("Demanda - Horário Reservado", 0),    
+        "Demanda HR sICMS": grid_data.get("Demanda s/ ICMS - Horário Reservado", 0),  
+        "Energia HFP": grid_data["Energia Ativa - Fora Ponta"], 
+        "Energia HP": grid_data["Energia Ativa - Ponta"],   
+        "Energia HR": grid_data.get("Energia Ativa - Horário Reservado", 0),   
+        "Energia Compensada HFP": grid_data.get("Energia Compensada - Fora Ponta", 0), 
+        "Energia Compensada HP": grid_data.get("Energia Compensada - Ponta", 0) 
+    }
+
+
+def prepare_impostos_bandeira(icms, paseb, cofins, bandeira, icms_hr, desc_irrig):
+    return {
+        "icms": icms / 100,
+        "paseb": paseb / 100,
+        "cofins": cofins / 100,
+        "bandeira": bandeira,
+        "icms_hr": icms_hr,  
+        "desc_irr": desc_irrig
+    }
+
+
+def calculate_savings(fatura_cativa, fatura_uso, fatura_livre):
+    economia_mensal = fatura_cativa - fatura_uso - fatura_livre[0]
+    economia_anual = economia_mensal * 12
+    return economia_mensal, economia_anual
+
+
+
+
+
+
+
+

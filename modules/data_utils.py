@@ -7,6 +7,7 @@ import tempfile
 import shutil
 from io import StringIO
 import sqlite3
+import streamlit as st
 
 update_event = threading.Event()  # Initially unset (False)
 
@@ -243,3 +244,83 @@ def get_flags():
     finally:
         conn.close()
     return flags
+
+@st.cache_data
+def load_tarifas(db_path):
+    """Load tariffs from the database."""
+    conn = sqlite3.connect(db_path)
+    try:
+        df = pd.read_sql_query("SELECT * FROM ANEEL_DB", conn)
+        return df if not df.empty else None
+    finally:
+        conn.close()
+        return None  # Return None if table doesn't exist or is empty
+    
+@st.cache_data
+def fetch_distribuidoras(db_path, update_event_status):
+    """Fetch list of distribuidoras from the database."""
+    conn = sqlite3.connect(db_path)
+    try:
+        distribuidoras = pd.read_sql_query("SELECT DISTINCT SigAgente FROM ANEEL_DB ORDER BY SigAgente ASC", conn)
+        return distribuidoras["SigAgente"].tolist() if not distribuidoras.empty else []
+    finally:
+        conn.close()
+
+@st.cache_data
+def fetch_res_hom(db_path, distribuidora, update_event_status):
+    """Fetch resolution homologatoria options for a given distribuidora."""
+    conn = sqlite3.connect(db_path)
+    try:
+        query = "SELECT DISTINCT DscREH FROM ANEEL_DB WHERE SigAgente = ? ORDER BY DscREH DESC"
+        res_hom = pd.read_sql_query(query, conn, params=(distribuidora,))
+        return res_hom["DscREH"].tolist() if not res_hom.empty else []
+    finally:
+        conn.close()
+
+@st.cache_data
+def fetch_contatos_agentes(db_path):
+    """Fetch agent contacts from the database."""
+    conn = sqlite3.connect(db_path)
+    try:
+        query = "SELECT DISTINCT Agente FROM Contatos_Agentes ORDER BY Agente ASC"
+        contatos_agentes = pd.read_sql_query(query, conn)
+        return contatos_agentes["Agente"].tolist() if not contatos_agentes.empty else []
+    finally:
+        conn.close()
+
+@st.cache_data
+def fetch_agent_contact_info(agente, db_path="DataBase.db"):
+    """
+    Fetch the email and phone number of an agent from the database.
+
+    Args:
+        agente (str): The agent's name to query.
+        db_path (str): Path to the SQLite database.
+
+    Returns:
+        dict: A dictionary containing the agent's email and phone, or None if not found.
+    """
+    try:
+        with sqlite3.connect(db_path) as conn:
+            query = """
+            SELECT "e-mail", telefone 
+            FROM Contatos_Agentes 
+            WHERE agente = ?
+            """
+            df = pd.read_sql_query(query, conn, params=(agente,))
+            
+            if df.empty:
+                print(f"No results found for agent '{agente}' in the database.")
+                return None
+            
+            # Return the first row as a dictionary
+            return {"email": df.iloc[0]["e-mail"], "phone": df.iloc[0]["telefone"]}
+    except sqlite3.Error as e:
+        print(f"Database error: {e}")
+        return None
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return None
+
+
+

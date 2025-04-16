@@ -7,6 +7,7 @@ from PyPDF2 import PdfMerger
 from datetime import datetime, timedelta
 from io import BytesIO
 import os
+from modules.data_utils import fetch_agent_contact_info
 
 # Define namespaces
 NSMAP = {
@@ -16,43 +17,27 @@ NSMAP = {
     "sodipodi": "http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
 }
 
-# Define the function to replace text in an SVG element
-def replace_text1(root, element_id, new_text, namespaces):
+def load_svg(input_svg_path):
     """
-    Replace the text content of an SVG element with the given ID while stabilizing its position.
-    
+    Load and parse an SVG file.
+
     Args:
-        root: The root element of the SVG tree
-        element_id: The ID of the element to modify
-        new_text: The new text to insert (converted to string)
-        namespaces: Dictionary of XML namespaces
+        input_svg_path (str): Path to the input SVG file.
+
+    Returns:
+        tuple: A tuple containing the parsed tree and root element, or (None, None) if an error occurs.
     """
-    
     try:
-        text_element = root.find(f".//*[@id='{element_id}']", namespaces=namespaces)
-        if text_element is not None:
-            # Replace the text
-            text_element.text = str(new_text)
-
-            # Stabilize the parent <text> element if it exists
-            parent = text_element.getparent()
-            while parent is not None and parent.tag != "{http://www.w3.org/2000/svg}text":
-                parent = parent.getparent()
-            if parent is not None and parent.tag == "{http://www.w3.org/2000/svg}text":
-                # Preserve parent's position and enforce text-anchor
-                x = parent.get("x")
-                y = parent.get("y")
-                parent.set("text-anchor", "start")  # Force left-alignment
-                if x is not None:
-                    parent.set("x", x)
-                if y is not None:
-                    parent.set("y", y)
-                print(f"Stabilized parent <text> at x={x}, y={y}")
-        else:
-            print(f"Warning: Element with ID '{element_id}' not found in SVG.")
+        tree = etree.parse(input_svg_path)
+        root = tree.getroot()
+        return tree, root
+    except FileNotFoundError:
+        print(f"Error: SVG file not found at '{input_svg_path}'")
+    except etree.XMLSyntaxError as e:
+        print(f"Error parsing SVG file: {e}")
     except Exception as e:
-        print(f"Error replacing text for ID '{element_id}': {e}")
-
+        print(f"Unexpected error: {e}")
+    return None, None
 
 def replace_text(root, element_id, old_text, new_text, namespaces):
     text_element = root.find(f".//*[@id='{element_id}']", namespaces=namespaces)
@@ -76,7 +61,6 @@ def replace_text(root, element_id, old_text, new_text, namespaces):
                 parent.set("y", parent_y)
         #print(f"Stabilized <tspan> at x={tspan_x}, y={tspan_y}")
 
-# Define the function to embed svg in anothe SVG element
 def embed_svg(root, base_svg_path, embed_svg_path, x=0, y=0, scale=1.0):
     """
     Embed an SVG file into another SVG file at a specified position and scale, modifying the base SVG in-place.
@@ -124,7 +108,6 @@ def embed_svg(root, base_svg_path, embed_svg_path, x=0, y=0, scale=1.0):
         print(f"Unexpected error: {e}")
         return None
 
-# Define the main function to process the SVG file
 def process_page10(agente, input_svg_path="Proposta PPT/page 10.svg", output_svg_path="Temp_ppt/page 10.svg", db_path="DataBase.db"):
     """
     Process an SVG file by replacing text fields with data from a database.
@@ -136,14 +119,8 @@ def process_page10(agente, input_svg_path="Proposta PPT/page 10.svg", output_svg
         db_path: Path to the SQLite database
     """
     # Load the SVG file
-    try:
-        tree = etree.parse(input_svg_path)
-        root = tree.getroot()
-    except FileNotFoundError:
-        print(f"Error: SVG file not found at '{input_svg_path}'")
-        return
-    except etree.XMLSyntaxError as e:
-        print(f"Error parsing SVG file: {e}")
+    tree, root = load_svg(input_svg_path)
+    if not tree or not root:
         return
 
     # Define namespaces for Inkscape SVG compatibility
@@ -154,42 +131,22 @@ def process_page10(agente, input_svg_path="Proposta PPT/page 10.svg", output_svg
         "sodipodi": "http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
     }
 
-    # Connect to the SQLite database
+    # Fetch agent contact info from the database
+    contact_info = fetch_agent_contact_info(agente, db_path)
+    if not contact_info:
+        return
+
+    # Replace text in the SVG file
+    replace_text(root, "tspan520-7", "Agente/Analista Comercial", agente, NSMAP)  # Agent name
+    replace_text(root, "tspan524", "(00) 0000-0000", contact_info["email"], NSMAP)  # Email
+    replace_text(root, "tspan2", "XXXXXXXXXX@cemig.com.br", contact_info["phone"], NSMAP)  # Phone
+
+    # Save the modified SVG file
     try:
-        with sqlite3.connect(db_path) as conn:
-            # Query the database for email and phone
-            query = """
-            SELECT "e-mail", telefone 
-            FROM Contatos_Agentes 
-            WHERE agente = ?
-            """
-            df = pd.read_sql_query(query, conn, params=(agente,))
-            
-            # Check if the query returned any rows
-            if df.empty:
-                print(f"No results found for agent '{agente}' in the database.")
-                return
-            
-            # Extract email and phone from the first row
-            email = df.iloc[0]["e-mail"]
-            phone = df.iloc[0]["telefone"]
-            
-            # Replace text in the SVG file
-            replace_text(root, "tspan520-7", "Agente/Analista Comercial", agente, NSMAP)  # Agent name
-            replace_text(root, "tspan2", "(00) 0000-0000", email, NSMAP)       # Email
-            replace_text(root, "tspan524", "XXXXXXXXXX@cemig.com.br", phone, NSMAP)     # Phone
-            
-            # Save the modified SVG file
-            try:
-                tree.write(output_svg_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
-                print(f"Modified SVG saved to '{output_svg_path}'")
-            except IOError as e:
-                print(f"Error saving modified SVG: {e}")
-    
-    except sqlite3.Error as e:
-        print(f"Database error: {e}")
-    except Exception as e:
-        print(f"Unexpected error: {e}")
+        tree.write(output_svg_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
+        print(f"Modified SVG saved to '{output_svg_path}'")
+    except IOError as e:
+        print(f"Error saving modified SVG: {e}")
 
 def process_page1(cliente, instalacao, fat_ref,  input_svg_path="Proposta PPT/page 1.svg", output_svg_path="Temp_ppt/page 1.svg", db_path="DataBase.db"):
     """
@@ -202,20 +159,21 @@ def process_page1(cliente, instalacao, fat_ref,  input_svg_path="Proposta PPT/pa
         db_path: Path to the SQLite database
     """
     # Load the SVG file
-    try:
-        tree = etree.parse(input_svg_path)
-        root = tree.getroot()
-    except FileNotFoundError:
-        print(f"Error: SVG file not found at '{input_svg_path}'")
-        return
-    except etree.XMLSyntaxError as e:
-        print(f"Error parsing SVG file: {e}")
+    tree, root = load_svg(input_svg_path)
+    if not tree or not root:
         return
     
+    # Format fat_ref to "dd/mm/yyyy"
+    if isinstance(fat_ref, datetime):
+        formatted_fat_ref = fat_ref.strftime("%d/%m/%Y")
+    else:
+        # If fat_ref is a string, parse it into a datetime object first
+        formatted_fat_ref = datetime.strptime(str(fat_ref), "%Y-%m-%d").strftime("%d/%m/%Y")
+
     # Replace text in the SVG file
     replace_text(root, "tspan5",":", ": " + instalacao, NSMAP)  # Agent name
     replace_text(root, "tspan4",":",  ": " + cliente, NSMAP)       # Email
-    replace_text(root, "tspan6",":", ": " + str(fat_ref), NSMAP)     # Phone
+    replace_text(root, "tspan6",":", ": " + str(formatted_fat_ref), NSMAP)     # Phone
             
     # Save the modified SVG file
     try:
@@ -242,14 +200,8 @@ def process_page5(media_mensal, total_contrato, economia_contratual, economia_ef
     validade = datetime.today() + timedelta(days=5)
 
     # Load the SVG file
-    try:
-        tree = etree.parse(input_svg_path)
-        root = tree.getroot()
-    except FileNotFoundError:
-        print(f"Error: SVG file not found at '{input_svg_path}'")
-        return
-    except etree.XMLSyntaxError as e:
-        print(f"Error parsing SVG file: {e}")
+    tree, root = load_svg(input_svg_path)
+    if not tree or not root:
         return
     
     # Replace text in the SVG file
@@ -291,7 +243,7 @@ def svg_to_pdf_stream(svg_path, dpi=500):
         print(f"Error converting {svg_path} to PDF: {e}")
         return None
 
-def merge_svgs_to_pdf(svg_files, output_pdf, dpi=500):
+def generate_pdf(svg_files, output_pdf, dpi=500):
     """
     Merge multiple SVG files into a single PDF without saving temporary files.
     
@@ -320,4 +272,13 @@ def merge_svgs_to_pdf(svg_files, output_pdf, dpi=500):
         print(f"Error merging PDFs: {e}")
     finally:
         merger.close()
+
+def open_pdf(pdf_path):
+    if os.name == "posix":  # macOS/Linux
+        os.system(f"open {pdf_path}")  # macOS
+        # Use "xdg-open" for Linux: os.system(f"xdg-open {pdf_path}")
+    elif os.name == "nt":  # Windows
+        os.system(f"start {pdf_path}")
+
+
 
