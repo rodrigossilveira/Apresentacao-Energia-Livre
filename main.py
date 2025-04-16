@@ -165,7 +165,7 @@ def generate_proposal(produto, years, grid_data, irrigante, icms, paseb, cofins,
     # Generate graphics and process pages
     gerar_graficos(preco, quantidade, tarifa, impostos_bandeira, fatura_uso, fatura_cativa, fatura_livre)
     process_page1(Razao_Social, Instalacao, fat_ref)
-    process_page5(economia_mensal, economia_anual, preco["desconto"], 0.12)
+    process_page5(economia_mensal, economia_anual, economia_mensal/fatura_cativa, 0.12)
     process_page10(agente)
 
     # Create PDF from SVGs
