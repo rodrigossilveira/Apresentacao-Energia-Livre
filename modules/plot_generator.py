@@ -1,11 +1,19 @@
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+import matplotlib.ticker as ticker
+from matplotlib.patches import FancyBboxPatch, Circle, Rectangle
+from matplotlib.lines import Line2D
+from matplotlib.text import Text
+from matplotlib.legend_handler import HandlerPatch
+import matplotlib.patches as mpatches
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+import numpy as np
 import os
 from PIL import Image
+from pathlib import Path
+from typing import Optional
 
-
-def flags_plot(values, categories = ['VERDE', 'AMARELA', 'VERMELHA I', 'VERMELHA II'], output_path = 'images/', filename = 'flags_plot.svg'):
+def flags_plot(values, categories = ['VERDE', 'AMARELA', 'VERMELHA I', 'VERMELHA II'], output_path = 'images/', filename = 'flags_plot.svg', transparent_background: bool = True):
     # Reverse the order of the data
     categories = categories[::-1]
     values = values[::-1]
@@ -54,14 +62,14 @@ def flags_plot(values, categories = ['VERDE', 'AMARELA', 'VERMELHA I', 'VERMELHA
     # Show the plot
     plt.tight_layout()
     save_path = os.path.join(output_path, filename)
-    plt.savefig(save_path, bbox_inches='tight', dpi=300)
+    plt.savefig(save_path, transparent= transparent_background, bbox_inches='tight', dpi=300)
 
 # Example usage
 """
 values = [22, 24, 27, 30]
 """
 
-def yearly_economy_plot(years, values, percentages, output_folder = 'images/', output_filename = 'yearly_economy_plot.svg'):
+def yearly_economy_plot(years, values, percentages, output_folder = 'images/', output_filename = 'yearly_economy_plot.svg', transparent_background: bool = True):
     # Ensure the output folder exists
     os.makedirs(output_folder, exist_ok=True)
     x_offset = 0
@@ -125,7 +133,7 @@ def yearly_economy_plot(years, values, percentages, output_folder = 'images/', o
 
     # Save the plot as a vectorized image
     output_path = os.path.join(output_folder, output_filename)
-    plt.savefig(output_path, bbox_inches='tight')  # No need for dpi in vector formats
+    plt.savefig(output_path,transparent= transparent_background, bbox_inches='tight')  # No need for dpi in vector formats
     plt.close()  # Close the figure to free memory
 
 # Example usage
@@ -133,7 +141,7 @@ def yearly_economy_plot(years, values, percentages, output_folder = 'images/', o
 values = [35849.07, 42256.63, 36916.99, 31577.36, 4879]
  percentages = [23.8, 28.1, 24.5, 21.0, 3.2]"""
 
-def price_curve_plot(years, values, output_folder = 'images', output_filename = 'price_curve_plot.svg'):
+def price_curve_plot(years, values, output_folder = 'images', output_filename = 'price_curve_plot.svg', transparent_background: bool = True):
     # Ensure the output folder exists
     os.makedirs(output_folder, exist_ok=True)
     
@@ -175,14 +183,14 @@ def price_curve_plot(years, values, output_folder = 'images', output_filename = 
     
     # Save the plot as a vectorized image
     output_path = os.path.join(output_folder, output_filename)
-    plt.savefig(output_path, bbox_inches='tight')  # No need for dpi in vector formats
+    plt.savefig(output_path, transparent= transparent_background, bbox_inches='tight')  # No need for dpi in vector formats
     plt.close()  # Close the figure to free memory
 
 # Example usage
 """years = ['2026', '2027', '2028', '2029', '2030', '2031']
 values = [395.00, 270.00, 245.00, 220.00, 250.00, 260.00]"""
 
-def historico_irrigante_plot(months, custo_cativo_values, energia_livre_values, economia_values, output_folder = 'images/', output_filename = 'historico_irigante_plot.svg'):
+def historico_irrigante_plot(months, custo_cativo_values, energia_livre_values, economia_values, output_folder = 'images/', output_filename = 'historico_irigante_plot.svg', transparent_background: bool = True):
     # Ensure the output folder exists
     os.makedirs(output_folder, exist_ok=True)
 
@@ -245,14 +253,8 @@ def historico_irrigante_plot(months, custo_cativo_values, energia_livre_values, 
 
     # Save the plot as a vectorized image
     output_path = os.path.join(output_folder, output_filename)
-    plt.savefig(output_path, bbox_inches='tight')  # No need for dpi in vector formats
+    plt.savefig(output_path, transparent= transparent_background, bbox_inches='tight')  # No need for dpi in vector formats
     plt.close()  # Close the figure to free memory
-
-# Example usage
-"""# Data for the bar chart
-months = ['Feb-24', 'Mar-24', 'Apr-24', 'May-24', 'Jun-24', 'Jul-24', 'Aug-24', 'Sep-24', 'Oct-24', 'Nov-24', 'Dec-24', 'Jan-25']
-custo_cativo_values = [14422, 19304, 16189, 18403, 19098, 56123, 51053, 59629, 24614, 13128, 11260, 10386]
-energia_livre_values = [17166, 20817, 19298, 11360, 20417, 50495, 48801, 53867, 20914, 11642, 9597, 8304]"""
 
 
 def crop_bottom(image_path, output_path, crop_percentage=0.3):
@@ -275,7 +277,7 @@ def crop_bottom(image_path, output_path, crop_percentage=0.3):
     cropped_img.save(output_path)
 
 
-def flags_pie_plot(categories, values, output_path='images/', filename='flags_pie_plot.png'):
+def flags_pie_plot(categories, values, output_path='images/', filename='flags_pie_plot.png', transparent_background: bool = True):
 
     categories = categories[::-1]
     values = values[::-1]
@@ -332,15 +334,11 @@ def flags_pie_plot(categories, values, output_path='images/', filename='flags_pi
     print(values)
     # Save the plot
     save_path = os.path.join(output_path, filename)
-    plt.savefig(save_path, bbox_inches='tight', dpi=300)
+    plt.savefig(save_path, transparent= transparent_background, bbox_inches='tight', dpi=300)
     crop_bottom(save_path, save_path, 0.3)
 
 
-# Example usage
-"""categories = ['Verde', 'Amarela', 'Vermelha 1', 'Vermelha 2']
-values = [10.4, 11.36, 12.49, 16.92]"""
-
-def energy_cost_plot(total_cost, energia_livre, servicos_distribuicao,economia, output_path='images/', filename='energy_cost_plot.svg'):
+def energy_cost_plot(total_cost, energia_livre, servicos_distribuicao,economia, output_path='images/', filename='energy_cost_plot.svg', transparent_background: bool = True):
     """
     Generates a bar plot comparing total energy cost with a breakdown of Energia Livre, 
     Serviços de Distribuição, and Economia. The plot includes annotations, icons, and 
@@ -445,13 +443,178 @@ def energy_cost_plot(total_cost, energia_livre, servicos_distribuicao,economia, 
     # Save the plot
     plt.tight_layout()
     save_path = os.path.join(output_path, filename)
-    plt.savefig(save_path, bbox_inches='tight', dpi=300, transparent=True)
+    plt.savefig(save_path, transparent= transparent_background, bbox_inches='tight', dpi=300)
     plt.show()
 
-# Example usage
-"""
-    total_cost = 12553.66  # R$ 12,553.66 (left bar)
-    energia_livre = 4687.87  # R$ 4,687.87 (right bar, bottom segment)
-    servicos_distribuicao = 5116.54  # R$ 5,116.54 (right bar, middle segment)
-    economia = 2749.25  # R$ 2,749.25 (right bar, top segment)
-"""
+def create_historic_graph(months, actual_values, new_values, reference_values, 
+                       show_quota=True, figsize=(12,6), output_path="images/historic_graph.svg",
+                       transparent_background = True):
+    """
+    Create a custom graph with rounded rectangles and circles.
+    
+    Parameters:
+    months (list): List of month labels
+    actual_values (list): List of actual values
+    new_values (list): List of new values
+    reference_values (list): List of reference values
+    show_quota (bool): Whether to show quota lines and labels
+    figsize (tuple): Figure size (width, height)
+    """
+    
+    percentage_diff = [((-1)*(actual - new - ref) / actual * 100) 
+                  for actual, new, ref in zip(actual_values, new_values, reference_values)]
+
+    # Calculate spacing based on y-range and figure width, adjusted for equal aspect
+    y_range = max(actual_values) * 1.1  # Max y-limit
+    total_x_units = y_range * (figsize[0] / figsize[1])
+    spacing = total_x_units / (len(months) + 1)
+    #spacing = 2*y_range / (len(months))  # Scale spacing to y-range, 1.5 is a tuning factor
+    width = spacing*0.3
+
+    # Function definitions
+    def flying_rectangle_graph(x_ax, y_ax, y0_ax, width, offset=0, face_color='gold', edge_color=None):
+        
+        """
+        Draws rectangles with rounded ends (circles) for a bar-like plot.
+        Skips drawing circles if y_ax is null (NaN/None) or zero.
+        
+        Parameters:
+        - x_ax: List of x-axis labels (e.g., months)
+        - y_ax: List of heights for rectangles
+        - y0_ax: List of base y-values for rectangles
+        - width: Width of each rectangle
+        - offset: Horizontal offset for positioning
+        - face_color: Color of the rectangles and circles
+        - edge_color: Color of the rectangle edges (None for default)
+        
+        Returns:
+        - None
+        """
+
+        rectprops = dict(facecolor=face_color, edgecolor='black', linewidth=0)
+        x = spacing * np.arange(len(x_ax))
+        heights = y_ax
+        basis = y0_ax
+        circle_radius = 0.95 * width / 2
+
+        for i, month in enumerate(x_ax):
+            # Only draw circles if height is non-zero and not NaN
+            if not (np.isnan(heights[i]) or heights[i] == 0): 
+                rect = FancyBboxPatch((x[i] - width + offset, basis[i]), width, 
+                                    heights[i], boxstyle="round", **rectprops)
+                ax.add_patch(rect)
+
+                circle_top = Circle((x[i] - width/2 + offset, basis[i] + heights[i]), 
+                                    radius=circle_radius, color=face_color)
+                circle_bottom = Circle((x[i] - width/2 + offset, basis[i]), 
+                                    radius=circle_radius, color=face_color)
+                ax.add_patch(circle_top)
+                ax.add_patch(circle_bottom)
+
+            # Add percentage difference labels
+            #label_x = x[i] - width/2 + offset
+            #label_y = (actual_values[i] + basis[i] + heights[i])/2 - 4
+            #label = Text(label_x, label_y, f'{percentage_diff[i]:.1f}%', 
+            #            ha='center', va='bottom', rotation=90, 
+            #            color='#0D5F4E', fontsize=11)  # Darker green than #117761
+            #ax.add_artist(label)
+        return None
+
+    def add_quota(x_ax, actual_values, new_values, reference_values, width=width, circle_radius=width/2):
+        x = spacing * np.arange(len(x_ax))  # Use the same spacing as the main plot
+        offset = spacing * 0.35  # Match the offset used in flying_rectangle_graph
+        for i, month in enumerate(x_ax):
+            # Start at top of new_values circle (basis + height + radius)
+            y_start = reference_values[i] + new_values[i] + circle_radius
+            # End at top of actual_values circle (height + radius)
+            y_end = actual_values[i] + circle_radius
+            # X-position centered on the new_values series
+            x_pos = x[i] + width/2
+            # Define text height (approximate, in data units; adjust if needed)
+            # Calculate midpoint and text height before drawing lines
+            mid_y = (y_start + y_end) / 2
+            mid_x = x_pos
+            text_height = (y_end - y_start) * 0.25  # 10% of the total height as buffer
+            # Lower segment: from y_start to just below text
+            quota_line_lower = Line2D([x_pos, x_pos], [y_start + 0.1*width, mid_y - text_height],
+                                    color='lightgrey', linestyle='-')
+            ax.add_line(quota_line_lower)
+            # Upper segment: from just above text to y_end
+            quota_line_upper = Line2D([x_pos, x_pos], [mid_y + text_height, y_end - 0.1*width],
+                                    color='lightgrey', linestyle='-')
+            ax.add_line(quota_line_upper)
+            
+            mid_x = x_pos
+            mid_y = (y_start + y_end) / 2
+            quota_text = Text(mid_x, mid_y, f'{percentage_diff[i]:.1f}%', ha='center', va='center', rotation=90, color='#0D5F4E', fontsize=11)
+            ax.add_artist(quota_text)
+
+            # Horizontal line at bottom (y_start)
+            hline_bottom = Line2D([x_pos - 0.4 * width, x_pos + 0.4 * width], [y_start + 0.1*width, y_start + 0.1*width],
+                                  color='lightgrey', linestyle='-')
+            ax.add_line(hline_bottom)
+            # Horizontal line at top (y_end)
+            hline_top = Line2D([x_pos - 0.4 * width, x_pos + 0.4 * width], [y_end - 0.1*width, y_end- 0.1*width],
+                              color='lightgrey', linestyle='-')
+            ax.add_line(hline_top)
+
+
+    # Plot setup
+    fig, ax = plt.subplots(figsize=figsize)
+    #ax.set_aspect('auto')
+    plt.axis('equal')
+    # Replace your format_func with:
+    def format_func(value, pos):
+        if value >= 1000000:
+            return f'R$ {value / 1000000:.1f}M'
+        elif value >= 1000:
+            return f'R$ {value / 1000:.1f}k'
+        return f'R$ {value:.0f}'
+
+    # Axis configuration
+    ax.yaxis.set_major_formatter(ticker.FuncFormatter(format_func))
+    ax.set_xticks(spacing * np.arange(len(months)))    
+    ax.set_xticklabels(months, rotation=0, ha='center')
+    ax.tick_params(axis='x', pad=15)  # Increase spacing between labels and plot
+    ax.set_xlim(-0.5 * spacing, spacing * len(months) + 0.5)
+    ax.set_ylim(0, max(actual_values) * 1.1)
+    #ax.set_title('Desempenho Mensal\n', fontsize=16, fontweight='bold', color='#107762')
+    # Remove x and y axis spines (black lines)
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+    ax.spines['bottom'].set_visible(False)
+
+    # Remove x and y axis ticks
+    ax.tick_params(axis='x', which='both', length=0)  # Remove x-axis ticks
+    ax.tick_params(axis='y', which='both', length=0)  # Remove y-axis ticks
+
+    # Create graph elements
+    flying_rectangle_graph(months, actual_values, [0]*len(months), width=width, offset=0, face_color='#fec107')
+    flying_rectangle_graph(months, reference_values, [0]*len(months), width=width, offset=width, face_color='#117761')
+    flying_rectangle_graph(months, new_values, reference_values, width=width, offset=width, face_color='#e7e9e8')
+    if show_quota:
+        add_quota(months, actual_values, new_values, reference_values, width=width)
+
+    class HandlerCircle(HandlerPatch):
+        def create_artists(self, legend, orig_handle, xdescent, ydescent, width, height, fontsize, trans):
+            center = xdescent + 0.5 * width, ydescent + 0.5 * height
+            p = mpatches.Circle(xy=center, radius=4)
+            self.update_prop(p, orig_handle, legend)
+            p.set_transform(trans)
+            return [p]
+        
+    # Create legend
+    legend_elements = [
+        plt.Circle((0, 0), 1, facecolor='#fec107', edgecolor='none', label='Simulação Mercado Cativo'),
+        plt.Circle((0, 0), 1, facecolor='#117761', edgecolor='none', label='Fatura TUSD Distribuidora'),
+        plt.Circle((0, 0), 1, facecolor='#e7e9e8', edgecolor='none', label='Fatura CEMIG (Mercado Livre de Energia)')
+    ]
+    plt.legend(handles=legend_elements, loc='lower left', bbox_to_anchor=(0.0, -0.15), ncol=3, frameon=False,
+              handler_map={plt.Circle: HandlerCircle()})
+    
+    # Wrapping all out
+    plt.tight_layout()
+    
+    fig.savefig(output_path, transparent= transparent_background, bbox_inches='tight')
+    plt.close(fig)

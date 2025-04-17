@@ -108,46 +108,6 @@ def embed_svg(root, base_svg_path, embed_svg_path, x=0, y=0, scale=1.0):
         print(f"Unexpected error: {e}")
         return None
 
-def process_page10(agente, input_svg_path="Proposta PPT/page 10.svg", output_svg_path="Temp_ppt/page 10.svg", db_path="DataBase.db"):
-    """
-    Process an SVG file by replacing text fields with data from a database.
-    
-    Args:
-        agente: The agent's name to query in the database
-        input_svg_path: Path to the input SVG file
-        output_svg_path: Path where the modified SVG will be saved
-        db_path: Path to the SQLite database
-    """
-    # Load the SVG file
-    tree, root = load_svg(input_svg_path)
-    if not tree or not root:
-        return
-
-    # Define namespaces for Inkscape SVG compatibility
-    NSMAP = {
-        None: "http://www.w3.org/2000/svg",  # Default SVG namespace
-        "xlink": "http://www.w3.org/1999/xlink",
-        "inkscape": "http://www.inkscape.org/namespaces/inkscape",
-        "sodipodi": "http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-    }
-
-    # Fetch agent contact info from the database
-    contact_info = fetch_agent_contact_info(agente, db_path)
-    if not contact_info:
-        return
-
-    # Replace text in the SVG file
-    replace_text(root, "tspan520-7", "Agente/Analista Comercial", agente, NSMAP)  # Agent name
-    replace_text(root, "tspan524", "(00) 0000-0000", contact_info["email"], NSMAP)  # Email
-    replace_text(root, "tspan2", "XXXXXXXXXX@cemig.com.br", contact_info["phone"], NSMAP)  # Phone
-
-    # Save the modified SVG file
-    try:
-        tree.write(output_svg_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
-        print(f"Modified SVG saved to '{output_svg_path}'")
-    except IOError as e:
-        print(f"Error saving modified SVG: {e}")
-
 def process_page1(cliente, instalacao, fat_ref,  input_svg_path="Proposta PPT/page 1.svg", output_svg_path="Temp_ppt/page 1.svg", db_path="DataBase.db"):
     """
     Process an SVG file by replacing text fields with data from a database.
@@ -187,16 +147,29 @@ def process_page1(cliente, instalacao, fat_ref,  input_svg_path="Proposta PPT/pa
     except Exception as e:
         print(f"Unexpected error: {e}")
 
-def process_page5(media_mensal, total_contrato, economia_contratual, economia_efetiva, input_svg_path="Proposta PPT/page 5.svg", output_svg_path="Temp_ppt/page 5.svg", db_path="DataBase.db"):
+def process_page4(IN: str, media_mensal: float, total_contrato: float, economia_contratual: float, input_svg_path="Proposta PPT/page 4.svg", output_svg_path="Temp_ppt/page 4.svg", db_path="DataBase.db"):
     """
-    Process an SVG file by replacing text fields with data from a database.
-    
+    Processes and modifies an SVG file for page 4 of a presentation by replacing text elements 
+    and embedding an image. The function also calculates a validity date and formats numerical 
+    values for insertion into the SVG.
     Args:
-        agente: The agent's name to query in the database
-        input_svg_path: Path to the input SVG file
-        output_svg_path: Path where the modified SVG will be saved
-        db_path: Path to the SQLite database
+        IN (str): Instalation number as a string
+        media_mensal (float): Monthly average value to be formatted and inserted into the SVG.
+        total_contrato (float): Total contract value to be formatted and inserted into the SVG.
+        economia_contratual (float): Contractual savings percentage to be formatted and inserted into the SVG.
+        economia_efetiva (float): Effective savings value (not directly used in the function).
+        input_svg_path (str, optional): Path to the input SVG file. Defaults to "Proposta PPT/page 4.svg".
+        output_svg_path (str, optional): Path to save the modified SVG file. Defaults to "Temp_ppt/page 4.svg".
+        db_path (str, optional): Path to the database file (not directly used in the function). Defaults to "DataBase.db".
+    Returns:
+        None
+    Notes:
+        - The function uses helper functions `load_svg`, `replace_text`, and `embed_svg` to manipulate the SVG.
+        - The `validade` date is calculated as 5 days from the current date.
+        - Numerical values are formatted with a comma as the decimal separator and a space as the thousands separator.
+        - The function handles exceptions during the SVG saving process and logs errors if they occur.
     """
+
     validade = datetime.today() + timedelta(days=5)
 
     # Load the SVG file
@@ -205,6 +178,54 @@ def process_page5(media_mensal, total_contrato, economia_contratual, economia_ef
         return
     
     # Replace text in the SVG file
+    
+    replace_text(root, "tspan520-74-4-0-6", "XXXXXXXXXX", IN, NSMAP) 
+    replace_text(root, "tspan520-7", "xx xxx,xx", f"{media_mensal:,.2f}".replace(",", " ").replace(".",","), NSMAP) 
+    replace_text(root, "tspan520-7-1", "xx xxx,xx", f"{total_contrato:,.2f}".replace(",", " ").replace(".",","), NSMAP)
+    replace_text(root, "tspan12", "25%",  f"{economia_contratual:.0%}" , NSMAP)    
+    replace_text(root, "tspan6","20/02/2025", f"{validade.day:02d}/{validade.month:02d}/{validade.year}", NSMAP)  
+    embed_svg(root, input_svg_path,"images/energy_cost_plot.svg" ,x=80,y=95, scale= 0.25)
+    # Save the modified SVG file
+    try:
+        tree.write(output_svg_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
+        print(f"Modified SVG saved to '{output_svg_path}'")
+
+    except IOError as e:
+        print(f"Error saving modified SVG: {e}")
+    
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+
+def process_page5(IN: str, media_mensal: float, total_contrato: float, economia_contratual: float, economia_efetiva: float, input_svg_path="Proposta PPT/page 5.svg", output_svg_path="Temp_ppt/page 5.svg", db_path="DataBase.db"):
+    """
+    Processes and modifies an SVG file to update specific text elements and embed an image.
+    Args:
+        IN (str): Instalacao number as a string.
+        media_mensal (float): Monthly average value to be displayed in the SVG.
+        total_contrato (float): Total contract value to be displayed in the SVG.
+        economia_contratual (float): Contractual savings percentage to be displayed in the SVG.
+        economia_efetiva (float): Effective savings percentage to be displayed in the SVG.
+        input_svg_path (str, optional): Path to the input SVG file. Defaults to "Proposta PPT/page 5.svg".
+        output_svg_path (str, optional): Path to save the modified SVG file. Defaults to "Temp_ppt/page 5.svg".
+        db_path (str, optional): Path to the database file (not used in the current implementation). Defaults to "DataBase.db".
+    Returns:
+        None
+    Notes:
+        - The function loads an SVG file, replaces specific text elements with provided values,
+        embeds an image, and saves the modified SVG to the specified output path.
+        - The `validade` date is calculated as 5 days from the current date and formatted as DD/MM/YYYY.
+        - The function handles exceptions during the saving process and prints error messages if any issues occur.
+    """
+   
+    validade = datetime.today() + timedelta(days=5)
+
+    # Load the SVG file
+    tree, root = load_svg(input_svg_path)
+    if not tree or not root:
+        return
+    
+    # Replace text in the SVG file
+    replace_text(root, "tspan520-74-4-0-6", "3014435811", IN, NSMAP) 
     replace_text(root, "tspan520-7", "xx xxx,xx", f"{media_mensal:,.2f}".replace(",", " ").replace(".",","), NSMAP) 
     replace_text(root, "tspan520-7-1", "xx xxx,xx", f"{total_contrato:,.2f}".replace(",", " ").replace(".",","), NSMAP)
     replace_text(root, "tspan1", "25%",  f"{economia_contratual:.0%}" , NSMAP)    
@@ -221,6 +242,147 @@ def process_page5(media_mensal, total_contrato, economia_contratual, economia_ef
     
     except Exception as e:
         print(f"Unexpected error: {e}")
+
+def process_page6(IN, media_mensal, total_contrato, economia_contratual, input_svg_path="Proposta PPT/page 6.svg", output_svg_path="Temp_ppt/page 6.svg", db_path="DataBase.db"):
+    """
+    Processes and modifies an SVG file for page 6 of a presentation by replacing text elements 
+    and embedding additional SVG images.
+    Args:
+        IN (str): Instalacao number as a string.
+        media_mensal (float): Monthly average value to be formatted and replaced in the SVG.
+        total_contrato (float): Total contract value to be formatted and replaced in the SVG.
+        economia_contratual (float): Contractual savings percentage to be formatted and replaced in the SVG.
+        economia_efetiva (float): Effective savings percentage (currently unused in the function).
+        input_svg_path (str, optional): Path to the input SVG file. Defaults to "Proposta PPT/page 6.svg".
+        output_svg_path (str, optional): Path to save the modified SVG file. Defaults to "Temp_ppt/page 6.svg".
+        db_path (str, optional): Path to the database file (currently unused in the function). Defaults to "DataBase.db".
+    Returns:
+        None
+    Notes:
+        - The function calculates a validity date (5 days from today) and replaces it in the SVG.
+        - Text elements in the SVG are replaced using the `replace_text` function.
+        - Additional SVG images are embedded into the main SVG using the `embed_svg` function.
+        - The modified SVG is saved to the specified output path.
+        - Error handling is implemented for file saving and unexpected exceptions.
+    """
+    
+    validade = datetime.today() + timedelta(days=5)
+
+    # Load the SVG file
+    tree, root = load_svg(input_svg_path)
+    if not tree or not root:
+        return
+    
+    # Replace text in the SVG file
+    replace_text(root, "tspan520-74-4-0-6", "3014435811", IN, NSMAP) 
+    replace_text(root, "tspan520-7", "xx xxx,xx", f"{media_mensal:,.2f}".replace(",", " ").replace(".",","), NSMAP) 
+    replace_text(root, "tspan520-7-1", "xx xxx,xx", f"{total_contrato:,.2f}".replace(",", " ").replace(".",","), NSMAP)
+    replace_text(root, "tspan1", "25%",  f"{economia_contratual:.0%}" , NSMAP)    
+    #replace_text(root, "tspan2","14%", f"{economia_efetiva:.0%}" , NSMAP)
+    replace_text(root, "tspan12","20/02/2025", f"{validade.day:02d}/{validade.month:02d}/{validade.year}", NSMAP)  
+    embed_svg(root, input_svg_path,"images/energy_cost_plot.svg" ,x=80,y=75, scale= 0.25)
+    embed_svg(root, input_svg_path,"images/flags_plot.svg" ,x=135,y=190, scale= 0.15)
+    embed_svg(root, input_svg_path,"images/price_curve_plot.svg" ,x=-35,y=190, scale= 0.1)
+    # Save the modified SVG file
+    try:
+        tree.write(output_svg_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
+        print(f"Modified SVG saved to '{output_svg_path}'")
+
+    except IOError as e:
+        print(f"Error saving modified SVG: {e}")
+    
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+
+def process_page7(IN, media_mensal, total_contrato, economia_contratual, economia_anual, input_svg_path="Proposta PPT/page 7.svg", output_svg_path="Temp_ppt/page 7.svg", db_path="DataBase.db"):
+    """
+    Processes and modifies an SVG file for page 7 of a presentation by embedding data and replacing placeholders.
+    Args:
+        IN (str): Instalacao number as a string.
+        media_mensal (float): Monthly average value to be formatted and embedded in the SVG.
+        total_contrato (float): Total contract value to be formatted and embedded in the SVG.
+        economia_contratual (float): Contractual savings percentage to be formatted and embedded in the SVG.
+        economia_anual (float): Annual savings value (currently unused in the function).
+        input_svg_path (str, optional): Path to the input SVG file. Defaults to "Proposta PPT/page 7.svg".
+        output_svg_path (str, optional): Path to save the modified SVG file. Defaults to "Temp_ppt/page 7.svg".
+        db_path (str, optional): Path to the database file (currently unused in the function). Defaults to "DataBase.db".
+    Returns:
+        None
+    Notes:
+        - The function loads an SVG file, replaces specific text placeholders with formatted values, and embeds additional SVG images.
+        - The modified SVG is saved to the specified output path.
+        - The function calculates a validity date (5 days from the current date) and embeds it in the SVG.
+        - Error handling is included for saving the modified SVG file.
+    """
+    
+    validade = datetime.today() + timedelta(days=5)
+
+    # Load the SVG file
+    tree, root = load_svg(input_svg_path)
+    if not tree or not root:
+        return
+    
+    # Replace text in the SVG file
+    replace_text(root, "tspan520-74-4-0-6", "XXXXXXXXXX", IN, NSMAP) 
+    replace_text(root, "tspan520-7", "xx xxx,xx", f"{media_mensal:,.2f}".replace(",", " ").replace(".",","), NSMAP) 
+    replace_text(root, "tspan520-7-1", "xx xxx,xx", f"{total_contrato:,.2f}".replace(",", " ").replace(".",","), NSMAP)
+    replace_text(root, "tspan5", "XXX XXX", f"{total_contrato:,.0f}".replace(",", " ").replace(".",","), NSMAP)
+    replace_text(root, "tspan1", "25%",  f"{economia_contratual:.0%}" , NSMAP)    
+    #replace_text(root, "tspan2","14%", f"{economia_efetiva:.0%}" , NSMAP)
+    replace_text(root, "tspan12","20/02/2025", f"{validade.day:02d}/{validade.month:02d}/{validade.year}", NSMAP)  
+    embed_svg(root, input_svg_path,"images/energy_cost_plot.svg" ,x=125,y=75, scale= 0.18)
+    embed_svg(root, input_svg_path,"images/historic_graph.svg" ,x=80,y=170, scale= 0.165)
+
+    # Save the modified SVG file
+    try:
+        tree.write(output_svg_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
+        print(f"Modified SVG saved to '{output_svg_path}'")
+
+    except IOError as e:
+        print(f"Error saving modified SVG: {e}")
+    
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+
+def process_page10(agente, input_svg_path="Proposta PPT/page 10.svg", output_svg_path="Temp_ppt/page 10.svg", db_path="DataBase.db"):
+    """
+    Process an SVG file by replacing text fields with data from a database.
+    
+    Args:
+        agente: The agent's name to query in the database
+        input_svg_path: Path to the input SVG file
+        output_svg_path: Path where the modified SVG will be saved
+        db_path: Path to the SQLite database
+    """
+    # Load the SVG file
+    tree, root = load_svg(input_svg_path)
+    if not tree or not root:
+        return
+
+    # Define namespaces for Inkscape SVG compatibility
+    NSMAP = {
+        None: "http://www.w3.org/2000/svg",  # Default SVG namespace
+        "xlink": "http://www.w3.org/1999/xlink",
+        "inkscape": "http://www.inkscape.org/namespaces/inkscape",
+        "sodipodi": "http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    }
+
+    # Fetch agent contact info from the database
+    contact_info = fetch_agent_contact_info(agente, db_path)
+    if not contact_info:
+        return
+
+    # Replace text in the SVG file
+    replace_text(root, "tspan520-7", "Agente/Analista Comercial", agente, NSMAP)  # Agent name
+    replace_text(root, "tspan524", "(00) 0000-0000", contact_info["email"], NSMAP)  # Email
+    replace_text(root, "tspan2", "XXXXXXXXXX@cemig.com.br", contact_info["phone"], NSMAP)  # Phone
+
+    # Save the modified SVG file
+    try:
+        tree.write(output_svg_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
+        print(f"Modified SVG saved to '{output_svg_path}'")
+    except IOError as e:
+        print(f"Error saving modified SVG: {e}")
 
 def svg_to_pdf_stream(svg_path, dpi=500):
     """

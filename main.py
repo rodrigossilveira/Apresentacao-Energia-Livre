@@ -85,7 +85,7 @@ def main():
         # Generate Proposal Button
         if st.button("Gerar Proposta"):
             generate_proposal(
-                produto, years, grid_data, irrigante, icms, paseb, cofins, 
+                Instalacao, produto, years, grid_data, gd, irrigante, icms, paseb, cofins, 
                 bandeira, icms_hr, desc_irrig, distribuidora, subgrupo, modalidade, 
                 resolucao, desconto, Razao_Social, Instalacao, fat_ref, agente, duracao_meses
             )

@@ -78,7 +78,7 @@ def fetch_and_update_tarifas_background():
 
         update_event.set()  # Signal completion
         print("Thread finished, UPDATE_COMPLETE set to True", flush=True)
-print("update runned", flush=True)
+    print("update runned", flush=True)
 
 def preprocess_tarifas(df):
 
