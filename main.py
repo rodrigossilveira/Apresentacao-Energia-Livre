@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import threading
 from dateutil.relativedelta import relativedelta
+import streamlit.web.cli as stcli
+import sys
 from modules.data_utils import (
     fetch_and_update_tarifas_background, update_event, fetch_distribuidoras, fetch_res_hom, fetch_contatos_agentes
 )                               
@@ -102,6 +104,6 @@ def main():
     render_consumption_history()
 
 
-
 if __name__ == "__main__":
-    main()
+    sys.argv = ["streamlit", "run", __file__]
+    stcli.main()
