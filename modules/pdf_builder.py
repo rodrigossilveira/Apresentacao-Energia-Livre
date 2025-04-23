@@ -8,6 +8,9 @@ from datetime import datetime, timedelta
 from io import BytesIO
 import os
 from modules.data_utils import fetch_agent_contact_info
+import logging
+
+logger = logging.getLogger("Proposal_Generator")
 
 # Define namespaces
 NSMAP = {
@@ -17,7 +20,7 @@ NSMAP = {
     "sodipodi": "http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
 }
 
-def load_svg(input_svg_path):
+def load_svg(input_svg_path: str) -> tuple:
     """
     Load and parse an SVG file.
 
@@ -27,19 +30,36 @@ def load_svg(input_svg_path):
     Returns:
         tuple: A tuple containing the parsed tree and root element, or (None, None) if an error occurs.
     """
+    logger = logging.getLogger("Proposal_Generator")
     try:
         tree = etree.parse(input_svg_path)
         root = tree.getroot()
         return tree, root
     except FileNotFoundError:
-        print(f"Error: SVG file not found at '{input_svg_path}'")
+        logger.error(f"Error: SVG file not found at '{input_svg_path}'")
     except etree.XMLSyntaxError as e:
-        print(f"Error parsing SVG file: {e}")
+        logger.error(f"Error parsing SVG file: {e}")
     except Exception as e:
-        print(f"Unexpected error: {e}")
+        logger.error(f"Unexpected error: {e}")
     return None, None
 
-def replace_text(root, element_id, old_text, new_text, namespaces):
+def replace_text(root, element_id: str, old_text: str, new_text: str, namespaces: dict) -> None:
+    """
+    Replaces text within an SVG element identified by its ID, while preserving
+    its position attributes (`x` and `y`) and ensuring parent elements do not
+    override these attributes.
+
+    Args:
+        root (xml.etree.ElementTree.Element): The root element of the SVG document.
+        element_id (str): The ID of the SVG element whose text is to be replaced.
+        old_text (str): The text to be replaced within the element.
+        new_text (str): The new text to replace the old text.
+        namespaces (dict): A dictionary of namespace mappings for the SVG document.
+
+    Returns:
+        None
+    """
+
     text_element = root.find(f".//*[@id='{element_id}']", namespaces=namespaces)
     if text_element is not None:
         tspan_x = text_element.get("x")
@@ -59,9 +79,11 @@ def replace_text(root, element_id, old_text, new_text, namespaces):
                 parent.set("x", parent_x)
             if parent_y is not None:
                 parent.set("y", parent_y)
-        #print(f"Stabilized <tspan> at x={tspan_x}, y={tspan_y}")
+        #logger.debug(f"Stabilized <tspan> at x={tspan_x}, y={tspan_y}")
+        logger.debug(f"{element_id} text replaced: '{old_text}' -> '{new_text}'")
 
-def embed_svg(root, base_svg_path, embed_svg_path, x=0, y=0, scale=1.0):
+
+def embed_svg(root, base_svg_path, embed_svg_path: str, x: int = 0, y: int = 0, scale: int = 1.0) -> None:
     """
     Embed an SVG file into another SVG file at a specified position and scale, modifying the base SVG in-place.
     
@@ -76,6 +98,8 @@ def embed_svg(root, base_svg_path, embed_svg_path, x=0, y=0, scale=1.0):
     Returns:
         The modified SVG tree
     """
+    logger = logging.getLogger("Proposal_Generator")
+    logging.info(f"Embedding SVG '{embed_svg_path}' into '{base_svg_path}' at ({x}, {y}) with scale {scale}")
     try:
         # Parse the base SVG
         base_tree = root.getroottree()
@@ -97,15 +121,15 @@ def embed_svg(root, base_svg_path, embed_svg_path, x=0, y=0, scale=1.0):
         root.append(group)
 
         # Save the modified SVG
-        print(f"SVG embedded successfully")
+        logger.debug(f"SVG {base_svg_path} embedded successfully")
         return base_tree
 
     except etree.XMLSyntaxError as e:
-        print(f"Error parsing embedded SVG: {e}")
+        logger.error(f"Error parsing embedded SVG: {e}")
     except FileNotFoundError as e:
-        print(f"Error: Embedded SVG file not found - {e}")
+        logger.error(f"Error: Embedded SVG file not found - {e}")
     except Exception as e:
-        print(f"Unexpected error: {e}")
+        logger.error(f"Unexpected error: {e}")
         return None
 
 def process_page1(cliente, instalacao, fat_ref,  input_svg_path="Proposta PPT/page 1.svg", output_svg_path="Temp_ppt/page 1.svg", db_path="DataBase.db"):
@@ -118,6 +142,7 @@ def process_page1(cliente, instalacao, fat_ref,  input_svg_path="Proposta PPT/pa
         output_svg_path: Path where the modified SVG will be saved
         db_path: Path to the SQLite database
     """
+    logger.debug("Processing page 1")
     # Load the SVG file
     tree, root = load_svg(input_svg_path)
     if not tree or not root:
@@ -138,14 +163,14 @@ def process_page1(cliente, instalacao, fat_ref,  input_svg_path="Proposta PPT/pa
     # Save the modified SVG file
     try:
         tree.write(output_svg_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
-        print(f"Modified SVG saved to '{output_svg_path}'")
+        logger.info(f"Modified SVG saved to '{output_svg_path}'")
+
     except IOError as e:
-        print(f"Error saving modified SVG: {e}")
-    
+        logger.error(f"Error saving modified SVG: {e}")
     except sqlite3.Error as e:
-        print(f"Database error: {e}")
+        logger.error(f"Database error: {e}")
     except Exception as e:
-        print(f"Unexpected error: {e}")
+        logger.error(f"Unexpected error: {e}")
 
 def process_page4(IN: str, media_mensal: float, total_contrato: float, economia_contratual: float, input_svg_path="Proposta PPT/page 4.svg", output_svg_path="Temp_ppt/page 4.svg", db_path="DataBase.db"):
     """
@@ -169,7 +194,7 @@ def process_page4(IN: str, media_mensal: float, total_contrato: float, economia_
         - Numerical values are formatted with a comma as the decimal separator and a space as the thousands separator.
         - The function handles exceptions during the SVG saving process and logs errors if they occur.
     """
-
+    logger.debug("Processing page 4")
     validade = datetime.today() + timedelta(days=5)
 
     # Load the SVG file
@@ -180,21 +205,22 @@ def process_page4(IN: str, media_mensal: float, total_contrato: float, economia_
     # Replace text in the SVG file
     
     replace_text(root, "tspan520-74-4-0-6", "XXXXXXXXXX", IN, NSMAP) 
-    replace_text(root, "tspan520-7", "xx xxx,xx", f"{media_mensal:,.2f}".replace(",", " ").replace(".",","), NSMAP) 
-    replace_text(root, "tspan520-7-1", "xx xxx,xx", f"{total_contrato:,.2f}".replace(",", " ").replace(".",","), NSMAP)
+    replace_text(root, "tspan520-7", "xx xxx,xx", f"{media_mensal:.2f}".replace(",", " ").replace(".",","), NSMAP) 
+    replace_text(root, "tspan520-7-1", "xx xxx,xx", f"{total_contrato:.2f}".replace(",", " ").replace(".",","), NSMAP)
     replace_text(root, "tspan12", "25%",  f"{economia_contratual:.0%}" , NSMAP)    
     replace_text(root, "tspan6","20/02/2025", f"{validade.day:02d}/{validade.month:02d}/{validade.year}", NSMAP)  
     embed_svg(root, input_svg_path,"images/energy_cost_plot.svg" ,x=80,y=95, scale= 0.25)
     # Save the modified SVG file
     try:
         tree.write(output_svg_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
-        print(f"Modified SVG saved to '{output_svg_path}'")
+        logger.info(f"Modified SVG saved to '{output_svg_path}'")
+
 
     except IOError as e:
-        print(f"Error saving modified SVG: {e}")
+        logger.error(f"Error saving modified SVG: {e}")
     
     except Exception as e:
-        print(f"Unexpected error: {e}")
+        logger.error(f"Unexpected error: {e}")
 
 def process_page5(IN: str, media_mensal: float, total_contrato: float, economia_contratual: float, economia_efetiva: float, input_svg_path="Proposta PPT/page 5.svg", output_svg_path="Temp_ppt/page 5.svg", db_path="DataBase.db"):
     """
@@ -219,6 +245,8 @@ def process_page5(IN: str, media_mensal: float, total_contrato: float, economia_
    
     validade = datetime.today() + timedelta(days=5)
 
+    logger.debug("Processing page 5")
+
     # Load the SVG file
     tree, root = load_svg(input_svg_path)
     if not tree or not root:
@@ -235,13 +263,13 @@ def process_page5(IN: str, media_mensal: float, total_contrato: float, economia_
     # Save the modified SVG file
     try:
         tree.write(output_svg_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
-        print(f"Modified SVG saved to '{output_svg_path}'")
+        logger.info(f"Modified SVG saved to '{output_svg_path}'")
 
     except IOError as e:
-        print(f"Error saving modified SVG: {e}")
+        logger.error(f"Error saving modified SVG: {e}")
     
     except Exception as e:
-        print(f"Unexpected error: {e}")
+        logger.error(f"Unexpected error: {e}")
 
 def process_page6(IN, media_mensal, total_contrato, economia_contratual, input_svg_path="Proposta PPT/page 6.svg", output_svg_path="Temp_ppt/page 6.svg", db_path="DataBase.db"):
     """
@@ -266,6 +294,8 @@ def process_page6(IN, media_mensal, total_contrato, economia_contratual, input_s
         - Error handling is implemented for file saving and unexpected exceptions.
     """
     
+    logger.debug("Processing page 6")
+
     validade = datetime.today() + timedelta(days=5)
 
     # Load the SVG file
@@ -286,13 +316,13 @@ def process_page6(IN, media_mensal, total_contrato, economia_contratual, input_s
     # Save the modified SVG file
     try:
         tree.write(output_svg_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
-        print(f"Modified SVG saved to '{output_svg_path}'")
+        logger.info(f"Modified SVG saved to '{output_svg_path}'")
 
     except IOError as e:
-        print(f"Error saving modified SVG: {e}")
+        logger.error(f"Error saving modified SVG: {e}")
     
     except Exception as e:
-        print(f"Unexpected error: {e}")
+        logger.error(f"Unexpected error: {e}")
 
 def process_page7(IN, media_mensal, total_contrato, economia_contratual, economia_anual, input_svg_path="Proposta PPT/page 7.svg", output_svg_path="Temp_ppt/page 7.svg", db_path="DataBase.db"):
     """
@@ -314,7 +344,8 @@ def process_page7(IN, media_mensal, total_contrato, economia_contratual, economi
         - The function calculates a validity date (5 days from the current date) and embeds it in the SVG.
         - Error handling is included for saving the modified SVG file.
     """
-    
+    logger.debug("Processing page 7")
+
     validade = datetime.today() + timedelta(days=5)
 
     # Load the SVG file
@@ -336,13 +367,13 @@ def process_page7(IN, media_mensal, total_contrato, economia_contratual, economi
     # Save the modified SVG file
     try:
         tree.write(output_svg_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
-        print(f"Modified SVG saved to '{output_svg_path}'")
+        logger.info(f"Modified SVG saved to '{output_svg_path}'")
 
     except IOError as e:
-        print(f"Error saving modified SVG: {e}")
+        logger.error(f"Error saving modified SVG: {e}")
     
     except Exception as e:
-        print(f"Unexpected error: {e}")
+        logger.error(f"Unexpected error: {e}")
 
 def process_page10(agente, input_svg_path="Proposta PPT/page 10.svg", output_svg_path="Temp_ppt/page 10.svg", db_path="DataBase.db"):
     """
@@ -354,6 +385,8 @@ def process_page10(agente, input_svg_path="Proposta PPT/page 10.svg", output_svg
         output_svg_path: Path where the modified SVG will be saved
         db_path: Path to the SQLite database
     """
+    logger.debug("Processing page 10")
+
     # Load the SVG file
     tree, root = load_svg(input_svg_path)
     if not tree or not root:
@@ -374,17 +407,17 @@ def process_page10(agente, input_svg_path="Proposta PPT/page 10.svg", output_svg
 
     # Replace text in the SVG file
     replace_text(root, "tspan520-7", "Agente/Analista Comercial", agente, NSMAP)  # Agent name
-    replace_text(root, "tspan524", "(00) 0000-0000", contact_info["email"], NSMAP)  # Email
-    replace_text(root, "tspan2", "XXXXXXXXXX@cemig.com.br", contact_info["phone"], NSMAP)  # Phone
+    replace_text(root, "tspan524", "(00) 0000-0000", contact_info["phone"], NSMAP)  # Email
+    replace_text(root, "tspan2", "XXXXXXXXXX@cemig.com.br", contact_info["email"], NSMAP)  # Phone
 
     # Save the modified SVG file
     try:
         tree.write(output_svg_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
-        print(f"Modified SVG saved to '{output_svg_path}'")
+        logger.info(f"Modified SVG saved to '{output_svg_path}'")
     except IOError as e:
-        print(f"Error saving modified SVG: {e}")
+        logger.error(f"Error saving modified SVG: {e}")
 
-def svg_to_pdf_stream(svg_path, dpi=500):
+def svg_to_pdf_stream(svg_path: str, dpi: int = 500) -> None:
     """
     Convert an SVG file to a PDF stream in memory.
     
@@ -399,13 +432,13 @@ def svg_to_pdf_stream(svg_path, dpi=500):
         pdf_stream = BytesIO()
         cairosvg.svg2pdf(url=svg_path, write_to=pdf_stream, dpi=dpi)
         pdf_stream.seek(0)
-        print(f"Converted {svg_path} to PDF stream")
+        logger.info(f"Converted {svg_path} to PDF stream")
         return pdf_stream
     except Exception as e:
-        print(f"Error converting {svg_path} to PDF: {e}")
+        logger.error(f"Error converting {svg_path} to PDF: {e}")
         return None
 
-def generate_pdf(svg_files, output_pdf, dpi=500):
+def generate_pdf(svg_files: list, output_pdf: str, dpi: int = 500) -> None:
     """
     Merge multiple SVG files into a single PDF without saving temporary files.
     
@@ -419,7 +452,7 @@ def generate_pdf(svg_files, output_pdf, dpi=500):
     # Convert each SVG to PDF stream and append to merger
     for svg_file in svg_files:
         if not os.path.exists(svg_file):
-            print(f"Error: {svg_file} does not exist")
+            logger.error(f"Error: {svg_file} does not exist")
             continue
         pdf_stream = svg_to_pdf_stream(svg_file, dpi)
         if pdf_stream:
@@ -429,13 +462,28 @@ def generate_pdf(svg_files, output_pdf, dpi=500):
     try:
         with open(output_pdf, 'wb') as f:
             merger.write(f)
-        print(f"Merged PDF saved as {output_pdf}")
+        logger.info(f"Merged PDF saved as {output_pdf}")
     except Exception as e:
-        print(f"Error merging PDFs: {e}")
+        logger.error(f"Error merging PDFs: {e}")
     finally:
         merger.close()
 
-def open_pdf(pdf_path):
+def open_pdf(pdf_path: str) -> None:
+    """
+    Opens a PDF file using the default PDF viewer on the operating system.
+
+    Parameters:
+        pdf_path (str): The file path to the PDF document to be opened.
+
+    Behavior:
+        - On macOS, it uses the "open" command to open the PDF.
+        - On Linux, the "xdg-open" command can be used (commented out in the code).
+        - On Windows, it uses the "start" command to open the PDF.
+
+    Note:
+        Ensure that the `pdf_path` is a valid file path and that the operating system
+        has a default application configured to open PDF files.
+    """
     if os.name == "posix":  # macOS/Linux
         os.system(f"open {pdf_path}")  # macOS
         # Use "xdg-open" for Linux: os.system(f"xdg-open {pdf_path}")

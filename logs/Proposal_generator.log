@@ -1,0 +1,723 @@
+2025-04-22 14:20:26,043 - Proposal_Generator - INFO - Logger initialized successfully
+2025-04-22 14:20:26,047 - Proposal_Generator - INFO - Thread started...
+2025-04-22 14:20:26,059 - Proposal_Generator - INFO - Last updated date found: 2025-04-22
+2025-04-22 14:20:26,063 - Proposal_Generator - INFO - Update ran
+2025-04-22 14:21:10,451 - Proposal_Generator - INFO - Logger initialized successfully
+2025-04-22 14:21:12,388 - Proposal_Generator - INFO - Logger initialized successfully
+2025-04-22 14:21:14,333 - Proposal_Generator - INFO - Logger initialized successfully
+2025-04-22 14:21:17,147 - Proposal_Generator - INFO - Logger initialized successfully
+2025-04-22 14:21:19,026 - Proposal_Generator - INFO - Logger initialized successfully
+2025-04-22 14:21:20,132 - Proposal_Generator - INFO - Logger initialized successfully
+2025-04-22 14:21:26,195 - Proposal_Generator - INFO - Logger initialized successfully
+2025-04-22 14:21:26,441 - Proposal_Generator - INFO - Logger initialized successfully
+2025-04-22 14:21:26,603 - Proposal_Generator - DEBUG - calcular_fatura_livre - fatura_cativa: 6505.668461508946
+2025-04-22 14:21:26,605 - Proposal_Generator - DEBUG - calcular_fatura_livre - fatura_uso: 3761.6129813332145
+2025-04-22 14:21:26,608 - Proposal_Generator - DEBUG - calcular_fatura_livre - len(preco['anos']): 6
+2025-04-22 14:21:26,611 - Proposal_Generator - DEBUG - calcular_fatura_livre - len(preco['preco']): 6
+2025-04-22 14:21:26,614 - Proposal_Generator - DEBUG - calcular_fatura_livre - quantidade: {'Demanda HFP': 200.0, 'Demanda HFP sICMS': 0.0, 'Demanda HP': 0.0, 'Demanda HP sICMS': 0.0, 'Demanda HR': 0, 'Demanda HR sICMS': 0, 'Energia HFP': 1000.0, 'Energia HP': 100.0, 'Energia HR': 0, 'Energia Compensada HFP': 100.0, 'Energia Compensada HP': 0.0}
+2025-04-22 14:21:26,618 - Proposal_Generator - DEBUG - calcular_fatura_livre - result_dict: {'Fatura Livre': [353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146], 'anos': [2026, 2027, 2028, 2029, 2030, 2031]}
+2025-04-22 14:21:26,623 - Proposal_Generator - DEBUG - fatura_cativa: 6505.668461508946
+2025-04-22 14:21:26,625 - Proposal_Generator - DEBUG - fatura_uso: 3761.6129813332145
+2025-04-22 14:21:26,627 - Proposal_Generator - DEBUG - fatura_livre: [353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146]
+2025-04-22 14:21:26,629 - Proposal_Generator - DEBUG - economia_mensal: 2390.74084602939
+2025-04-22 14:21:26,632 - Proposal_Generator - DEBUG - economia_anual: 28688.89015235268
+2025-04-22 14:21:26,932 - Proposal_Generator - DEBUG - len(preco['anos']): 6
+2025-04-22 14:21:26,932 - Proposal_Generator - DEBUG - len(months): 6
+2025-04-22 14:21:26,932 - Proposal_Generator - DEBUG - len(fatura_livre): 6
+2025-04-22 14:21:26,932 - Proposal_Generator - DEBUG - fatura_livre: [353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146]
+2025-04-22 14:21:26,932 - Proposal_Generator - DEBUG - preco['preco']: [263.38, 263.38, 263.38, 263.38, 263.38, 263.38]
+2025-04-22 14:21:28,065 - Proposal_Generator - INFO - Stabilized <tspan> at x=162.53729, y=219.67194
+2025-04-22 14:21:28,065 - Proposal_Generator - INFO - Stabilized <tspan> at x=162.53729, y=210.85533
+2025-04-22 14:21:28,078 - Proposal_Generator - INFO - Stabilized <tspan> at x=162.53729, y=228.48854
+2025-04-22 14:21:28,138 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 1.svg'
+2025-04-22 14:21:28,162 - Proposal_Generator - INFO - Fetching contact info for agent 'Daniel Brognaro Penido'
+2025-04-22 14:21:28,168 - Proposal_Generator - INFO - Contact info fetched for agent 'Daniel Brognaro Penido'
+2025-04-22 14:21:28,172 - Proposal_Generator - INFO - Stabilized <tspan> at x=128.02826, y=155.14856
+2025-04-22 14:21:28,175 - Proposal_Generator - INFO - Stabilized <tspan> at x=169.14262, y=164.84328
+2025-04-22 14:21:28,176 - Proposal_Generator - INFO - Stabilized <tspan> at x=169.12778, y=169.65723
+2025-04-22 14:21:28,185 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 10.svg'
+2025-04-22 14:21:28,187 - Proposal_Generator - DEBUG - Preco fixo Normal variant
+2025-04-22 14:21:28,192 - Proposal_Generator - INFO - Stabilized <tspan> at x=-12.640818, y=108.05531
+2025-04-22 14:21:28,192 - Proposal_Generator - INFO - Stabilized <tspan> at x=-8.7839127, y=146.2153
+2025-04-22 14:21:28,194 - Proposal_Generator - INFO - Stabilized <tspan> at x=-8.5707083, y=166.53038
+2025-04-22 14:21:28,195 - Proposal_Generator - INFO - Stabilized <tspan> at x=226.45975, y=86.228584
+2025-04-22 14:21:28,197 - Proposal_Generator - INFO - Stabilized <tspan> at x=None, y=None
+2025-04-22 14:21:28,265 - Proposal_Generator - INFO - SVG embedded successfully
+2025-04-22 14:21:28,288 - Proposal_Generator - INFO - SVG embedded successfully
+2025-04-22 14:21:28,312 - Proposal_Generator - INFO - SVG embedded successfully
+2025-04-22 14:21:28,315 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 6.svg'
+2025-04-22 14:21:31,144 - Proposal_Generator - INFO - Converted Temp_ppt/page 1.svg to PDF stream
+2025-04-22 14:21:34,510 - Proposal_Generator - INFO - Converted Proposta PPT/page 2.svg to PDF stream
+2025-04-22 14:21:34,868 - Proposal_Generator - INFO - Converted Proposta PPT/page 3.svg to PDF stream
+2025-04-22 14:21:36,032 - Proposal_Generator - INFO - Converted Temp_PPT/page 6.svg to PDF stream
+2025-04-22 14:21:37,150 - Proposal_Generator - INFO - Converted Proposta PPT/page 8.svg to PDF stream
+2025-04-22 14:21:37,459 - Proposal_Generator - INFO - Converted Proposta PPT/page 9.svg to PDF stream
+2025-04-22 14:21:37,685 - Proposal_Generator - INFO - Converted Temp_ppt/page 10.svg to PDF stream
+2025-04-22 14:21:37,763 - Proposal_Generator - INFO - Merged PDF saved as C:\Users\Rodri\Downloads\Proposta_gegtretret_greghg_Curva_de_Preco.pdf
+2025-04-22 14:32:34,764 - Proposal_Generator - DEBUG - calcular_fatura_livre - fatura_cativa: 6505.668461508946
+2025-04-22 14:32:34,768 - Proposal_Generator - DEBUG - calcular_fatura_livre - fatura_uso: 3761.6129813332145
+2025-04-22 14:32:34,770 - Proposal_Generator - DEBUG - calcular_fatura_livre - len(preco['anos']): 6
+2025-04-22 14:32:34,772 - Proposal_Generator - DEBUG - calcular_fatura_livre - len(preco['preco']): 6
+2025-04-22 14:32:34,774 - Proposal_Generator - DEBUG - calcular_fatura_livre - quantidade: {'Demanda HFP': 200.0, 'Demanda HFP sICMS': 0.0, 'Demanda HP': 0.0, 'Demanda HP sICMS': 0.0, 'Demanda HR': 0, 'Demanda HR sICMS': 0, 'Energia HFP': 1000.0, 'Energia HP': 100.0, 'Energia HR': 0, 'Energia Compensada HFP': 200.0, 'Energia Compensada HP': 0.0}
+2025-04-22 14:32:34,775 - Proposal_Generator - DEBUG - calcular_fatura_livre - result_dict: {'Fatura Livre': [353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146], 'anos': [2026, 2027, 2028, 2029, 2030, 2031]}
+2025-04-22 14:32:34,778 - Proposal_Generator - DEBUG - fatura_cativa: 6505.668461508946
+2025-04-22 14:32:34,781 - Proposal_Generator - DEBUG - fatura_uso: 3761.6129813332145
+2025-04-22 14:32:34,784 - Proposal_Generator - DEBUG - fatura_livre: [353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146]
+2025-04-22 14:32:34,786 - Proposal_Generator - DEBUG - economia_mensal: 2390.74084602939
+2025-04-22 14:32:34,788 - Proposal_Generator - DEBUG - economia_anual: 28688.89015235268
+2025-04-22 14:32:35,089 - Proposal_Generator - DEBUG - len(preco['anos']): 6
+2025-04-22 14:32:35,090 - Proposal_Generator - DEBUG - len(months): 6
+2025-04-22 14:32:35,092 - Proposal_Generator - DEBUG - len(fatura_livre): 6
+2025-04-22 14:32:35,093 - Proposal_Generator - DEBUG - fatura_livre: [353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146]
+2025-04-22 14:32:35,094 - Proposal_Generator - DEBUG - preco['preco']: [263.38, 263.38, 263.38, 263.38, 263.38, 263.38]
+2025-04-22 14:32:35,972 - Proposal_Generator - INFO - Stabilized <tspan> at x=162.53729, y=219.67194
+2025-04-22 14:32:35,972 - Proposal_Generator - INFO - Stabilized <tspan> at x=162.53729, y=210.85533
+2025-04-22 14:32:35,979 - Proposal_Generator - INFO - Stabilized <tspan> at x=162.53729, y=228.48854
+2025-04-22 14:32:36,028 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 1.svg'
+2025-04-22 14:32:36,048 - Proposal_Generator - INFO - Stabilized <tspan> at x=128.02826, y=155.14856
+2025-04-22 14:32:36,048 - Proposal_Generator - INFO - Stabilized <tspan> at x=169.14262, y=164.84328
+2025-04-22 14:32:36,052 - Proposal_Generator - INFO - Stabilized <tspan> at x=169.12778, y=169.65723
+2025-04-22 14:32:36,062 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 10.svg'
+2025-04-22 14:32:36,063 - Proposal_Generator - DEBUG - Preco fixo Normal variant
+2025-04-22 14:32:36,069 - Proposal_Generator - INFO - Stabilized <tspan> at x=-12.640818, y=108.05531
+2025-04-22 14:32:36,071 - Proposal_Generator - INFO - Stabilized <tspan> at x=-8.7839127, y=146.2153
+2025-04-22 14:32:36,073 - Proposal_Generator - INFO - Stabilized <tspan> at x=-8.5707083, y=166.53038
+2025-04-22 14:32:36,074 - Proposal_Generator - INFO - Stabilized <tspan> at x=226.45975, y=86.228584
+2025-04-22 14:32:36,075 - Proposal_Generator - INFO - Stabilized <tspan> at x=None, y=None
+2025-04-22 14:32:36,148 - Proposal_Generator - INFO - SVG embedded successfully
+2025-04-22 14:32:36,177 - Proposal_Generator - INFO - SVG embedded successfully
+2025-04-22 14:32:36,202 - Proposal_Generator - INFO - SVG embedded successfully
+2025-04-22 14:32:36,208 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 6.svg'
+2025-04-22 14:32:38,088 - Proposal_Generator - INFO - Converted Temp_ppt/page 1.svg to PDF stream
+2025-04-22 14:32:39,697 - Proposal_Generator - INFO - Converted Proposta PPT/page 2.svg to PDF stream
+2025-04-22 14:32:39,862 - Proposal_Generator - INFO - Converted Proposta PPT/page 3.svg to PDF stream
+2025-04-22 14:32:40,462 - Proposal_Generator - INFO - Converted Temp_PPT/page 6.svg to PDF stream
+2025-04-22 14:32:41,047 - Proposal_Generator - INFO - Converted Proposta PPT/page 8.svg to PDF stream
+2025-04-22 14:32:41,306 - Proposal_Generator - INFO - Converted Proposta PPT/page 9.svg to PDF stream
+2025-04-22 14:32:41,525 - Proposal_Generator - INFO - Converted Temp_ppt/page 10.svg to PDF stream
+2025-04-22 14:32:41,616 - Proposal_Generator - INFO - Merged PDF saved as C:\Users\Rodri\Downloads\Proposta_gegtretret25_greghg_Curva_de_Preco.pdf
+2025-04-22 14:32:52,815 - Proposal_Generator - INFO - Generating proposal...
+2025-04-22 14:32:52,865 - Proposal_Generator - DEBUG - fatura_cativa: 6505.668461508946
+2025-04-22 14:32:52,865 - Proposal_Generator - DEBUG - fatura_uso: 3761.6129813332145
+2025-04-22 14:32:52,871 - Proposal_Generator - DEBUG - fatura_livre: [353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146, 353.31463414634146]
+2025-04-22 14:32:52,873 - Proposal_Generator - DEBUG - economia_mensal: 2390.74084602939
+2025-04-22 14:32:52,874 - Proposal_Generator - DEBUG - economia_anual: 28688.89015235268
+2025-04-22 14:32:53,000 - Proposal_Generator - DEBUG - Stabilized <tspan> at x=162.53729, y=219.67194
+2025-04-22 14:32:53,001 - Proposal_Generator - DEBUG - Stabilized <tspan> at x=162.53729, y=210.85533
+2025-04-22 14:32:53,002 - Proposal_Generator - DEBUG - Stabilized <tspan> at x=162.53729, y=228.48854
+2025-04-22 14:32:53,055 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 1.svg'
+2025-04-22 14:32:53,075 - Proposal_Generator - DEBUG - Stabilized <tspan> at x=128.02826, y=155.14856
+2025-04-22 14:32:53,075 - Proposal_Generator - DEBUG - Stabilized <tspan> at x=169.14262, y=164.84328
+2025-04-22 14:32:53,075 - Proposal_Generator - DEBUG - Stabilized <tspan> at x=169.12778, y=169.65723
+2025-04-22 14:32:53,094 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 10.svg'
+2025-04-22 14:32:53,096 - Proposal_Generator - DEBUG - Preco fixo Normal variant
+2025-04-22 14:32:53,100 - Proposal_Generator - DEBUG - Stabilized <tspan> at x=-12.640818, y=108.05531
+2025-04-22 14:32:53,101 - Proposal_Generator - DEBUG - Stabilized <tspan> at x=-8.7839127, y=146.2153
+2025-04-22 14:32:53,103 - Proposal_Generator - DEBUG - Stabilized <tspan> at x=-8.5707083, y=166.53038
+2025-04-22 14:32:53,106 - Proposal_Generator - DEBUG - Stabilized <tspan> at x=226.45975, y=86.228584
+2025-04-22 14:32:53,107 - Proposal_Generator - DEBUG - Stabilized <tspan> at x=None, y=None
+2025-04-22 14:32:53,117 - Proposal_Generator - DEBUG - SVG embedded successfully
+2025-04-22 14:32:53,123 - Proposal_Generator - DEBUG - SVG embedded successfully
+2025-04-22 14:32:53,126 - Proposal_Generator - DEBUG - SVG embedded successfully
+2025-04-22 14:32:53,137 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 6.svg'
+2025-04-22 14:32:55,240 - Proposal_Generator - INFO - Converted Temp_ppt/page 1.svg to PDF stream
+2025-04-22 14:32:57,305 - Proposal_Generator - INFO - Converted Proposta PPT/page 2.svg to PDF stream
+2025-04-22 14:32:57,519 - Proposal_Generator - INFO - Converted Proposta PPT/page 3.svg to PDF stream
+2025-04-22 14:32:58,655 - Proposal_Generator - INFO - Converted Temp_PPT/page 6.svg to PDF stream
+2025-04-22 14:32:59,638 - Proposal_Generator - INFO - Converted Proposta PPT/page 8.svg to PDF stream
+2025-04-22 14:32:59,812 - Proposal_Generator - INFO - Converted Proposta PPT/page 9.svg to PDF stream
+2025-04-22 14:33:00,054 - Proposal_Generator - INFO - Converted Temp_ppt/page 10.svg to PDF stream
+2025-04-22 14:33:00,112 - Proposal_Generator - INFO - Merged PDF saved as C:\Users\Rodri\Downloads\Proposta_gegtretret2569_greghg687_Curva_de_Preco.pdf
+2025-04-22 14:36:59,835 - Proposal_Generator - INFO - Generating proposal...
+2025-04-22 14:36:59,892 - Proposal_Generator - DEBUG - calcular_fatura_livre - fatura_cativa: 13879.378924885212
+2025-04-22 14:36:59,892 - Proposal_Generator - DEBUG - calcular_fatura_livre - fatura_uso: 6445.824123127884
+2025-04-22 14:36:59,892 - Proposal_Generator - DEBUG - calcular_fatura_livre - len(preco['anos']): 6
+2025-04-22 14:36:59,900 - Proposal_Generator - DEBUG - calcular_fatura_livre - len(preco['preco']): 6
+2025-04-22 14:36:59,902 - Proposal_Generator - DEBUG - calcular_fatura_livre - quantidade: {'Demanda HFP': 200.0, 'Demanda HFP sICMS': 0.0, 'Demanda HP': 0.0, 'Demanda HP sICMS': 0.0, 'Demanda HR': 0, 'Demanda HR sICMS': 0, 'Energia HFP': 10000.0, 'Energia HP': 1000.0, 'Energia HR': 0, 'Energia Compensada HFP': 200.0, 'Energia Compensada HP': 0.0}
+2025-04-22 14:36:59,904 - Proposal_Generator - DEBUG - calcular_fatura_livre - result_dict: {'Fatura Livre': [3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145], 'anos': [2026, 2027, 2028, 2029, 2030, 2031]}
+2025-04-22 14:36:59,907 - Proposal_Generator - DEBUG - fatura_cativa: 13879.378924885212
+2025-04-22 14:36:59,909 - Proposal_Generator - DEBUG - fatura_uso: 6445.824123127884
+2025-04-22 14:36:59,912 - Proposal_Generator - DEBUG - fatura_livre: [3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145]
+2025-04-22 14:36:59,915 - Proposal_Generator - DEBUG - economia_mensal: 3900.408460293913
+2025-04-22 14:36:59,918 - Proposal_Generator - DEBUG - economia_anual: 46804.901523526954
+2025-04-22 14:37:00,249 - Proposal_Generator - DEBUG - len(preco['anos']): 6
+2025-04-22 14:37:00,249 - Proposal_Generator - DEBUG - len(months): 6
+2025-04-22 14:37:00,250 - Proposal_Generator - DEBUG - len(fatura_livre): 6
+2025-04-22 14:37:00,252 - Proposal_Generator - DEBUG - fatura_livre: [3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145]
+2025-04-22 14:37:00,252 - Proposal_Generator - DEBUG - preco['preco']: [263.38, 263.38, 263.38, 263.38, 263.38, 263.38]
+2025-04-22 14:37:01,281 - Proposal_Generator - DEBUG - tspan5 text replaced: ':' -> ': greghg687hjg'
+2025-04-22 14:37:01,282 - Proposal_Generator - DEBUG - tspan4 text replaced: ':' -> ': gegtretret2569ffh'
+2025-04-22 14:37:01,284 - Proposal_Generator - DEBUG - tspan6 text replaced: ':' -> ': 22/04/2025'
+2025-04-22 14:37:01,335 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 1.svg'
+2025-04-22 14:37:01,352 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'Agente/Analista Comercial' -> 'Daniel Brognaro Penido'
+2025-04-22 14:37:01,355 - Proposal_Generator - DEBUG - tspan524 text replaced: '(00) 0000-0000' -> 'daniel.penido@cemig.com.br'
+2025-04-22 14:37:01,355 - Proposal_Generator - DEBUG - tspan2 text replaced: 'XXXXXXXXXX@cemig.com.br' -> '(31)99647-6429'
+2025-04-22 14:37:01,366 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 10.svg'
+2025-04-22 14:37:01,367 - Proposal_Generator - DEBUG - Preco fixo Normal variant
+2025-04-22 14:37:01,367 - Proposal_Generator - DEBUG - tspan520-74-4-0-6 text replaced: '3014435811' -> 'greghg687hjg'
+2025-04-22 14:37:01,372 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'xx xxx,xx' -> '3 900,41'
+2025-04-22 14:37:01,372 - Proposal_Generator - DEBUG - tspan520-7-1 text replaced: 'xx xxx,xx' -> '234 024,51'
+2025-04-22 14:37:01,372 - Proposal_Generator - DEBUG - tspan1 text replaced: '25%' -> '28%'
+2025-04-22 14:37:01,377 - Proposal_Generator - DEBUG - tspan12 text replaced: '20/02/2025' -> '27/04/2025'
+2025-04-22 14:37:01,455 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 14:37:01,486 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 14:37:01,520 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 14:37:01,530 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 6.svg'
+2025-04-22 14:37:03,724 - Proposal_Generator - INFO - Converted Temp_ppt/page 1.svg to PDF stream
+2025-04-22 14:37:05,674 - Proposal_Generator - INFO - Converted Proposta PPT/page 2.svg to PDF stream
+2025-04-22 14:37:05,855 - Proposal_Generator - INFO - Converted Proposta PPT/page 3.svg to PDF stream
+2025-04-22 14:37:06,513 - Proposal_Generator - INFO - Converted Temp_PPT/page 6.svg to PDF stream
+2025-04-22 14:37:07,193 - Proposal_Generator - INFO - Converted Proposta PPT/page 8.svg to PDF stream
+2025-04-22 14:37:07,420 - Proposal_Generator - INFO - Converted Proposta PPT/page 9.svg to PDF stream
+2025-04-22 14:37:07,671 - Proposal_Generator - INFO - Converted Temp_ppt/page 10.svg to PDF stream
+2025-04-22 14:37:07,772 - Proposal_Generator - INFO - Merged PDF saved as C:\Users\Rodri\Downloads\Proposta_gegtretret2569ffh_greghg687hjg_Curva_de_Preco.pdf
+2025-04-22 14:40:59,840 - Proposal_Generator - INFO - Generating proposal...
+2025-04-22 14:40:59,885 - Proposal_Generator - DEBUG - fatura_cativa: 13879.378924885212
+2025-04-22 14:40:59,888 - Proposal_Generator - DEBUG - fatura_uso: 6445.824123127884
+2025-04-22 14:40:59,889 - Proposal_Generator - DEBUG - fatura_livre: [3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145]
+2025-04-22 14:40:59,889 - Proposal_Generator - DEBUG - economia_mensal: 3900.408460293913
+2025-04-22 14:40:59,889 - Proposal_Generator - DEBUG - economia_anual: 46804.901523526954
+2025-04-22 14:40:59,987 - Proposal_Generator - DEBUG - tspan5 text replaced: ':' -> ': greghg687hjghf'
+2025-04-22 14:40:59,987 - Proposal_Generator - DEBUG - tspan4 text replaced: ':' -> ': gegtretret2569ffhhf'
+2025-04-22 14:40:59,990 - Proposal_Generator - DEBUG - tspan6 text replaced: ':' -> ': 22/04/2025'
+2025-04-22 14:41:00,034 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 1.svg'
+2025-04-22 14:41:00,054 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'Agente/Analista Comercial' -> 'Daniel Brognaro Penido'
+2025-04-22 14:41:00,057 - Proposal_Generator - DEBUG - tspan524 text replaced: '(00) 0000-0000' -> 'daniel.penido@cemig.com.br'
+2025-04-22 14:41:00,059 - Proposal_Generator - DEBUG - tspan2 text replaced: 'XXXXXXXXXX@cemig.com.br' -> '(31)99647-6429'
+2025-04-22 14:41:00,070 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 10.svg'
+2025-04-22 14:41:00,071 - Proposal_Generator - DEBUG - Preco fixo Normal variant
+2025-04-22 14:41:00,074 - Proposal_Generator - DEBUG - tspan520-74-4-0-6 text replaced: '3014435811' -> 'greghg687hjghf'
+2025-04-22 14:41:00,075 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'xx xxx,xx' -> '3 900,41'
+2025-04-22 14:41:00,078 - Proposal_Generator - DEBUG - tspan520-7-1 text replaced: 'xx xxx,xx' -> '234 024,51'
+2025-04-22 14:41:00,082 - Proposal_Generator - DEBUG - tspan1 text replaced: '25%' -> '28%'
+2025-04-22 14:41:00,085 - Proposal_Generator - DEBUG - tspan12 text replaced: '20/02/2025' -> '27/04/2025'
+2025-04-22 14:41:00,092 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 14:41:00,096 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 14:41:00,099 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 14:41:00,108 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 6.svg'
+2025-04-22 14:41:03,136 - Proposal_Generator - INFO - Converted Temp_ppt/page 1.svg to PDF stream
+2025-04-22 14:41:05,427 - Proposal_Generator - INFO - Converted Proposta PPT/page 2.svg to PDF stream
+2025-04-22 14:41:05,722 - Proposal_Generator - INFO - Converted Proposta PPT/page 3.svg to PDF stream
+2025-04-22 14:41:06,703 - Proposal_Generator - INFO - Converted Temp_PPT/page 6.svg to PDF stream
+2025-04-22 14:41:07,864 - Proposal_Generator - INFO - Converted Proposta PPT/page 8.svg to PDF stream
+2025-04-22 14:41:07,974 - Proposal_Generator - INFO - Converted Proposta PPT/page 9.svg to PDF stream
+2025-04-22 14:41:08,179 - Proposal_Generator - INFO - Converted Temp_ppt/page 10.svg to PDF stream
+2025-04-22 14:41:08,298 - Proposal_Generator - INFO - Merged PDF saved as C:\Users\Rodri\Downloads\Proposta_gegtretret2569ffhhf_greghg687hjghf_Curva_de_Preco.pdf
+2025-04-22 14:42:56,869 - Proposal_Generator - INFO - Thread started...
+2025-04-22 14:42:56,872 - Proposal_Generator - INFO - Last updated date found: 2025-04-22
+2025-04-22 14:42:56,874 - Proposal_Generator - INFO - Update ran
+2025-04-22 14:44:11,525 - Proposal_Generator - INFO - Generating proposal...
+2025-04-22 14:44:12,808 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 1.svg'
+2025-04-22 14:44:12,826 - Proposal_Generator - INFO - Fetching contact info for agent 'Daniel Brognaro Penido'
+2025-04-22 14:44:12,826 - Proposal_Generator - INFO - Contact info fetched for agent 'Daniel Brognaro Penido'
+2025-04-22 14:44:12,849 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 10.svg'
+2025-04-22 14:44:12,982 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 6.svg'
+2025-04-22 14:44:15,121 - Proposal_Generator - INFO - Converted Temp_ppt/page 1.svg to PDF stream
+2025-04-22 14:44:17,036 - Proposal_Generator - INFO - Converted Proposta PPT/page 2.svg to PDF stream
+2025-04-22 14:44:17,368 - Proposal_Generator - INFO - Converted Proposta PPT/page 3.svg to PDF stream
+2025-04-22 14:44:18,291 - Proposal_Generator - INFO - Converted Temp_PPT/page 6.svg to PDF stream
+2025-04-22 14:44:19,168 - Proposal_Generator - INFO - Converted Proposta PPT/page 8.svg to PDF stream
+2025-04-22 14:44:19,469 - Proposal_Generator - INFO - Converted Proposta PPT/page 9.svg to PDF stream
+2025-04-22 14:44:19,694 - Proposal_Generator - INFO - Converted Temp_ppt/page 10.svg to PDF stream
+2025-04-22 14:44:19,743 - Proposal_Generator - INFO - Merged PDF saved as C:\Users\Rodri\Downloads\Proposta_jtyjtydkyu5_lilulo7857_Curva_de_Preco.pdf
+2025-04-22 14:47:39,242 - Proposal_Generator - INFO - Thread started...
+2025-04-22 14:47:39,246 - Proposal_Generator - INFO - Last updated date found: 2025-04-22
+2025-04-22 14:47:39,250 - Proposal_Generator - INFO - Update ran
+2025-04-22 14:48:19,874 - Proposal_Generator - INFO - Generating proposal...
+2025-04-22 14:48:19,956 - Proposal_Generator - DEBUG - calcular_fatura_livre - fatura_cativa: 11036.19527542942
+2025-04-22 14:48:19,958 - Proposal_Generator - DEBUG - calcular_fatura_livre - fatura_uso: 4714.140473672093
+2025-04-22 14:48:19,960 - Proposal_Generator - DEBUG - calcular_fatura_livre - len(preco['anos']): 6
+2025-04-22 14:48:19,963 - Proposal_Generator - DEBUG - calcular_fatura_livre - len(preco['preco']): 6
+2025-04-22 14:48:19,965 - Proposal_Generator - DEBUG - calcular_fatura_livre - quantidade: {'Demanda HFP': 100.0, 'Demanda HFP sICMS': 0.0, 'Demanda HP': 0.0, 'Demanda HP sICMS': 0.0, 'Demanda HR': 0, 'Demanda HR sICMS': 0, 'Energia HFP': 10000.0, 'Energia HP': 1000.0, 'Energia HR': 0, 'Energia Compensada HFP': 0, 'Energia Compensada HP': 0}
+2025-04-22 14:48:19,966 - Proposal_Generator - DEBUG - calcular_fatura_livre - result_dict: {'Fatura Livre': [3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145], 'anos': [2026, 2027, 2028, 2029, 2030, 2031]}
+2025-04-22 14:48:19,970 - Proposal_Generator - DEBUG - fatura_cativa: 11036.19527542942
+2025-04-22 14:48:19,973 - Proposal_Generator - DEBUG - fatura_uso: 4714.140473672093
+2025-04-22 14:48:19,975 - Proposal_Generator - DEBUG - fatura_livre: [3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145]
+2025-04-22 14:48:19,978 - Proposal_Generator - DEBUG - economia_mensal: 2788.908460293912
+2025-04-22 14:48:19,980 - Proposal_Generator - DEBUG - economia_anual: 33466.90152352695
+2025-04-22 14:48:20,321 - Proposal_Generator - DEBUG - len(preco['anos']): 6
+2025-04-22 14:48:20,321 - Proposal_Generator - DEBUG - len(months): 6
+2025-04-22 14:48:20,321 - Proposal_Generator - DEBUG - len(fatura_livre): 6
+2025-04-22 14:48:20,321 - Proposal_Generator - DEBUG - fatura_livre: [3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145]
+2025-04-22 14:48:20,321 - Proposal_Generator - DEBUG - preco['preco']: [263.38, 263.38, 263.38, 263.38, 263.38, 263.38]
+2025-04-22 14:48:21,574 - Proposal_Generator - DEBUG - tspan5 text replaced: ':' -> ': 15287'
+2025-04-22 14:48:21,575 - Proposal_Generator - DEBUG - tspan4 text replaced: ':' -> ': çioçiçp'
+2025-04-22 14:48:21,577 - Proposal_Generator - DEBUG - tspan6 text replaced: ':' -> ': 22/04/2025'
+2025-04-22 14:48:21,612 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 1.svg'
+2025-04-22 14:48:21,648 - Proposal_Generator - INFO - Fetching contact info for agent 'Iolanda Millard da Cunha de Lima'
+2025-04-22 14:48:21,652 - Proposal_Generator - INFO - Contact info fetched for agent 'Iolanda Millard da Cunha de Lima'
+2025-04-22 14:48:21,659 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'Agente/Analista Comercial' -> 'Iolanda Millard da Cunha de Lima'
+2025-04-22 14:48:21,661 - Proposal_Generator - DEBUG - tspan524 text replaced: '(00) 0000-0000' -> 'iolanda.lima@cemig.com.br'
+2025-04-22 14:48:21,666 - Proposal_Generator - DEBUG - tspan2 text replaced: 'XXXXXXXXXX@cemig.com.br' -> '(31)99523-4183'
+2025-04-22 14:48:21,676 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 10.svg'
+2025-04-22 14:48:21,678 - Proposal_Generator - DEBUG - Preco fixo Normal variant
+2025-04-22 14:48:21,680 - Proposal_Generator - DEBUG - tspan520-74-4-0-6 text replaced: '3014435811' -> '15287'
+2025-04-22 14:48:21,681 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'xx xxx,xx' -> '2 788,91'
+2025-04-22 14:48:21,683 - Proposal_Generator - DEBUG - tspan520-7-1 text replaced: 'xx xxx,xx' -> '167 334,51'
+2025-04-22 14:48:21,684 - Proposal_Generator - DEBUG - tspan1 text replaced: '25%' -> '25%'
+2025-04-22 14:48:21,685 - Proposal_Generator - DEBUG - tspan12 text replaced: '20/02/2025' -> '27/04/2025'
+2025-04-22 14:48:21,752 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 14:48:21,775 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 14:48:21,804 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 14:48:21,810 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 6.svg'
+2025-04-22 14:48:24,042 - Proposal_Generator - INFO - Converted Temp_ppt/page 1.svg to PDF stream
+2025-04-22 14:48:26,410 - Proposal_Generator - INFO - Converted Proposta PPT/page 2.svg to PDF stream
+2025-04-22 14:48:26,784 - Proposal_Generator - INFO - Converted Proposta PPT/page 3.svg to PDF stream
+2025-04-22 14:48:27,748 - Proposal_Generator - INFO - Converted Temp_PPT/page 6.svg to PDF stream
+2025-04-22 14:48:28,698 - Proposal_Generator - INFO - Converted Proposta PPT/page 8.svg to PDF stream
+2025-04-22 14:48:29,072 - Proposal_Generator - INFO - Converted Proposta PPT/page 9.svg to PDF stream
+2025-04-22 14:48:29,361 - Proposal_Generator - INFO - Converted Temp_ppt/page 10.svg to PDF stream
+2025-04-22 14:48:29,481 - Proposal_Generator - INFO - Merged PDF saved as C:\Users\Rodri\Downloads\Proposta_çioçiçp_15287_Curva_de_Preco.pdf
+2025-04-22 14:52:33,709 - Proposal_Generator - INFO - Generating proposal...
+2025-04-22 14:52:33,775 - Proposal_Generator - DEBUG - fatura_cativa: 11036.19527542942
+2025-04-22 14:52:33,777 - Proposal_Generator - DEBUG - fatura_uso: 4714.140473672093
+2025-04-22 14:52:33,779 - Proposal_Generator - DEBUG - fatura_livre: [3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145]
+2025-04-22 14:52:33,781 - Proposal_Generator - DEBUG - economia_mensal: 2788.908460293912
+2025-04-22 14:52:33,783 - Proposal_Generator - DEBUG - economia_anual: 33466.90152352695
+2025-04-22 14:52:33,792 - Proposal_Generator - DEBUG - Processing page 1
+2025-04-22 14:52:33,955 - Proposal_Generator - DEBUG - tspan5 text replaced: ':' -> ': 15287gg'
+2025-04-22 14:52:33,957 - Proposal_Generator - DEBUG - tspan4 text replaced: ':' -> ': çioçiçpgeg'
+2025-04-22 14:52:33,958 - Proposal_Generator - DEBUG - tspan6 text replaced: ':' -> ': 22/04/2025'
+2025-04-22 14:52:34,012 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 1.svg'
+2025-04-22 14:52:34,013 - Proposal_Generator - DEBUG - Processing page 10
+2025-04-22 14:52:34,037 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'Agente/Analista Comercial' -> 'Iolanda Millard da Cunha de Lima'
+2025-04-22 14:52:34,039 - Proposal_Generator - DEBUG - tspan524 text replaced: '(00) 0000-0000' -> 'iolanda.lima@cemig.com.br'
+2025-04-22 14:52:34,043 - Proposal_Generator - DEBUG - tspan2 text replaced: 'XXXXXXXXXX@cemig.com.br' -> '(31)99523-4183'
+2025-04-22 14:52:34,055 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 10.svg'
+2025-04-22 14:52:34,061 - Proposal_Generator - DEBUG - Preco fixo Normal variant
+2025-04-22 14:52:34,063 - Proposal_Generator - DEBUG - Processing page 6
+2025-04-22 14:52:34,073 - Proposal_Generator - DEBUG - tspan520-74-4-0-6 text replaced: '3014435811' -> '15287gg'
+2025-04-22 14:52:34,075 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'xx xxx,xx' -> '2 788,91'
+2025-04-22 14:52:34,080 - Proposal_Generator - DEBUG - tspan520-7-1 text replaced: 'xx xxx,xx' -> '167 334,51'
+2025-04-22 14:52:34,082 - Proposal_Generator - DEBUG - tspan1 text replaced: '25%' -> '25%'
+2025-04-22 14:52:34,083 - Proposal_Generator - DEBUG - tspan12 text replaced: '20/02/2025' -> '27/04/2025'
+2025-04-22 14:52:34,096 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 14:52:34,098 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 14:52:34,102 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 14:52:34,111 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 6.svg'
+2025-04-22 14:52:36,596 - Proposal_Generator - INFO - Converted Temp_ppt/page 1.svg to PDF stream
+2025-04-22 14:52:38,957 - Proposal_Generator - INFO - Converted Proposta PPT/page 2.svg to PDF stream
+2025-04-22 14:52:39,158 - Proposal_Generator - INFO - Converted Proposta PPT/page 3.svg to PDF stream
+2025-04-22 14:52:40,285 - Proposal_Generator - INFO - Converted Temp_PPT/page 6.svg to PDF stream
+2025-04-22 14:52:41,290 - Proposal_Generator - INFO - Converted Proposta PPT/page 8.svg to PDF stream
+2025-04-22 14:52:41,611 - Proposal_Generator - INFO - Converted Proposta PPT/page 9.svg to PDF stream
+2025-04-22 14:52:41,876 - Proposal_Generator - INFO - Converted Temp_ppt/page 10.svg to PDF stream
+2025-04-22 14:52:41,951 - Proposal_Generator - INFO - Merged PDF saved as C:\Users\Rodri\Downloads\Proposta_çioçiçpgeg_15287gg_Curva_de_Preco.pdf
+2025-04-22 15:08:19,615 - Proposal_Generator - INFO - Generating proposal...
+2025-04-22 15:08:19,656 - Proposal_Generator - DEBUG - fatura_cativa: 11036.19527542942
+2025-04-22 15:08:19,659 - Proposal_Generator - DEBUG - fatura_uso: 4714.140473672093
+2025-04-22 15:08:19,661 - Proposal_Generator - DEBUG - fatura_livre: [3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145]
+2025-04-22 15:08:19,664 - Proposal_Generator - DEBUG - economia_mensal: 2788.908460293912
+2025-04-22 15:08:19,665 - Proposal_Generator - DEBUG - economia_anual: 33466.90152352695
+2025-04-22 15:08:19,671 - Proposal_Generator - DEBUG - Processing page 1
+2025-04-22 15:08:19,762 - Proposal_Generator - DEBUG - tspan5 text replaced: ':' -> ': 15287gghh'
+2025-04-22 15:08:19,762 - Proposal_Generator - DEBUG - tspan4 text replaced: ':' -> ': çioçiçpgeghh'
+2025-04-22 15:08:19,764 - Proposal_Generator - DEBUG - tspan6 text replaced: ':' -> ': 22/04/2025'
+2025-04-22 15:08:19,792 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 1.svg'
+2025-04-22 15:08:19,794 - Proposal_Generator - DEBUG - Processing page 10
+2025-04-22 15:08:19,811 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'Agente/Analista Comercial' -> 'Iolanda Millard da Cunha de Lima'
+2025-04-22 15:08:19,813 - Proposal_Generator - DEBUG - tspan524 text replaced: '(00) 0000-0000' -> 'iolanda.lima@cemig.com.br'
+2025-04-22 15:08:19,814 - Proposal_Generator - DEBUG - tspan2 text replaced: 'XXXXXXXXXX@cemig.com.br' -> '(31)99523-4183'
+2025-04-22 15:08:19,820 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 10.svg'
+2025-04-22 15:08:19,821 - Proposal_Generator - DEBUG - Preco fixo Normal variant
+2025-04-22 15:08:19,822 - Proposal_Generator - DEBUG - Processing page 6
+2025-04-22 15:08:19,826 - Proposal_Generator - DEBUG - tspan520-74-4-0-6 text replaced: '3014435811' -> '15287gghh'
+2025-04-22 15:08:19,827 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'xx xxx,xx' -> '2 788,91'
+2025-04-22 15:08:19,829 - Proposal_Generator - DEBUG - tspan520-7-1 text replaced: 'xx xxx,xx' -> '167 334,51'
+2025-04-22 15:08:19,830 - Proposal_Generator - DEBUG - tspan1 text replaced: '25%' -> '25%'
+2025-04-22 15:08:19,831 - Proposal_Generator - DEBUG - tspan12 text replaced: '20/02/2025' -> '27/04/2025'
+2025-04-22 15:08:19,835 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 15:08:19,839 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 15:08:19,843 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 15:08:19,847 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 6.svg'
+2025-04-22 15:08:22,371 - Proposal_Generator - INFO - Converted Temp_ppt/page 1.svg to PDF stream
+2025-04-22 15:08:24,787 - Proposal_Generator - INFO - Converted Proposta PPT/page 2.svg to PDF stream
+2025-04-22 15:08:24,995 - Proposal_Generator - INFO - Converted Proposta PPT/page 3.svg to PDF stream
+2025-04-22 15:08:25,842 - Proposal_Generator - INFO - Converted Temp_PPT/page 6.svg to PDF stream
+2025-04-22 15:08:26,824 - Proposal_Generator - INFO - Converted Proposta PPT/page 8.svg to PDF stream
+2025-04-22 15:08:27,015 - Proposal_Generator - INFO - Converted Proposta PPT/page 9.svg to PDF stream
+2025-04-22 15:08:27,172 - Proposal_Generator - INFO - Converted Temp_ppt/page 10.svg to PDF stream
+2025-04-22 15:08:27,249 - Proposal_Generator - INFO - Merged PDF saved as C:\Users\Rodri\Downloads\Proposta_çioçiçpgeghh_15287gghh_Curva_de_Preco.pdf
+2025-04-22 15:10:18,829 - Proposal_Generator - INFO - Thread started...
+2025-04-22 15:10:18,835 - Proposal_Generator - INFO - Last updated date found: 2025-04-22
+2025-04-22 15:10:18,837 - Proposal_Generator - INFO - Update ran
+2025-04-22 15:10:39,052 - Proposal_Generator - INFO - Generating proposal...
+2025-04-22 15:10:39,102 - Proposal_Generator - DEBUG - calcular_fatura_livre - fatura_cativa: 13879.378924885212
+2025-04-22 15:10:39,102 - Proposal_Generator - DEBUG - calcular_fatura_livre - fatura_uso: 6445.824123127884
+2025-04-22 15:10:39,102 - Proposal_Generator - DEBUG - calcular_fatura_livre - len(preco['anos']): 6
+2025-04-22 15:10:39,102 - Proposal_Generator - DEBUG - calcular_fatura_livre - len(preco['preco']): 6
+2025-04-22 15:10:39,102 - Proposal_Generator - DEBUG - calcular_fatura_livre - quantidade: {'Demanda HFP': 200.0, 'Demanda HFP sICMS': 0.0, 'Demanda HP': 0.0, 'Demanda HP sICMS': 0.0, 'Demanda HR': 0, 'Demanda HR sICMS': 0, 'Energia HFP': 10000.0, 'Energia HP': 1000.0, 'Energia HR': 0, 'Energia Compensada HFP': 0, 'Energia Compensada HP': 0}
+2025-04-22 15:10:39,102 - Proposal_Generator - DEBUG - calcular_fatura_livre - result_dict: {'Fatura Livre': [3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145], 'anos': [2026, 2027, 2028, 2029, 2030, 2031]}
+2025-04-22 15:10:39,115 - Proposal_Generator - DEBUG - fatura_cativa: 13879.378924885212
+2025-04-22 15:10:39,117 - Proposal_Generator - DEBUG - fatura_uso: 6445.824123127884
+2025-04-22 15:10:39,120 - Proposal_Generator - DEBUG - fatura_livre: [3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145]
+2025-04-22 15:10:39,120 - Proposal_Generator - DEBUG - economia_mensal: 3900.408460293913
+2025-04-22 15:10:39,122 - Proposal_Generator - DEBUG - economia_anual: 46804.901523526954
+2025-04-22 15:10:39,802 - Proposal_Generator - DEBUG - descontos_bandeiras: [np.float64(28.102182968004605), np.float64(28.102182968004605), np.float64(28.102182968004605), np.float64(28.102182968004605)]
+2025-04-22 15:10:40,219 - Proposal_Generator - DEBUG - Processing page 1
+2025-04-22 15:10:40,339 - Proposal_Generator - DEBUG - tspan5 text replaced: ':' -> ': 27896'
+2025-04-22 15:10:40,339 - Proposal_Generator - DEBUG - tspan4 text replaced: ':' -> ': çolil'
+2025-04-22 15:10:40,340 - Proposal_Generator - DEBUG - tspan6 text replaced: ':' -> ': 22/04/2025'
+2025-04-22 15:10:40,376 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 1.svg'
+2025-04-22 15:10:40,380 - Proposal_Generator - DEBUG - Processing page 10
+2025-04-22 15:10:40,403 - Proposal_Generator - INFO - Fetching contact info for agent 'Daniel Brognaro Penido'
+2025-04-22 15:10:40,406 - Proposal_Generator - INFO - Contact info fetched for agent 'Daniel Brognaro Penido'
+2025-04-22 15:10:40,410 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'Agente/Analista Comercial' -> 'Daniel Brognaro Penido'
+2025-04-22 15:10:40,411 - Proposal_Generator - DEBUG - tspan524 text replaced: '(00) 0000-0000' -> '(31)99647-6429'
+2025-04-22 15:10:40,415 - Proposal_Generator - DEBUG - tspan2 text replaced: 'XXXXXXXXXX@cemig.com.br' -> 'daniel.penido@cemig.com.br'
+2025-04-22 15:10:40,422 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 10.svg'
+2025-04-22 15:10:40,424 - Proposal_Generator - DEBUG - Preco fixo Normal variant
+2025-04-22 15:10:40,426 - Proposal_Generator - DEBUG - Processing page 6
+2025-04-22 15:10:40,429 - Proposal_Generator - DEBUG - tspan520-74-4-0-6 text replaced: '3014435811' -> '27896'
+2025-04-22 15:10:40,430 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'xx xxx,xx' -> '3 900,41'
+2025-04-22 15:10:40,434 - Proposal_Generator - DEBUG - tspan520-7-1 text replaced: 'xx xxx,xx' -> '234 024,51'
+2025-04-22 15:10:40,435 - Proposal_Generator - DEBUG - tspan1 text replaced: '25%' -> '28%'
+2025-04-22 15:10:40,436 - Proposal_Generator - DEBUG - tspan12 text replaced: '20/02/2025' -> '27/04/2025'
+2025-04-22 15:10:40,494 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 15:10:40,516 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 15:10:40,532 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 15:10:40,542 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 6.svg'
+2025-04-22 15:10:43,624 - Proposal_Generator - INFO - Converted Temp_ppt/page 1.svg to PDF stream
+2025-04-22 15:10:46,810 - Proposal_Generator - INFO - Converted Proposta PPT/page 2.svg to PDF stream
+2025-04-22 15:10:47,101 - Proposal_Generator - INFO - Converted Proposta PPT/page 3.svg to PDF stream
+2025-04-22 15:10:48,113 - Proposal_Generator - INFO - Converted Temp_PPT/page 6.svg to PDF stream
+2025-04-22 15:10:49,255 - Proposal_Generator - INFO - Converted Proposta PPT/page 8.svg to PDF stream
+2025-04-22 15:10:49,560 - Proposal_Generator - INFO - Converted Proposta PPT/page 9.svg to PDF stream
+2025-04-22 15:10:49,772 - Proposal_Generator - INFO - Converted Temp_ppt/page 10.svg to PDF stream
+2025-04-22 15:10:49,836 - Proposal_Generator - INFO - Merged PDF saved as C:\Users\Rodri\Downloads\Proposta_çolil_27896_Curva_de_Preco.pdf
+2025-04-22 15:12:29,938 - Proposal_Generator - INFO - Generating proposal...
+2025-04-22 15:12:29,978 - Proposal_Generator - DEBUG - fatura_cativa: 13879.378924885212
+2025-04-22 15:12:29,982 - Proposal_Generator - DEBUG - fatura_uso: 6445.824123127884
+2025-04-22 15:12:29,988 - Proposal_Generator - DEBUG - fatura_livre: [3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145]
+2025-04-22 15:12:29,988 - Proposal_Generator - DEBUG - economia_mensal: 3900.408460293913
+2025-04-22 15:12:29,993 - Proposal_Generator - DEBUG - economia_anual: 46804.901523526954
+2025-04-22 15:12:30,304 - Proposal_Generator - DEBUG - Impostos bandeira: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Verde', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 15:12:30,666 - Proposal_Generator - DEBUG - descontos_bandeiras: [np.float64(28.102182968004605), np.float64(28.102182968004605), np.float64(28.102182968004605), np.float64(28.102182968004605)]
+2025-04-22 15:12:31,173 - Proposal_Generator - DEBUG - Processing page 1
+2025-04-22 15:12:31,287 - Proposal_Generator - DEBUG - tspan5 text replaced: ':' -> ': 27896d'
+2025-04-22 15:12:31,288 - Proposal_Generator - DEBUG - tspan4 text replaced: ':' -> ': çolilf'
+2025-04-22 15:12:31,290 - Proposal_Generator - DEBUG - tspan6 text replaced: ':' -> ': 22/04/2025'
+2025-04-22 15:12:31,333 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 1.svg'
+2025-04-22 15:12:31,335 - Proposal_Generator - DEBUG - Processing page 10
+2025-04-22 15:12:31,349 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'Agente/Analista Comercial' -> 'Daniel Brognaro Penido'
+2025-04-22 15:12:31,350 - Proposal_Generator - DEBUG - tspan524 text replaced: '(00) 0000-0000' -> '(31)99647-6429'
+2025-04-22 15:12:31,352 - Proposal_Generator - DEBUG - tspan2 text replaced: 'XXXXXXXXXX@cemig.com.br' -> 'daniel.penido@cemig.com.br'
+2025-04-22 15:12:31,360 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 10.svg'
+2025-04-22 15:12:31,361 - Proposal_Generator - DEBUG - Preco fixo Normal variant
+2025-04-22 15:12:31,363 - Proposal_Generator - DEBUG - Processing page 6
+2025-04-22 15:12:31,366 - Proposal_Generator - DEBUG - tspan520-74-4-0-6 text replaced: '3014435811' -> '27896d'
+2025-04-22 15:12:31,366 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'xx xxx,xx' -> '3 900,41'
+2025-04-22 15:12:31,369 - Proposal_Generator - DEBUG - tspan520-7-1 text replaced: 'xx xxx,xx' -> '234 024,51'
+2025-04-22 15:12:31,370 - Proposal_Generator - DEBUG - tspan1 text replaced: '25%' -> '28%'
+2025-04-22 15:12:31,372 - Proposal_Generator - DEBUG - tspan12 text replaced: '20/02/2025' -> '27/04/2025'
+2025-04-22 15:12:31,434 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 15:12:31,472 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 15:12:31,496 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 15:12:31,504 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 6.svg'
+2025-04-22 15:12:34,272 - Proposal_Generator - INFO - Converted Temp_ppt/page 1.svg to PDF stream
+2025-04-22 15:12:36,546 - Proposal_Generator - INFO - Converted Proposta PPT/page 2.svg to PDF stream
+2025-04-22 15:12:36,829 - Proposal_Generator - INFO - Converted Proposta PPT/page 3.svg to PDF stream
+2025-04-22 15:12:37,873 - Proposal_Generator - INFO - Converted Temp_PPT/page 6.svg to PDF stream
+2025-04-22 15:12:38,750 - Proposal_Generator - INFO - Converted Proposta PPT/page 8.svg to PDF stream
+2025-04-22 15:12:39,010 - Proposal_Generator - INFO - Converted Proposta PPT/page 9.svg to PDF stream
+2025-04-22 15:12:39,177 - Proposal_Generator - INFO - Converted Temp_ppt/page 10.svg to PDF stream
+2025-04-22 15:12:39,249 - Proposal_Generator - INFO - Merged PDF saved as C:\Users\Rodri\Downloads\Proposta_çolilf_27896d_Curva_de_Preco.pdf
+2025-04-22 15:14:49,301 - Proposal_Generator - INFO - Generating proposal...
+2025-04-22 15:14:49,355 - Proposal_Generator - DEBUG - calcular_fatura_livre - fatura_cativa: 14144.576464118076
+2025-04-22 15:14:49,357 - Proposal_Generator - DEBUG - calcular_fatura_livre - fatura_uso: 6445.824123127884
+2025-04-22 15:14:49,362 - Proposal_Generator - DEBUG - calcular_fatura_livre - len(preco['anos']): 6
+2025-04-22 15:14:49,364 - Proposal_Generator - DEBUG - calcular_fatura_livre - len(preco['preco']): 6
+2025-04-22 15:14:49,366 - Proposal_Generator - DEBUG - calcular_fatura_livre - quantidade: {'Demanda HFP': 200.0, 'Demanda HFP sICMS': 0.0, 'Demanda HP': 0.0, 'Demanda HP sICMS': 0.0, 'Demanda HR': 0, 'Demanda HR sICMS': 0, 'Energia HFP': 10000.0, 'Energia HP': 1000.0, 'Energia HR': 0, 'Energia Compensada HFP': 0, 'Energia Compensada HP': 0}
+2025-04-22 15:14:49,368 - Proposal_Generator - DEBUG - calcular_fatura_livre - result_dict: {'Fatura Livre': [3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145], 'anos': [2026, 2027, 2028, 2029, 2030, 2031]}
+2025-04-22 15:14:49,370 - Proposal_Generator - DEBUG - fatura_cativa: 14144.576464118076
+2025-04-22 15:14:49,372 - Proposal_Generator - DEBUG - fatura_uso: 6445.824123127884
+2025-04-22 15:14:49,372 - Proposal_Generator - DEBUG - fatura_livre: [3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145]
+2025-04-22 15:14:49,374 - Proposal_Generator - DEBUG - economia_mensal: 4165.605999526777
+2025-04-22 15:14:49,377 - Proposal_Generator - DEBUG - economia_anual: 49987.27199432132
+2025-04-22 15:14:49,614 - Proposal_Generator - DEBUG - Impostos bandeira: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Amarela', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 15:14:49,836 - Proposal_Generator - DEBUG - new_dict: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Amarela', 'icms_hr': 0.0, 'desc_irr': 0.0, 'Verde': 'Verde'}
+2025-04-22 15:14:49,839 - Proposal_Generator - DEBUG - new_dict: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Amarela', 'icms_hr': 0.0, 'desc_irr': 0.0, 'Verde': 'Verde', 'Amarela': 'Amarela'}
+2025-04-22 15:14:49,845 - Proposal_Generator - DEBUG - new_dict: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Amarela', 'icms_hr': 0.0, 'desc_irr': 0.0, 'Verde': 'Verde', 'Amarela': 'Amarela', 'Vermelha I': 'Vermelha I'}
+2025-04-22 15:14:49,845 - Proposal_Generator - DEBUG - new_dict: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Amarela', 'icms_hr': 0.0, 'desc_irr': 0.0, 'Verde': 'Verde', 'Amarela': 'Amarela', 'Vermelha I': 'Vermelha I', 'Vermelha II': 'Vermelha II'}
+2025-04-22 15:14:49,845 - Proposal_Generator - DEBUG - descontos_bandeiras: [np.float64(29.450199587764786), np.float64(29.450199587764786), np.float64(29.450199587764786), np.float64(29.450199587764786)]
+2025-04-22 15:14:50,255 - Proposal_Generator - DEBUG - Processing page 1
+2025-04-22 15:14:50,346 - Proposal_Generator - DEBUG - tspan5 text replaced: ':' -> ': 27896d'
+2025-04-22 15:14:50,348 - Proposal_Generator - DEBUG - tspan4 text replaced: ':' -> ': çolilf'
+2025-04-22 15:14:50,350 - Proposal_Generator - DEBUG - tspan6 text replaced: ':' -> ': 22/04/2025'
+2025-04-22 15:14:50,385 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 1.svg'
+2025-04-22 15:14:50,388 - Proposal_Generator - DEBUG - Processing page 10
+2025-04-22 15:14:50,401 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'Agente/Analista Comercial' -> 'Daniel Brognaro Penido'
+2025-04-22 15:14:50,403 - Proposal_Generator - DEBUG - tspan524 text replaced: '(00) 0000-0000' -> '(31)99647-6429'
+2025-04-22 15:14:50,403 - Proposal_Generator - DEBUG - tspan2 text replaced: 'XXXXXXXXXX@cemig.com.br' -> 'daniel.penido@cemig.com.br'
+2025-04-22 15:14:50,413 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 10.svg'
+2025-04-22 15:14:50,416 - Proposal_Generator - DEBUG - Preco fixo Normal variant
+2025-04-22 15:14:50,418 - Proposal_Generator - DEBUG - Processing page 6
+2025-04-22 15:14:50,418 - Proposal_Generator - DEBUG - tspan520-74-4-0-6 text replaced: '3014435811' -> '27896d'
+2025-04-22 15:14:50,423 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'xx xxx,xx' -> '4 165,61'
+2025-04-22 15:14:50,423 - Proposal_Generator - DEBUG - tspan520-7-1 text replaced: 'xx xxx,xx' -> '249 936,36'
+2025-04-22 15:14:50,423 - Proposal_Generator - DEBUG - tspan1 text replaced: '25%' -> '29%'
+2025-04-22 15:14:50,428 - Proposal_Generator - DEBUG - tspan12 text replaced: '20/02/2025' -> '27/04/2025'
+2025-04-22 15:14:50,486 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 15:14:50,517 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 15:14:50,529 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 15:14:50,548 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 6.svg'
+2025-04-22 15:14:53,143 - Proposal_Generator - INFO - Converted Temp_ppt/page 1.svg to PDF stream
+2025-04-22 15:14:55,956 - Proposal_Generator - INFO - Converted Proposta PPT/page 2.svg to PDF stream
+2025-04-22 15:14:56,182 - Proposal_Generator - INFO - Converted Proposta PPT/page 3.svg to PDF stream
+2025-04-22 15:14:57,165 - Proposal_Generator - INFO - Converted Temp_PPT/page 6.svg to PDF stream
+2025-04-22 15:14:58,072 - Proposal_Generator - INFO - Converted Proposta PPT/page 8.svg to PDF stream
+2025-04-22 15:14:58,284 - Proposal_Generator - INFO - Converted Proposta PPT/page 9.svg to PDF stream
+2025-04-22 15:14:58,463 - Proposal_Generator - INFO - Converted Temp_ppt/page 10.svg to PDF stream
+2025-04-22 15:14:58,465 - Proposal_Generator - ERROR - Error merging PDFs: [Errno 13] Permission denied: 'C:\\Users\\Rodri\\Downloads\\Proposta_çolilf_27896d_Curva_de_Preco.pdf'
+2025-04-22 15:15:40,797 - Proposal_Generator - INFO - Generating proposal...
+2025-04-22 15:15:40,841 - Proposal_Generator - DEBUG - fatura_cativa: 14144.576464118076
+2025-04-22 15:15:40,843 - Proposal_Generator - DEBUG - fatura_uso: 6445.824123127884
+2025-04-22 15:15:40,844 - Proposal_Generator - DEBUG - fatura_livre: [3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145]
+2025-04-22 15:15:40,845 - Proposal_Generator - DEBUG - economia_mensal: 4165.605999526777
+2025-04-22 15:15:40,849 - Proposal_Generator - DEBUG - economia_anual: 49987.27199432132
+2025-04-22 15:15:41,096 - Proposal_Generator - DEBUG - Impostos bandeira: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Amarela', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 15:15:41,452 - Proposal_Generator - DEBUG - new_dict: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Verde', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 15:15:41,452 - Proposal_Generator - DEBUG - new_dict: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Amarela', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 15:15:41,458 - Proposal_Generator - DEBUG - new_dict: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Vermelha I', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 15:15:41,466 - Proposal_Generator - DEBUG - new_dict: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Vermelha II', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 15:15:41,472 - Proposal_Generator - DEBUG - descontos_bandeiras: [np.float64(28.102182968004605), np.float64(29.450199587764786), np.float64(31.214006795941053), np.float64(33.4184053615956)]
+2025-04-22 15:15:41,788 - Proposal_Generator - DEBUG - Processing page 1
+2025-04-22 15:15:41,888 - Proposal_Generator - DEBUG - tspan5 text replaced: ':' -> ': 27896dd'
+2025-04-22 15:15:41,888 - Proposal_Generator - DEBUG - tspan4 text replaced: ':' -> ': çolilff'
+2025-04-22 15:15:41,888 - Proposal_Generator - DEBUG - tspan6 text replaced: ':' -> ': 22/04/2025'
+2025-04-22 15:15:41,932 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 1.svg'
+2025-04-22 15:15:41,938 - Proposal_Generator - DEBUG - Processing page 10
+2025-04-22 15:15:41,948 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'Agente/Analista Comercial' -> 'Daniel Brognaro Penido'
+2025-04-22 15:15:41,948 - Proposal_Generator - DEBUG - tspan524 text replaced: '(00) 0000-0000' -> '(31)99647-6429'
+2025-04-22 15:15:41,948 - Proposal_Generator - DEBUG - tspan2 text replaced: 'XXXXXXXXXX@cemig.com.br' -> 'daniel.penido@cemig.com.br'
+2025-04-22 15:15:41,964 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 10.svg'
+2025-04-22 15:15:41,965 - Proposal_Generator - DEBUG - Preco fixo Normal variant
+2025-04-22 15:15:41,965 - Proposal_Generator - DEBUG - Processing page 6
+2025-04-22 15:15:41,968 - Proposal_Generator - DEBUG - tspan520-74-4-0-6 text replaced: '3014435811' -> '27896dd'
+2025-04-22 15:15:41,968 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'xx xxx,xx' -> '4 165,61'
+2025-04-22 15:15:41,968 - Proposal_Generator - DEBUG - tspan520-7-1 text replaced: 'xx xxx,xx' -> '249 936,36'
+2025-04-22 15:15:41,968 - Proposal_Generator - DEBUG - tspan1 text replaced: '25%' -> '29%'
+2025-04-22 15:15:41,968 - Proposal_Generator - DEBUG - tspan12 text replaced: '20/02/2025' -> '27/04/2025'
+2025-04-22 15:15:42,038 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 15:15:42,065 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 15:15:42,098 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 15:15:42,099 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 6.svg'
+2025-04-22 15:15:44,398 - Proposal_Generator - INFO - Converted Temp_ppt/page 1.svg to PDF stream
+2025-04-22 15:15:46,937 - Proposal_Generator - INFO - Converted Proposta PPT/page 2.svg to PDF stream
+2025-04-22 15:15:47,115 - Proposal_Generator - INFO - Converted Proposta PPT/page 3.svg to PDF stream
+2025-04-22 15:15:48,055 - Proposal_Generator - INFO - Converted Temp_PPT/page 6.svg to PDF stream
+2025-04-22 15:15:48,808 - Proposal_Generator - INFO - Converted Proposta PPT/page 8.svg to PDF stream
+2025-04-22 15:15:48,996 - Proposal_Generator - INFO - Converted Proposta PPT/page 9.svg to PDF stream
+2025-04-22 15:15:49,127 - Proposal_Generator - INFO - Converted Temp_ppt/page 10.svg to PDF stream
+2025-04-22 15:15:49,222 - Proposal_Generator - INFO - Merged PDF saved as C:\Users\Rodri\Downloads\Proposta_çolilff_27896dd_Curva_de_Preco.pdf
+2025-04-22 16:25:07,618 - Proposal_Generator - INFO - Generating proposal...
+2025-04-22 16:25:07,693 - Proposal_Generator - DEBUG - fatura_cativa: 14144.576464118076
+2025-04-22 16:25:07,695 - Proposal_Generator - DEBUG - fatura_uso: 6445.824123127884
+2025-04-22 16:25:07,697 - Proposal_Generator - DEBUG - fatura_livre: [3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145, 3533.1463414634145]
+2025-04-22 16:25:07,699 - Proposal_Generator - DEBUG - economia_mensal: 4165.605999526777
+2025-04-22 16:25:07,700 - Proposal_Generator - DEBUG - economia_anual: 49987.27199432132
+2025-04-22 16:25:07,705 - Proposal_Generator - DEBUG - Processing page 1
+2025-04-22 16:25:07,801 - Proposal_Generator - DEBUG - tspan5 text replaced: ':' -> ': 27896dddd'
+2025-04-22 16:25:07,801 - Proposal_Generator - DEBUG - tspan4 text replaced: ':' -> ': çolilfffdf'
+2025-04-22 16:25:07,801 - Proposal_Generator - DEBUG - tspan6 text replaced: ':' -> ': 22/04/2025'
+2025-04-22 16:25:07,843 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 1.svg'
+2025-04-22 16:25:07,844 - Proposal_Generator - DEBUG - Processing page 10
+2025-04-22 16:25:07,857 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'Agente/Analista Comercial' -> 'Daniel Brognaro Penido'
+2025-04-22 16:25:07,858 - Proposal_Generator - DEBUG - tspan524 text replaced: '(00) 0000-0000' -> '(31)99647-6429'
+2025-04-22 16:25:07,859 - Proposal_Generator - DEBUG - tspan2 text replaced: 'XXXXXXXXXX@cemig.com.br' -> 'daniel.penido@cemig.com.br'
+2025-04-22 16:25:07,863 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 10.svg'
+2025-04-22 16:25:07,863 - Proposal_Generator - DEBUG - Preco fixo Normal variant
+2025-04-22 16:25:07,863 - Proposal_Generator - DEBUG - Processing page 6
+2025-04-22 16:25:07,871 - Proposal_Generator - DEBUG - tspan520-74-4-0-6 text replaced: '3014435811' -> '27896dddd'
+2025-04-22 16:25:07,871 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'xx xxx,xx' -> '4 165,61'
+2025-04-22 16:25:07,871 - Proposal_Generator - DEBUG - tspan520-7-1 text replaced: 'xx xxx,xx' -> '249 936,36'
+2025-04-22 16:25:07,878 - Proposal_Generator - DEBUG - tspan1 text replaced: '25%' -> '29%'
+2025-04-22 16:25:07,878 - Proposal_Generator - DEBUG - tspan12 text replaced: '20/02/2025' -> '27/04/2025'
+2025-04-22 16:25:07,880 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 16:25:07,891 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 16:25:07,894 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 16:25:07,901 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 6.svg'
+2025-04-22 16:25:11,019 - Proposal_Generator - INFO - Converted Temp_ppt/page 1.svg to PDF stream
+2025-04-22 16:25:14,291 - Proposal_Generator - INFO - Converted Proposta PPT/page 2.svg to PDF stream
+2025-04-22 16:25:14,652 - Proposal_Generator - INFO - Converted Proposta PPT/page 3.svg to PDF stream
+2025-04-22 16:25:15,818 - Proposal_Generator - INFO - Converted Temp_PPT/page 6.svg to PDF stream
+2025-04-22 16:25:17,081 - Proposal_Generator - INFO - Converted Proposta PPT/page 8.svg to PDF stream
+2025-04-22 16:25:17,425 - Proposal_Generator - INFO - Converted Proposta PPT/page 9.svg to PDF stream
+2025-04-22 16:25:17,684 - Proposal_Generator - INFO - Converted Temp_ppt/page 10.svg to PDF stream
+2025-04-22 16:25:17,784 - Proposal_Generator - INFO - Merged PDF saved as C:\Users\Rodri\Downloads\Proposta_çolilfffdf_27896dddd_Curva_de_Preco.pdf
+2025-04-22 16:26:06,067 - Proposal_Generator - INFO - Generating proposal...
+2025-04-22 16:26:06,117 - Proposal_Generator - DEBUG - calcular_fatura_livre - fatura_cativa: 13860.85666415133
+2025-04-22 16:26:06,119 - Proposal_Generator - DEBUG - calcular_fatura_livre - fatura_uso: 6304.829646149616
+2025-04-22 16:26:06,121 - Proposal_Generator - DEBUG - calcular_fatura_livre - len(preco['anos']): 6
+2025-04-22 16:26:06,123 - Proposal_Generator - DEBUG - calcular_fatura_livre - len(preco['preco']): 6
+2025-04-22 16:26:06,125 - Proposal_Generator - DEBUG - calcular_fatura_livre - quantidade: {'Demanda HFP': 200.0, 'Demanda HFP sICMS': 0.0, 'Demanda HP': 0.0, 'Demanda HP sICMS': 0.0, 'Demanda HR': 0, 'Demanda HR sICMS': 0, 'Energia HFP': 10000.0, 'Energia HP': 900.0, 'Energia HR': 0, 'Energia Compensada HFP': 0, 'Energia Compensada HP': 0}
+2025-04-22 16:26:06,126 - Proposal_Generator - DEBUG - calcular_fatura_livre - result_dict: {'Fatura Livre': [3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927], 'anos': [2026, 2027, 2028, 2029, 2030, 2031]}
+2025-04-22 16:26:06,128 - Proposal_Generator - DEBUG - fatura_cativa: 13860.85666415133
+2025-04-22 16:26:06,130 - Proposal_Generator - DEBUG - fatura_uso: 6304.829646149616
+2025-04-22 16:26:06,132 - Proposal_Generator - DEBUG - fatura_livre: [3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927]
+2025-04-22 16:26:06,133 - Proposal_Generator - DEBUG - economia_mensal: 4055.0001887334215
+2025-04-22 16:26:06,136 - Proposal_Generator - DEBUG - economia_anual: 48660.002264801056
+2025-04-22 16:26:06,402 - Proposal_Generator - DEBUG - Impostos bandeira: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Amarela', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 16:26:06,658 - Proposal_Generator - DEBUG - new_dict: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Verde', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 16:26:06,666 - Proposal_Generator - DEBUG - new_dict: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Amarela', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 16:26:06,672 - Proposal_Generator - DEBUG - new_dict: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Vermelha I', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 16:26:06,677 - Proposal_Generator - DEBUG - new_dict: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Vermelha II', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 16:26:06,681 - Proposal_Generator - DEBUG - descontos_bandeiras: [np.float64(27.887880654938908), np.float64(29.255047411470365), np.float64(31.043028689990198), np.float64(33.27623404871462)]
+2025-04-22 16:26:07,052 - Proposal_Generator - DEBUG - Processing page 1
+2025-04-22 16:26:07,126 - Proposal_Generator - DEBUG - tspan5 text replaced: ':' -> ': 27896dddd'
+2025-04-22 16:26:07,126 - Proposal_Generator - DEBUG - tspan4 text replaced: ':' -> ': çolilfffdf'
+2025-04-22 16:26:07,129 - Proposal_Generator - DEBUG - tspan6 text replaced: ':' -> ': 22/04/2025'
+2025-04-22 16:26:07,158 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 1.svg'
+2025-04-22 16:26:07,161 - Proposal_Generator - DEBUG - Processing page 10
+2025-04-22 16:26:07,171 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'Agente/Analista Comercial' -> 'Daniel Brognaro Penido'
+2025-04-22 16:26:07,171 - Proposal_Generator - DEBUG - tspan524 text replaced: '(00) 0000-0000' -> '(31)99647-6429'
+2025-04-22 16:26:07,171 - Proposal_Generator - DEBUG - tspan2 text replaced: 'XXXXXXXXXX@cemig.com.br' -> 'daniel.penido@cemig.com.br'
+2025-04-22 16:26:07,179 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 10.svg'
+2025-04-22 16:26:07,179 - Proposal_Generator - DEBUG - Preco fixo Normal variant
+2025-04-22 16:26:07,179 - Proposal_Generator - DEBUG - Processing page 6
+2025-04-22 16:26:07,185 - Proposal_Generator - DEBUG - tspan520-74-4-0-6 text replaced: '3014435811' -> '27896dddd'
+2025-04-22 16:26:07,185 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'xx xxx,xx' -> '4 055,00'
+2025-04-22 16:26:07,185 - Proposal_Generator - DEBUG - tspan520-7-1 text replaced: 'xx xxx,xx' -> '243 300,01'
+2025-04-22 16:26:07,189 - Proposal_Generator - DEBUG - tspan1 text replaced: '25%' -> '29%'
+2025-04-22 16:26:07,189 - Proposal_Generator - DEBUG - tspan12 text replaced: '20/02/2025' -> '27/04/2025'
+2025-04-22 16:26:07,242 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 16:26:07,264 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 16:26:07,288 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 16:26:07,298 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 6.svg'
+2025-04-22 16:26:08,728 - Proposal_Generator - INFO - Converted Temp_ppt/page 1.svg to PDF stream
+2025-04-22 16:26:10,296 - Proposal_Generator - INFO - Converted Proposta PPT/page 2.svg to PDF stream
+2025-04-22 16:26:10,440 - Proposal_Generator - INFO - Converted Proposta PPT/page 3.svg to PDF stream
+2025-04-22 16:26:11,416 - Proposal_Generator - INFO - Converted Temp_PPT/page 6.svg to PDF stream
+2025-04-22 16:26:12,419 - Proposal_Generator - INFO - Converted Proposta PPT/page 8.svg to PDF stream
+2025-04-22 16:26:12,659 - Proposal_Generator - INFO - Converted Proposta PPT/page 9.svg to PDF stream
+2025-04-22 16:26:12,911 - Proposal_Generator - INFO - Converted Temp_ppt/page 10.svg to PDF stream
+2025-04-22 16:26:12,911 - Proposal_Generator - ERROR - Error merging PDFs: [Errno 13] Permission denied: 'C:\\Users\\Rodri\\Downloads\\Proposta_çolilfffdf_27896dddd_Curva_de_Preco.pdf'
+2025-04-22 16:26:24,975 - Proposal_Generator - INFO - Generating proposal...
+2025-04-22 16:26:25,030 - Proposal_Generator - DEBUG - fatura_cativa: 13860.85666415133
+2025-04-22 16:26:25,033 - Proposal_Generator - DEBUG - fatura_uso: 6304.829646149616
+2025-04-22 16:26:25,035 - Proposal_Generator - DEBUG - fatura_livre: [3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927]
+2025-04-22 16:26:25,036 - Proposal_Generator - DEBUG - economia_mensal: 4055.0001887334215
+2025-04-22 16:26:25,038 - Proposal_Generator - DEBUG - economia_anual: 48660.002264801056
+2025-04-22 16:26:25,042 - Proposal_Generator - DEBUG - Processing page 1
+2025-04-22 16:26:25,153 - Proposal_Generator - DEBUG - tspan5 text replaced: ':' -> ': 27896ddddgdg'
+2025-04-22 16:26:25,155 - Proposal_Generator - DEBUG - tspan4 text replaced: ':' -> ': çolilfffdfdgdg'
+2025-04-22 16:26:25,157 - Proposal_Generator - DEBUG - tspan6 text replaced: ':' -> ': 22/04/2025'
+2025-04-22 16:26:25,212 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 1.svg'
+2025-04-22 16:26:25,212 - Proposal_Generator - DEBUG - Processing page 10
+2025-04-22 16:26:25,235 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'Agente/Analista Comercial' -> 'Daniel Brognaro Penido'
+2025-04-22 16:26:25,235 - Proposal_Generator - DEBUG - tspan524 text replaced: '(00) 0000-0000' -> '(31)99647-6429'
+2025-04-22 16:26:25,238 - Proposal_Generator - DEBUG - tspan2 text replaced: 'XXXXXXXXXX@cemig.com.br' -> 'daniel.penido@cemig.com.br'
+2025-04-22 16:26:25,247 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 10.svg'
+2025-04-22 16:26:25,247 - Proposal_Generator - DEBUG - Preco fixo Normal variant
+2025-04-22 16:26:25,251 - Proposal_Generator - DEBUG - Processing page 6
+2025-04-22 16:26:25,255 - Proposal_Generator - DEBUG - tspan520-74-4-0-6 text replaced: '3014435811' -> '27896ddddgdg'
+2025-04-22 16:26:25,255 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'xx xxx,xx' -> '4 055,00'
+2025-04-22 16:26:25,255 - Proposal_Generator - DEBUG - tspan520-7-1 text replaced: 'xx xxx,xx' -> '243 300,01'
+2025-04-22 16:26:25,261 - Proposal_Generator - DEBUG - tspan1 text replaced: '25%' -> '29%'
+2025-04-22 16:26:25,262 - Proposal_Generator - DEBUG - tspan12 text replaced: '20/02/2025' -> '27/04/2025'
+2025-04-22 16:26:25,273 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 16:26:25,273 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 16:26:25,282 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 16:26:25,292 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 6.svg'
+2025-04-22 16:26:28,286 - Proposal_Generator - INFO - Converted Temp_ppt/page 1.svg to PDF stream
+2025-04-22 16:26:31,517 - Proposal_Generator - INFO - Converted Proposta PPT/page 2.svg to PDF stream
+2025-04-22 16:26:31,797 - Proposal_Generator - INFO - Converted Proposta PPT/page 3.svg to PDF stream
+2025-04-22 16:26:32,918 - Proposal_Generator - INFO - Converted Temp_PPT/page 6.svg to PDF stream
+2025-04-22 16:26:34,167 - Proposal_Generator - INFO - Converted Proposta PPT/page 8.svg to PDF stream
+2025-04-22 16:26:34,445 - Proposal_Generator - INFO - Converted Proposta PPT/page 9.svg to PDF stream
+2025-04-22 16:26:34,669 - Proposal_Generator - INFO - Converted Temp_ppt/page 10.svg to PDF stream
+2025-04-22 16:26:34,764 - Proposal_Generator - INFO - Merged PDF saved as C:\Users\Rodri\Downloads\Proposta_çolilfffdfdgdg_27896ddddgdg_Curva_de_Preco.pdf
+2025-04-22 16:31:40,083 - Proposal_Generator - INFO - Generating proposal...
+2025-04-22 16:31:40,124 - Proposal_Generator - DEBUG - calcular_fatura_livre - fatura_cativa: 13889.288500645887
+2025-04-22 16:31:40,126 - Proposal_Generator - DEBUG - calcular_fatura_livre - fatura_uso: 6322.146482644175
+2025-04-22 16:31:40,128 - Proposal_Generator - DEBUG - calcular_fatura_livre - len(preco['anos']): 6
+2025-04-22 16:31:40,129 - Proposal_Generator - DEBUG - calcular_fatura_livre - len(preco['preco']): 6
+2025-04-22 16:31:40,131 - Proposal_Generator - DEBUG - calcular_fatura_livre - quantidade: {'Demanda HFP': 201.0, 'Demanda HFP sICMS': 0.0, 'Demanda HP': 0.0, 'Demanda HP sICMS': 0.0, 'Demanda HR': 0, 'Demanda HR sICMS': 0, 'Energia HFP': 10000.0, 'Energia HP': 900.0, 'Energia HR': 0, 'Energia Compensada HFP': 0, 'Energia Compensada HP': 0}
+2025-04-22 16:31:40,133 - Proposal_Generator - DEBUG - calcular_fatura_livre - result_dict: {'Fatura Livre': [3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927], 'anos': [2026, 2027, 2028, 2029, 2030, 2031]}
+2025-04-22 16:31:40,136 - Proposal_Generator - DEBUG - fatura_cativa: 13889.288500645887
+2025-04-22 16:31:40,138 - Proposal_Generator - DEBUG - fatura_uso: 6322.146482644175
+2025-04-22 16:31:40,140 - Proposal_Generator - DEBUG - fatura_livre: [3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927]
+2025-04-22 16:31:40,142 - Proposal_Generator - DEBUG - economia_mensal: 4066.1151887334195
+2025-04-22 16:31:40,144 - Proposal_Generator - DEBUG - economia_anual: 48793.38226480103
+2025-04-22 16:31:40,513 - Proposal_Generator - DEBUG - Impostos bandeira: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Amarela', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 16:31:40,937 - Proposal_Generator - DEBUG - new_dict: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Verde', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 16:31:40,945 - Proposal_Generator - DEBUG - new_dict: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Amarela', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 16:31:40,949 - Proposal_Generator - DEBUG - new_dict: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Vermelha I', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 16:31:40,958 - Proposal_Generator - DEBUG - new_dict: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Vermelha II', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 16:31:40,965 - Proposal_Generator - DEBUG - descontos_bandeiras: [np.float64(27.911261295149398), np.float64(29.275187051837356), np.float64(31.059092605393595), np.float64(33.28746662711919)]
+2025-04-22 16:31:41,483 - Proposal_Generator - DEBUG - Processing page 1
+2025-04-22 16:31:41,623 - Proposal_Generator - DEBUG - tspan5 text replaced: ':' -> ': 27896ddddgdggffg'
+2025-04-22 16:31:41,623 - Proposal_Generator - DEBUG - tspan4 text replaced: ':' -> ': çolilfffdfdgdggfg'
+2025-04-22 16:31:41,631 - Proposal_Generator - DEBUG - tspan6 text replaced: ':' -> ': 22/04/2025'
+2025-04-22 16:31:41,683 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 1.svg'
+2025-04-22 16:31:41,685 - Proposal_Generator - DEBUG - Processing page 10
+2025-04-22 16:31:41,705 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'Agente/Analista Comercial' -> 'Daniel Brognaro Penido'
+2025-04-22 16:31:41,708 - Proposal_Generator - DEBUG - tspan524 text replaced: '(00) 0000-0000' -> '(31)99647-6429'
+2025-04-22 16:31:41,709 - Proposal_Generator - DEBUG - tspan2 text replaced: 'XXXXXXXXXX@cemig.com.br' -> 'daniel.penido@cemig.com.br'
+2025-04-22 16:31:41,720 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 10.svg'
+2025-04-22 16:31:41,722 - Proposal_Generator - DEBUG - Preco fixo Normal variant
+2025-04-22 16:31:41,723 - Proposal_Generator - DEBUG - Processing page 6
+2025-04-22 16:31:41,727 - Proposal_Generator - DEBUG - tspan520-74-4-0-6 text replaced: '3014435811' -> '27896ddddgdggffg'
+2025-04-22 16:31:41,730 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'xx xxx,xx' -> '4 066,12'
+2025-04-22 16:31:41,731 - Proposal_Generator - DEBUG - tspan520-7-1 text replaced: 'xx xxx,xx' -> '243 966,91'
+2025-04-22 16:31:41,732 - Proposal_Generator - DEBUG - tspan1 text replaced: '25%' -> '29%'
+2025-04-22 16:31:41,734 - Proposal_Generator - DEBUG - tspan12 text replaced: '20/02/2025' -> '27/04/2025'
+2025-04-22 16:31:41,806 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 16:31:41,833 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 16:31:41,872 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 16:31:41,881 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 6.svg'
+2025-04-22 16:31:44,799 - Proposal_Generator - INFO - Converted Temp_ppt/page 1.svg to PDF stream
+2025-04-22 16:31:48,086 - Proposal_Generator - INFO - Converted Proposta PPT/page 2.svg to PDF stream
+2025-04-22 16:31:48,428 - Proposal_Generator - INFO - Converted Proposta PPT/page 3.svg to PDF stream
+2025-04-22 16:31:49,652 - Proposal_Generator - INFO - Converted Temp_PPT/page 6.svg to PDF stream
+2025-04-22 16:31:50,814 - Proposal_Generator - INFO - Converted Proposta PPT/page 8.svg to PDF stream
+2025-04-22 16:31:51,053 - Proposal_Generator - INFO - Converted Proposta PPT/page 9.svg to PDF stream
+2025-04-22 16:31:51,281 - Proposal_Generator - INFO - Converted Temp_ppt/page 10.svg to PDF stream
+2025-04-22 16:31:51,394 - Proposal_Generator - INFO - Merged PDF saved as C:\Users\Rodri\Downloads\Proposta_çolilfffdfdgdggfg_27896ddddgdggffg_Curva_de_Preco.pdf
+2025-04-22 16:33:22,641 - Proposal_Generator - INFO - Generating proposal...
+2025-04-22 16:33:22,699 - Proposal_Generator - DEBUG - calcular_fatura_livre - fatura_cativa: 14173.606865591466
+2025-04-22 16:33:22,700 - Proposal_Generator - DEBUG - calcular_fatura_livre - fatura_uso: 6495.314847589752
+2025-04-22 16:33:22,701 - Proposal_Generator - DEBUG - calcular_fatura_livre - len(preco['anos']): 6
+2025-04-22 16:33:22,703 - Proposal_Generator - DEBUG - calcular_fatura_livre - len(preco['preco']): 6
+2025-04-22 16:33:22,704 - Proposal_Generator - DEBUG - calcular_fatura_livre - quantidade: {'Demanda HFP': 211.0, 'Demanda HFP sICMS': 0.0, 'Demanda HP': 0.0, 'Demanda HP sICMS': 0.0, 'Demanda HR': 0, 'Demanda HR sICMS': 0, 'Energia HFP': 10000.0, 'Energia HP': 900.0, 'Energia HR': 0, 'Energia Compensada HFP': 0, 'Energia Compensada HP': 0}
+2025-04-22 16:33:22,705 - Proposal_Generator - DEBUG - calcular_fatura_livre - result_dict: {'Fatura Livre': [3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927], 'anos': [2026, 2027, 2028, 2029, 2030, 2031]}
+2025-04-22 16:33:22,706 - Proposal_Generator - DEBUG - fatura_cativa: 14173.606865591466
+2025-04-22 16:33:22,708 - Proposal_Generator - DEBUG - fatura_uso: 6495.314847589752
+2025-04-22 16:33:22,710 - Proposal_Generator - DEBUG - fatura_livre: [3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927, 3501.0268292682927]
+2025-04-22 16:33:22,711 - Proposal_Generator - DEBUG - economia_mensal: 4177.265188733421
+2025-04-22 16:33:22,712 - Proposal_Generator - DEBUG - economia_anual: 50127.18226480106
+2025-04-22 16:33:22,994 - Proposal_Generator - DEBUG - Impostos bandeira: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Amarela', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 16:33:23,377 - Proposal_Generator - DEBUG - new_dict: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Verde', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 16:33:23,385 - Proposal_Generator - DEBUG - new_dict: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Amarela', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 16:33:23,389 - Proposal_Generator - DEBUG - new_dict: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Vermelha I', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 16:33:23,393 - Proposal_Generator - DEBUG - new_dict: {'icms': 0.18, 'paseb': 0.0083, 'cofins': 0.0382, 'bandeira': 'Vermelha II', 'icms_hr': 0.0, 'desc_irr': 0.0}
+2025-04-22 16:33:23,403 - Proposal_Generator - DEBUG - descontos_bandeiras: [np.float64(28.139811141692977), np.float64(29.472139507935363), np.float64(31.21627480537574), np.float64(33.39745181326942)]
+2025-04-22 16:33:23,915 - Proposal_Generator - DEBUG - Processing page 1
+2025-04-22 16:33:24,020 - Proposal_Generator - DEBUG - tspan5 text replaced: ':' -> ': 27896ddddgdggffgj'
+2025-04-22 16:33:24,020 - Proposal_Generator - DEBUG - tspan4 text replaced: ':' -> ': çolilfffdfdgdggfgh'
+2025-04-22 16:33:24,022 - Proposal_Generator - DEBUG - tspan6 text replaced: ':' -> ': 22/04/2025'
+2025-04-22 16:33:24,053 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 1.svg'
+2025-04-22 16:33:24,055 - Proposal_Generator - DEBUG - Processing page 10
+2025-04-22 16:33:24,079 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'Agente/Analista Comercial' -> 'Daniel Brognaro Penido'
+2025-04-22 16:33:24,080 - Proposal_Generator - DEBUG - tspan524 text replaced: '(00) 0000-0000' -> '(31)99647-6429'
+2025-04-22 16:33:24,081 - Proposal_Generator - DEBUG - tspan2 text replaced: 'XXXXXXXXXX@cemig.com.br' -> 'daniel.penido@cemig.com.br'
+2025-04-22 16:33:24,096 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 10.svg'
+2025-04-22 16:33:24,103 - Proposal_Generator - DEBUG - Preco fixo Normal variant
+2025-04-22 16:33:24,105 - Proposal_Generator - DEBUG - Processing page 6
+2025-04-22 16:33:24,113 - Proposal_Generator - DEBUG - tspan520-74-4-0-6 text replaced: '3014435811' -> '27896ddddgdggffgj'
+2025-04-22 16:33:24,115 - Proposal_Generator - DEBUG - tspan520-7 text replaced: 'xx xxx,xx' -> '4 177,27'
+2025-04-22 16:33:24,115 - Proposal_Generator - DEBUG - tspan520-7-1 text replaced: 'xx xxx,xx' -> '250 635,91'
+2025-04-22 16:33:24,117 - Proposal_Generator - DEBUG - tspan1 text replaced: '25%' -> '29%'
+2025-04-22 16:33:24,119 - Proposal_Generator - DEBUG - tspan12 text replaced: '20/02/2025' -> '27/04/2025'
+2025-04-22 16:33:24,163 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 16:33:24,197 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 16:33:24,225 - Proposal_Generator - DEBUG - SVG Proposta PPT/page 6.svg embedded successfully
+2025-04-22 16:33:24,233 - Proposal_Generator - INFO - Modified SVG saved to 'Temp_ppt/page 6.svg'
+2025-04-22 16:33:27,181 - Proposal_Generator - INFO - Converted Temp_ppt/page 1.svg to PDF stream
+2025-04-22 16:33:30,442 - Proposal_Generator - INFO - Converted Proposta PPT/page 2.svg to PDF stream
+2025-04-22 16:33:30,810 - Proposal_Generator - INFO - Converted Proposta PPT/page 3.svg to PDF stream
+2025-04-22 16:33:31,954 - Proposal_Generator - INFO - Converted Temp_PPT/page 6.svg to PDF stream
+2025-04-22 16:33:33,265 - Proposal_Generator - INFO - Converted Proposta PPT/page 8.svg to PDF stream
+2025-04-22 16:33:33,505 - Proposal_Generator - INFO - Converted Proposta PPT/page 9.svg to PDF stream
+2025-04-22 16:33:33,650 - Proposal_Generator - INFO - Converted Temp_ppt/page 10.svg to PDF stream
+2025-04-22 16:33:33,725 - Proposal_Generator - INFO - Merged PDF saved as C:\Users\Rodri\Downloads\Proposta_çolilfffdfdgdggfgh_27896ddddgdggffgj_Curva_de_Preco.pdf

@@ -28,8 +28,8 @@ def flags_plot(values, categories = ['VERDE', 'AMARELA', 'VERMELHA I', 'VERMELHA
     # Add data labels on the bars
     for bar in bars:
         width = bar.get_width()
-        label_x_pos = width + 4 
-        ax.text(label_x_pos, bar.get_y() + bar.get_height()/2, f'{width:.2f}%', 
+        label_x_pos = width + 9 
+        ax.text(label_x_pos, bar.get_y() + bar.get_height()/2, f'{width:.1f}%', 
                 va='center', ha='right', color='#0F7661', fontweight='bold', fontsize = 20)
 
     # Set the title and labels
@@ -383,16 +383,16 @@ def energy_cost_plot(total_cost, energia_livre, servicos_distribuicao,economia, 
 
     # Add text labels for the values
     # Left bar (total cost)
-    ax.text(0, total_cost / 2, f'R$ {total_cost:,.2f}'.replace(",",".").replace(".",","), ha='center', va='center', color='black', fontweight='bold', fontsize=12)
+    ax.text(0, total_cost / 2, f'R$ {total_cost:,.2f}'.replace("."," ").replace(",","."), ha='center', va='center', color='black', fontweight='bold', fontsize=14)
 
     # Right bar (Energia Livre)
-    ax.text(2, energia_livre / 2, f'R$ {energia_livre:,.2f}'.replace(",",".").replace(".",","), ha='center', va='center', color='white', fontweight='bold', fontsize=12)
+    ax.text(2, energia_livre / 2, f'R$ {energia_livre:,.2f}'.replace("."," ").replace(",","."), ha='center', va='center', color='white', fontweight='bold', fontsize=14)
     # Right bar (Serviços de Distribuição)
-    ax.text(2, energia_livre + servicos_distribuicao / 2, f'R$ {servicos_distribuicao:,.2f}'.replace(",",".").replace(".",","), ha='center', va='center', color='white', fontweight='bold', fontsize=12)
+    ax.text(2, energia_livre + servicos_distribuicao / 2, f'R$ {servicos_distribuicao:,.2f}'.replace("."," ").replace(",","."), ha='center', va='center', color='white', fontweight='bold', fontsize=14)
     # Right bar (Economia) with "ECONOMIA" label above
     economia_y_pos = energia_livre + servicos_distribuicao + economia / 2
     ax.text(2, economia_y_pos + 500, 'ECONOMIA', ha='center', va='center', color='black', fontweight='bold', fontsize=14)
-    ax.text(2, economia_y_pos, f'R$ {economia:,.2f}'.replace(",",".").replace(".",","), ha='center', va='center', color='black', fontweight='bold', fontsize=12)
+    ax.text(2, economia_y_pos, f'R$ {economia:,.2f}'.replace("."," ").replace(",","."), ha='center', va='center', color='black', fontweight='bold', fontsize=14)
 
     # Load the icon images with error handling
     try:
@@ -420,14 +420,14 @@ def energy_cost_plot(total_cost, energia_livre, servicos_distribuicao,economia, 
         ab_light_bulb = AnnotationBbox(light_bulb_offset, (x_icon, y_energia), frameon=False, zorder=10)
         ax.add_artist(ab_light_bulb)
         # Add the text label next to the icon
-        ax.text(x_icon + 0.3, y_energia, 'Energia Livre', ha='left', va='center', color='#0F7661', fontsize=12)
+        #ax.text(x_icon + 0.3, y_energia, 'Energia Livre', ha='left', va='center', color='#0F7661', fontsize=12)
 
     if power_line_img is not None:
         power_line_offset = OffsetImage(power_line_img, zoom=0.3, zorder=10)
         ab_power_line = AnnotationBbox(power_line_offset, (x_icon, y_servicos), frameon=False, zorder=10)
         ax.add_artist(ab_power_line)
         # Add the text label next to the icon
-        ax.text(x_icon + 0.3, y_servicos, 'Serviços de Distribuição', ha='left', va='center', color='#0F7661', fontsize=12)
+        #ax.text(x_icon + 0.3, y_servicos, 'Serviços de \nDistribuição', ha='left', va='center', color='#0F7661', fontsize=12)
 
     # Remove spines and ticks
     for spine in ax.spines.values():

@@ -8,12 +8,44 @@ import shutil
 from io import StringIO
 import sqlite3
 import streamlit as st
+import logging
+import logging.handlers
+from pathlib import Path
+from typing import Optional
 
 update_event = threading.Event()  # Initially unset (False)
 
-def fetch_and_update_tarifas_background():
+def fetch_and_update_tarifas_background() -> None:
+    """
+    Fetches and updates electricity tariff data from the ANEEL API and stores it in a local SQLite database.
+    This function performs the following steps:
+    1. Checks the last update date stored in the SQLite database.
+    2. If the data is outdated or missing, fetches the latest tariff data from the ANEEL API.
+    3. Preprocesses the fetched data and updates the local SQLite database.
+    4. Updates the last update date in the database.
+    Logging:
+        - Logs the start and completion of the update process.
+        - Logs errors encountered during the update process.
+    Database:
+        - Creates a table `last_updated_date` if it does not exist.
+        - Updates the `ANEEL_DB` table with the latest tariff data.
+        - Updates the `last_updated_date` table with the current date.
+    Exceptions:
+        - Logs and raises exceptions encountered during the data fetching or database update process.
+    Notes:
+        - The function uses a thread-safe event (`update_event`) to signal the completion of the update process.
+        - The fetched data is expected to be in CSV format and encoded in "windows-1252".
+    Raises:
+        Exception: If there is an error during data fetching or database operations.
+    Returns:
+        None
+    """
 
-    print("Thread started...", flush=True)
+
+    logger = logging.getLogger("Proposal_Generator")
+
+    logger.info("Thread started...")
+    
     # Define file paths
     #tarifas_csv = r"DBases/tarifas.csv"
     tarifas_parquet = r"DBases/tarifas.parquet"
@@ -37,7 +69,7 @@ def fetch_and_update_tarifas_background():
     result = cursor.fetchone()
     if result:
         last_updated = datetime.strptime(result[0], "%d-%m-%Y").date()
-        print(f"Last updated: {last_updated}, Today: {date.today()}")
+        logger.info(f"Last updated date found: {last_updated}")
     conn.close()
 
     # Update only if last_updated is None or older than today
@@ -56,7 +88,7 @@ def fetch_and_update_tarifas_background():
                 # Replace the existing data in ANEEL_DB (drop and recreate for simplicity)
                 df_tarifas.to_sql('ANEEL_DB', conn, if_exists='replace', index=False)
             except Exception as e:
-                print(f"Database write failed: {e}")
+                logger.error(f"Database write failed: {e}")
                 raise  # Re-raise to trigger cleanup in the except block
             finally:
                 conn.close()
@@ -72,15 +104,34 @@ def fetch_and_update_tarifas_background():
             conn.close()
 
         except Exception as e:
-            print(f"Update failed: {e}")
+            logger.error(f"Update failed: {e}")
             update_event.set()  # Still signal completion on failure
             return
 
         update_event.set()  # Signal completion
-        print("Thread finished, UPDATE_COMPLETE set to True", flush=True)
-    print("update runned", flush=True)
+        logger.info("Thread finished, UPDATE_COMPLETE set to True")
+    logger.info("Update ran")
 
-def preprocess_tarifas(df):
+def preprocess_tarifas(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Preprocesses a DataFrame containing tariff data by performing various cleaning, 
+    transformation, and filtering operations.
+    Args:
+        df (pd.DataFrame): The input DataFrame containing tariff data. It is expected 
+            to have specific columns such as 'VlrTE', 'VlrTUSD', 'NomPostoTarifario', 
+            'DscDetalhe', 'DscBaseTarifaria', 'SigAgenteAcessante', 'DscModalidadeTarifaria', 
+            and others.
+    Returns:
+        pd.DataFrame: A cleaned and preprocessed DataFrame with the following transformations:
+            - Replaces specific values in the 'SigAgente' column based on a predefined mapping.
+            - Converts 'VlrTE' and 'VlrTUSD' columns to float after replacing specific patterns.
+            - Replaces "Não se aplica" with "Fora ponta" in the 'NomPostoTarifario' column.
+            - Drops the 'DscClasse' and 'DscSubClasse' columns.
+            - Filters rows based on conditions for 'DscDetalhe', 'DscBaseTarifaria', 
+                'SigAgenteAcessante', and 'DscModalidadeTarifaria'.
+            - Converts columns to specific data types as defined in a type dictionary.
+            - Sorts the DataFrame by 'DatInicioVigencia' in descending order.
+    """
 
     replacements = {
         "ETO": "Energisa Tocantins",
@@ -289,7 +340,7 @@ def fetch_contatos_agentes(db_path):
         conn.close()
 
 @st.cache_data
-def fetch_agent_contact_info(agente, db_path="DataBase.db"):
+def fetch_agent_contact_info(agente: str, db_path:str ="DataBase.db") -> Optional[dict]:
     """
     Fetch the email and phone number of an agent from the database.
 
@@ -300,6 +351,9 @@ def fetch_agent_contact_info(agente, db_path="DataBase.db"):
     Returns:
         dict: A dictionary containing the agent's email and phone, or None if not found.
     """
+
+    logger = logging.getLogger("Proposal_Generator")
+    logger.info(f"Fetching contact info for agent '{agente}'")
     try:
         with sqlite3.connect(db_path) as conn:
             query = """
@@ -310,17 +364,73 @@ def fetch_agent_contact_info(agente, db_path="DataBase.db"):
             df = pd.read_sql_query(query, conn, params=(agente,))
             
             if df.empty:
-                print(f"No results found for agent '{agente}' in the database.")
+                logger.warning(f"No results found for agent '{agente}' in the database.")                
                 return None
             
             # Return the first row as a dictionary
+            logger.info(f"Contact info fetched for agent '{agente}'")
             return {"email": df.iloc[0]["e-mail"], "phone": df.iloc[0]["telefone"]}
+        
     except sqlite3.Error as e:
-        print(f"Database error: {e}")
+        logger.error(f"Database error executing query '{query}': {e}")
         return None
     except Exception as e:
-        print(f"Unexpected error: {e}")
+        logger.error(f"Unexpected error: {e}")
         return None
 
+def setup_logger(
+    name: str = "Proposal_Generator",
+    log_dir: str = "logs",
+    log_file: str = "Proposal_generator.log",
+    level: int = logging.INFO,
+    max_bytes: int = 5 * 1024 * 1024,
+    backup_count: int = 5
+    ) -> logging.Logger:
+    """
+    Configure a logger with file and console handlers, using UTF-8 encoding for files.
 
+    Args:
+        name (str): Logger name (default: "DataPipeline").
+        log_dir (str): Directory for log files (default: "logs").
+        log_file (str): Log file name (default: "pipeline.log").
+        level (int): Logging level (default: logging.INFO).
+        max_bytes (int): Max size per log file before rotation (default: 5MB).
+        backup_count (int): Number of backup log files (default: 5).
+
+    Returns:
+        logging.Logger: Configured logger instance.
+    """
+    logger = logging.getLogger(name)
+    if logger.handlers:
+        return logger
+
+    # Create log directory
+    log_dir = Path(log_dir)
+    print(f"Attempting to create log directory: {log_dir.resolve()}", flush=True)
+    log_dir.mkdir(exist_ok=True)
+
+    # Define log format
+    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+
+    # File handler with UTF-8 encoding and rotation
+    file_handler = logging.handlers.RotatingFileHandler(
+        log_dir / log_file,
+        maxBytes=max_bytes,
+        backupCount=backup_count,
+        encoding="utf-8"  # Ensure UTF-8 for special characters
+    )
+    file_handler.setLevel(level)
+    file_handler.setFormatter(formatter)
+
+    # Console handler for warnings and above
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.WARNING)
+    console_handler.setFormatter(formatter)
+
+    # Add handlers to logger
+    logger.addHandler(file_handler)
+    logger.addHandler(console_handler)
+    logger.setLevel(level)
+
+    return logger
 

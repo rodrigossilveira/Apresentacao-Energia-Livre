@@ -204,7 +204,6 @@ def render_consumption_history():
         st.dataframe(st.session_state.consumption_history)
 
 
-
 def apply_css_spacing():
     # Inject CSS to reduce vertical spacing
     st.markdown("""

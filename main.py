@@ -9,13 +9,17 @@ from modules.ui_components import (
     render_logos, render_header_inputs,  render_distribuidora_section, render_tax_inputs,
     render_energy_grid, render_yearly_prices,  render_consumption_history, apply_css_spacing
 )
+from modules.data_utils import setup_logger
 from modules.proposal_generator import generate_proposal
+import logging
 
 st.set_page_config(layout="wide")
 
 def main():
     print("Hello from apresentacao-energia-livre!")
 
+    # Initialize logger
+    logger = setup_logger("Proposal_Generator", level=logging.DEBUG)
     # Define file path
     db_path = "DataBase.db"
     
